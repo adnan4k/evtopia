@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+/* Import all the fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Montserrat:wght@400;700&family=Roboto:wght@400;700&family=Lato:wght@400;700&family=Nunito:wght@400;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary: #EE456B;
+    --primary-50: #FFF1F3;
+    --primary-100: #FEE5E8;
+    --primary-200: #FCCFD6;
+    --primary-300: #FAA7B5;
+    --primary-400: #F7758F;
+    --primary-500: #EE456B;
+    --primary-600: #DD2C5C;
+    --primary-700: #B91747;
+    --primary-800: #9B1642;
+    --primary-900: #84173E;
+    --primary-950: #4A071D;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+
+
+}
+
+.animate-border {
+    position: relative;
+}
+
+.animate-border::after {
+    content: "";
+    position: absolute;
+    bottom: 0; /* Place at the bottom of the text */
+    left: 50%; /* Center align */
+    transform: translateX(-50%);
+    width: 30%; /* Set border width (adjustable) */
+    height: 5px; /* Border height */
+    background-color: currentColor; /* Use the text color */
+    transition: width 0.3s ease-in-out; /* Smooth transition */
+}
+
+.animate-border:hover::after {
+    width: 20%; /* Increase width on hover */
+}
+
+
+.animate-border_start {
+    position: relative;
+    display: inline-block; /* Ensures ::after aligns with the text width */
+}
+
+.animate-border_start::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 10%; /* Start with 10% of the text width */
+    height: 3px; /* Border_start thickness */
+    background-color: currentColor; /* Use text color for underline */
+    transition: width 0.3s ease-in-out; /* Smooth width animation */
+}
+
+.animate-border_start:hover::after {
+    width: 20%; /* Expand to full width of the text on hover */
+}
+
+
+
+.animate-border_about {
+    position: relative;
+    display: inline-block; /* Ensures ::after aligns with the text width */
+}
+
+.animate-border_about::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30%; /* about with 10% of the text width */
+    height: 3px; /* Border_about thickness */
+    background-color: #30602A; /* Use text color for underline */
+    transition: width 0.3s ease-in-out; /* Smooth width animation */
+}
+
+.animate-border_about:hover::after {
+    width: 40%; /* Expand to full width of the text on hover */
+}
+
+
+
+
+.main-container {
+    @apply px-4 md:px-8 lg:px-16;
+}
+
+.pagination-container {
+    @apply flex items-center justify-center gap-[10px] flex-wrap;
+}
+
+.paginate-buttons {
+    @apply border text-slate-500 w-10 h-10 cursor-pointer rounded-[10px] border-slate-200 justify-center items-center flex hover:bg-primary-100;
+}
+
+.active-page {
+    @apply bg-primary text-white border-primary hover:bg-primary;
+}
+
+.vs__dropdown-toggle {
+    padding: 9px 6px !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 8px !important;
+}
