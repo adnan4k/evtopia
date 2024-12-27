@@ -89,11 +89,19 @@ class HomeController extends Controller
 
 
         $posts = PostRepository::query()
-        ->with(['categories', 'tags', 'comments','user'])
+            ->with(['categories', 'tags', 'comments','user'])
+            ->isActive()
+            ->latest()
+            ->where('add_to_knowledge_hub',0)
+            ->take(5)->get();
 
-       ->isActive()
-        ->latest()
-        ->take(5)->get();
+            
+        $knowledge_hubs = PostRepository::query()
+            ->with(['categories', 'tags', 'comments','user'])
+            ->isActive()
+            ->latest()
+            ->where('add_to_knowledge_hub',1)
+            ->take(5)->get();
 
 
     $total = $posts->count();
@@ -110,6 +118,7 @@ class HomeController extends Controller
             ],
             'popular_services' => ServiceResource::collection($popularServices),
             'posts' => PostResource::collection($posts),
+            'knowledge_hubs' => PostResource::collection($knowledge_hubs),
             'special_offers' => ProductResource::collection($specialOffers),
         ]);
     }

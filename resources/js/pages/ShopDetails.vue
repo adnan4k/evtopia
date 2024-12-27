@@ -120,7 +120,7 @@
                 <!-- Products -->
                 <div v-if="productTab" class="w-full">
                     <div
-                        class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-6 items-start">
+                        class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  gap-3 md:gap-6 items-start">
                         <div v-for="product in products" :key="product.id" class="w-full">
                             <ProductCard :product="product" />
                         </div>
@@ -147,7 +147,7 @@
                 <!-- Categories -->
                 <div v-if="categoryTab" class="w-full">
                     <div
-                        class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-6 items-start">
+                        class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4  2xl:grid-cols-7 gap-6 items-start">
 
                         <div v-for="category in categories" :key="category.id" class="w-full">
                             <router-link :to="`/shops/${shop.id}/categories/${category.slug}`" class="w-full">

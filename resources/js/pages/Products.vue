@@ -34,7 +34,7 @@
 
         <div class="main-container py-12">
             <div
-                class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-6 items-start">
+                class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-3 sm:gap-6 items-start">
 
                 <div v-for="product in products" :key="product.id" class="w-full">
                     <ProductCard :product="product" />

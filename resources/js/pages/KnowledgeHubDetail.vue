@@ -118,7 +118,7 @@
                             </div>
                         </div>
 
-                        <div class="w-full bg-white rounded-lg border border-slate-100 p-1 md:p-2 xl:p-3 sticky top-32">
+                        <div v-if="relatedBlogs && relatedBlogs.length>0" class="w-full bg-white rounded-lg border border-slate-100 p-1 md:p-2 xl:p-3 sticky top-32">
                            <h1 class="text-slate-950 font-[roboto] text-xl font-bold leading-normal"> {{ $t('Related Contents') }}</h1>
                             <div v-for="blog in relatedBlogs" :key="blog.id" class="w-full shrink-0">
                                 <div class="w-full bg-white flex items-center gap-3 rounded-lg border border-slate-100 p-1 md:p-2 xl:p-3">

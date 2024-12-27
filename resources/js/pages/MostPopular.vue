@@ -4,7 +4,7 @@
         <div class="text-slate-800 text-lg lg:text-3xl font-bold">{{ $t('Most Popular') }}</div>
 
         <!-- Products -->
-        <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6  gap-3 sm:gap-6 items-start mt-6">
+        <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4  gap-3 sm:gap-6 items-start mt-6">
             <div v-for="product in products" :key="product.id" class="w-full">
                 <ProductCard :product="product" />
             </div>

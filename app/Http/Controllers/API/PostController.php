@@ -140,6 +140,7 @@ class PostController extends Controller
         $page = $request->page;
         $perPage = $request->per_page;
         $skip = ($page * $perPage) - $perPage;
+        $knowledge = $request->knowledge??0;
 
         $search = $request->filter['search']??null;
         $categoryID = $request->filter['category_id']??null;
@@ -175,6 +176,7 @@ class PostController extends Controller
             ->when($sortType == 'newest' || $sortType == 'just_for_you', function ($query) {
                 return $query->orderBy('id', 'desc');
             })->isActive()
+            ->where('add_to_knowledge_hub',0)
             ->latest()
             ->take(5)->get();
 

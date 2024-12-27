@@ -24,7 +24,7 @@
         class="h-[330px] hover:border-primary transition w-full grow rounded-xl border border-slate-100 xl:mt-6 relative overflow-hidden"
         :style="{ backgroundImage: `url(${banner})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
         <div class="absolute bottom-4 left-0 w-full px-4">
-            <a href="https://evtopia.birhanu.et/"
+            <a href="https://lms.evtopia.co"
                 target="_blank"
                          class="bg-primary-600 text-white py-2 w-full block rounded-md text-sm font-semibold shadow-md hover:bg-primary-700 transition text-center">
                 {{ $t('Learn and Grow') }}

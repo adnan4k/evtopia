@@ -23,9 +23,9 @@
              <AboutEvtopia/>
          </div>
 
-         <!-- <div class="py-16">
+         <div class="py-16">
             <KnowledgeHubSection :knowledge_hubs="knowledge_hubs"/>
-        </div> -->
+        </div>
 
         <BlogSection :posts="posts" />
     </div>
@@ -70,7 +70,7 @@ onMounted(() => {
     serviceStore.fetchCart();
     fetchViewProducts();
     // fetchBlogs();
-    fetchKnowledgeHubs();
+    // fetchKnowledgeHubs();
     master.basketCanvas = false;
     authStore.loginModal = false;
     authStore.registerModal = false;
@@ -106,6 +106,7 @@ const getData = () => {
         specialOffers.value = response.data.data.special_offers;
         topRatedShops.value = response.data.data.shops.slice(0, 4);
         posts.value = response.data.data.posts.slice(0, 5);
+        knowledge_hubs.value = response.data.data.knowledge_hubs.slice(0, 5);
 
         console.log('specialOffers : ',specialOffers.value);
     }).catch(() => {});
@@ -131,7 +132,7 @@ const fetchViewProducts = () => {
 
 const fetchBlogs = () => {
     if (authStore.token) {
-        axios.get('/featured_blogs',{ params: { per_page: 5 } }, {
+        axios.get('/featured_blogs',{ params: { per_page: 5} }, {
             headers: {
                 Authorization: authStore.token
             }

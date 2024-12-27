@@ -8,7 +8,7 @@
                 5.How EV Work
                 6.E Learning -->
             
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-4 ">
+            <div class="grid grid-cols-2 md:grid-cols-3  gap-2 md:gap-4 ">
 
                 <div class="w-full">
                     <router-link to="/all_products" class="w-full">
@@ -111,7 +111,7 @@
                 </div>
                 
                 <div class="w-full">
-                    <a href="https://evtopia.birhanu.et" target="_blank" class="w-full">
+                    <a href="https://lms.evtopia.co" target="_blank" class="w-full">
                         <div 
                             class="w-full bg-white rounded-lg 
                                    hover:bg-primary md:rounded-2xl border border-primary 

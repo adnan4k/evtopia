@@ -3,7 +3,7 @@
 
         <!-- Header -->
         <div class="flex justify-between items-center gap-4">
-            <div class=" text-slate-800 text-lg md:text-3xl font-bold leading-9">{{ $t('Latest Services') }}</div>
+            <div class=" text-primary text-lg md:text-3xl font-bold leading-9">{{ $t('Latest Services') }}</div>
 
             <router-link to="/services" class="flex items-center gap-1">
                 <div class="text-slate-600 text-base font-normal leading-normal">{{ $t('View All') }}</div>

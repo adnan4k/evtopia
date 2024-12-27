@@ -5,7 +5,7 @@
 
         <!-- Products -->
         <div v-if="products"
-            class="mt-4 md:mt-8 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-3 md:gap-6 items-start">
+            class="mt-4 md:mt-8 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4  gap-3 md:gap-6 items-start">
             <div v-for="product in products" :key="product.id" class="w-full">
                 <ProductCard :product="product" />
             </div>

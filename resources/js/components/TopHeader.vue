@@ -6,10 +6,9 @@
                 <a v-if="master.getMultiVendor" href="/become_a_seller" class="text-white text-sm font-[300] font-['Roboto'] leading-tight">
                     {{ $t('Become a Seller') }}
                 </a>
-                <span> | </span>
                 <!-- <div v-if="master.getMultiVendor" class="w-[0] h-3 border border-primary-500 hidden sm:block"></div> -->
                 <a :href="'tel:' + master.mobile"  class="text-white text-sm font-[300] font-['Roboto'] leading-tight">
-                    {{ master.mobile }}
+                    |   {{ master.mobile }}
                 </a>
             </div>
 

@@ -1,9 +1,9 @@
 <template>
-    <div class="main-container py-12 bg-primary-50">
+    <div class="main-container py-12 bg-[#f3f5f7]">
 
         <!-- Header -->
         <div class="flex justify-between items-center gap-4">
-            <div class=" text-[#343a40] text-lg md:text-3xl font-bold leading-9">{{ $t('Popular Products') }}</div>
+            <div class=" text-primary text-lg md:text-3xl font-bold leading-9">{{ $t('Popular Products') }}</div>
 
             <router-link to="/most-popular" class="flex items-center gap-1">
                 <div class="text-[#343a40] text-base font-normal leading-normal">{{ $t('View All') }}</div>
