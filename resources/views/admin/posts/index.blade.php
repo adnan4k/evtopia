@@ -20,7 +20,7 @@
                 <form action="" method="GET">
                     <div class="row">
 
-                        <div class="col-md-9 mb-3">
+                        <div class="col-md-5 mb-3">
                             <x-select label="Category" name="category" placeholder="Select Category">
                                 <option value="">
                                     {{ __('Select Category') }}
@@ -31,6 +31,23 @@
                                         {{ $category->name }}
                                     </option>
                                 @endforeach
+                            </x-select>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <x-select label="Type" name="type" placeholder="Select Type">
+                                <option value="">
+                                    {{ __('Select Type') }}
+                                </option>
+                                    <option value="1"
+                                        {{ request('type') == 1 ? 'selected' : '' }}>
+                                        Knowledge Hub Posts
+                                    </option>
+
+                                    <option value="2"
+                                    {{ request('type') == 2 ? 'selected' : '' }}>
+                                    Blog Posts
+                                </option>
                             </x-select>
                         </div>
 

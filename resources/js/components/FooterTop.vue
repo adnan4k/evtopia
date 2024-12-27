@@ -1,5 +1,5 @@
 <template>
-    <div class="main-container pt-8 pb-6 sm:pt-14 sm:pb-10 bg-primary text-white">
+    <div class="main-container pt-8 pb-6 sm:pt-14 sm:pb-10 bg-primary-700 text-white">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="main-container py-12 bg-[#98fb98]">
+    <div class="main-container py-12 bg-primary-50">
 
         <!-- Header -->
         <div class="flex justify-between items-center gap-4">

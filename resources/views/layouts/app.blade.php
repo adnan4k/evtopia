@@ -343,13 +343,13 @@
                                 <div class="d-none d-sm-block">
                                     <i class="bi bi-telephone"></i>
                                     <span>
-                                        {{ $generaleSetting?->footer_phone ?? '+8801714231625' }}
+                                        {{ $generaleSetting?->footer_phone ?? '+25194231625' }}
                                     </span>
                                 </div>
                                 <div class="d-none d-sm-block">
                                     <i class="fa-solid fa-envelope"></i>
                                     <span>
-                                        {{ $generaleSetting?->footer_email ?? 'razinsoftltd@gmail.com' }}
+                                        {{ $generaleSetting?->footer_email ?? 'evtopia24@gmail.com' }}
                                     </span>
                                 </div>
                             </div>

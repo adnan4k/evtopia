@@ -14,9 +14,11 @@ const Home = () => import("../pages/Home.vue");
 const HowEvWorks = () => import("../pages/HowEvWorks.vue");
 const Shop = () => import("../pages/Shop.vue");
 const Blog = () => import("../pages/Blog.vue");
+const KnowledgeHub = () => import("../pages/KnowledgeHub.vue");
 const Services = () => import("../pages/Services.vue");
 const ShopDetails = () => import("../pages/ShopDetails.vue");
 const BlogDetail = () => import("../pages/BlogDetail.vue");
+const KnowledgeHubDetail = () => import("../pages/KnowledgeHubDetail.vue");
 const ShopCategoryProduct = () => import("../pages/ShopCategoryProduct.vue");
 const ProductDetails = () => import("../pages/ProductDetails.vue");
 const ServiceDetails = () => import("../pages/ServiceDetails.vue");
@@ -95,6 +97,16 @@ const routes = [
     },
 
     {
+        path: "/knowledge-center",
+        name: "knowledge_hub",
+        component: KnowledgeHub,
+        meta: {
+            layout: defaultLayout,
+            title: "Knowledge Center",
+        },
+    },
+
+    {
         path: "/services",
         name: "services",
         component: Services,
@@ -166,6 +178,16 @@ const routes = [
         meta: {
             layout: defaultLayout,
             title: "Blog Details",
+        },
+    },
+
+    {
+        path: "/knowledge-center/:id",
+        name: "knowledge_hub_detail",
+        component: KnowledgeHubDetail,
+        meta: {
+            layout: defaultLayout,
+            title: "Knowledge Hub Details",
         },
     },
     {

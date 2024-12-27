@@ -75,7 +75,7 @@ class MasterController extends Controller
             'email' => $generaleSetting?->footer_email ?? 'support@readyeCommerce.com',
             'address' => $generaleSetting?->address ?? 'Dhaka, Bangladesh',
             'web_show_footer' => (bool) ($generaleSetting?->show_footer ?? true),
-            'web_footer_text' => $generaleSetting?->footer_text ?? 'All right reserved by RazinSoft',
+            'web_footer_text' => $generaleSetting?->footer_text ?? 'All right reserved by Evtopia',
             'web_footer_description' => $generaleSetting?->footer_description ?? 'The ultimate all-in-one solution for your eCommerce business worldwide.',
             'web_logo' => $generaleSetting?->logo ?? asset('assets/logo.png'),
             'web_footer_logo' => $generaleSetting?->footerLogo ?? asset('assets/logoWhite.png'),

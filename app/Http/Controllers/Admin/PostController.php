@@ -25,6 +25,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
        $category = $request->category;
+       $type = $request->type??10;
      
        $search = $request->search;
        
@@ -40,13 +41,19 @@ class PostController extends Controller
                      ->orWhere('short_description', 'like', '%' . $search . '%')
                      ->orWhere('description', 'like', '%' . $search . '%');
            });
-       })
+       })->when($type, function ($query) use ($type) {
+            if ($type == 1) {
+                return $query->where('add_to_knowledge_hub', 1); // Knowledge Hub Posts
+            } elseif ($type == 2) {
+                return $query->where('add_to_knowledge_hub', 0); // Blog Posts
+            }
+        })
        ->latest()
        ->paginate(10);   
 
         $categories = PostCategory::all();
            
-        return view('admin.posts.index', compact('posts','category','categories','search'));
+        return view('admin.posts.index', compact('posts','category','categories','search', 'type'));
     }
 
     // Show the form to create a new post
@@ -91,7 +98,6 @@ class PostController extends Controller
     // Update the specified post
     public function update(PostRequest $request, Post $post)
     {
-
         PostRepository::updateByRequest($request, $post);
         return redirect()->route('admin.posts.index')->with('success', 'Post updated successfully.');
     }

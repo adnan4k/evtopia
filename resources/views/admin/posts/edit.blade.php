@@ -92,8 +92,80 @@
             </div>
         </div>
 
-    
+        <div class="card mt-4">
+            <div class="card-body">
+                <label class="form-label">
+                    {{ __('Add to Knowledge Hub') }}
+                </label>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="addToKnowledgeHub" name="add_to_knowledge_hub" value="1" {{ $post->add_to_knowledge_hub ? 'checked' : '' }}>
+                    <label class="form-check-label" for="addToKnowledgeHub">{{ __('Check to include in Knowledge Hub') }}</label>
+                </div>
+        
+                <!-- Additional Fields for Resources -->
+                <div id="knowledgeHubFields" class="mt-3" style="{{ $post->add_to_knowledge_hub ? 'display: block;' : 'display: none;' }}">
+                    <label>{{ __('Add Resources') }}</label>
+                    
+                    <!-- PDFs Section -->
+                    <div class="mb-3">
+                        <label for="pdf" class="form-label">{{ __('Upload PDF') }}</label> 
+                        <input type="file" class="form-control" name="pdf[]" id="pdf" accept="application/pdf" multiple>
+                        <div id="pdfPreview">
+                            @foreach(json_decode($post->pdfs) as $pdf)
+                                <div class="pdf-item position-relative">
+                                    <!-- Make the PDF name clickable for download -->
+                                    <a href="{{ asset('storage/' . $pdf->path) }}" class="pdf-name" download>
+                                        {{ $pdf->name }}
+                                    </a>
+                                    
+                                    <button type="button" class="btn btn-danger btn-sm remove-pdf position-absolute top-0 end-0">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    <input type="hidden" name="pdfs[]" value="{{ $pdf->path }}">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    
+        
+                    <!-- Images Section -->
+                    <div class="mb-3">
+                        <label for="images" class="form-label">{{ __('Upload Images') }}</label>
+                        <input type="file" class="form-control" name="images[]" id="images" accept="image/*" multiple>
+                        <div id="imagePreview" class="d-flex flex-wrap mt-2">
+                            @foreach(json_decode($post->images) as $image)
+                                <div class="thumbnail-wrapper position-relative">
+                                    <img src="{{ asset('storage/' . $image->path) }}" alt="{{ $image->name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                                    <button type="button" class="btn btn-danger btn-sm remove-image position-absolute top-0 end-0"><i class="fa fa-trash"></i></button>
+                                    <input type="hidden" name="images[]" value="{{ $image->path }}">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+        
+                    <!-- Video Links Section -->
+                    <div class="mb-3">
+                        <label class="form-label">{{ __('Video Links') }}</label>
+                        <div id="videoLinks">
+                            @php
+                                $videoLinks = json_decode($post->video_links);
+                            @endphp
 
+                            @if(is_array($videoLinks) || is_object($videoLinks))
+                            @foreach($videoLinks as $link)
+                                <div class="video-link-item d-flex justify-content-between mb-2">
+                                    <input type="text" class="form-control" name="video_links[]" value="{{ $link }}" placeholder="https://example.com/video">
+                                    <button type="button" class="btn btn-danger btn-sm remove-video-link"><i class="fa fa-trash"></i></button>
+                                </div>
+                            @endforeach
+                            @endif
+                        </div>
+                        <button type="button" id="addVideoLink" class="btn btn-secondary mt-2">Add Video Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <!--######## Thumbnail Information ##########-->
         <div class="row mb-3">
             <div class="col-md-5 col-xl-3">
@@ -132,6 +204,231 @@
     </form>
 @endsection
 @push('scripts')
+
+<style>
+
+.position-relative {
+    position: relative;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.top-0 {
+    top: 0;
+}
+
+.end-0 {
+    right: 0;
+}
+
+.thumbnail-wrapper img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.thumbnail-wrapper .remove-image,
+.pdf-item .remove-pdf {
+    background: transparent;
+    border: none;
+    color: red;
+    cursor: pointer;
+}
+
+.remove-video-link {
+    background: transparent;
+    border: none;
+    color: red;
+    cursor: pointer;
+}
+
+    #thumbnailPreview {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .thumbnail-wrapper {
+        position: relative;
+        width: 100px;
+        height: 100px;
+    }
+
+    .thumbnail-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .thumbnail-wrapper .delete-icon {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+    }
+</style>
+
+<script>
+    // Toggle visibility based on checkbox state
+    document.getElementById('addToKnowledgeHub').addEventListener('change', function() {
+        const knowledgeHubFields = document.getElementById('knowledgeHubFields');
+        knowledgeHubFields.style.display = this.checked ? 'block' : 'none';
+    });
+
+    // Add new video link input field
+    document.getElementById('addVideoLink').addEventListener('click', function() {
+        const videoLinksDiv = document.getElementById('videoLinks');
+        const newLinkDiv = document.createElement('div');
+        newLinkDiv.classList.add('video-link-item');
+        newLinkDiv.innerHTML = `
+            <input type="text" class="form-control" name="video_links[]" placeholder="https://example.com/video">
+            <button type="button" class="btn btn-danger btn-sm remove-video-link">Remove</button>
+        `;
+        videoLinksDiv.appendChild(newLinkDiv);
+
+        // Add remove functionality for the new link
+        newLinkDiv.querySelector('.remove-video-link').addEventListener('click', function() {
+            videoLinksDiv.removeChild(newLinkDiv);
+        });
+    });
+
+    // Remove PDF file
+    document.querySelectorAll('.remove-pdf').forEach(button => {
+        button.addEventListener('click', function() {
+            const pdfItem = this.closest('.pdf-item');
+            pdfItem.remove();
+        });
+    });
+
+    // Remove image file
+    document.querySelectorAll('.remove-image').forEach(button => {
+        button.addEventListener('click', function() {
+            const imageWrapper = this.closest('.thumbnail-wrapper');
+            imageWrapper.remove();
+        });
+    });
+
+    // Remove video link
+    document.querySelectorAll('.remove-video-link').forEach(button => {
+        button.addEventListener('click', function() {
+            const videoLinkItem = this.closest('.video-link-item');
+            videoLinkItem.remove();
+        });
+    });
+</script>
+<script>
+
+
+     document.addEventListener('DOMContentLoaded', function() {
+        const knowledgeHubCheckbox = document.getElementById('addToKnowledgeHub');
+        const knowledgeHubFields = document.getElementById('knowledgeHubFields');
+
+        knowledgeHubCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                knowledgeHubFields.style.display = 'block';
+            } else {
+                knowledgeHubFields.style.display = 'none';
+            }
+        });
+    });
+    document.getElementById('videoLinkInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+
+            const input = event.target;
+            const link = input.value.trim();
+
+            if (link) {
+                const list = document.getElementById('videoLinksList');
+
+                // Create a new list item
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+                // Add the link text
+                listItem.textContent = link;
+
+                // Add a hidden input to submit the link value
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'video_links[]';
+                hiddenInput.value = link;
+                listItem.appendChild(hiddenInput);
+
+                // Add a delete button
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn btn-danger btn-sm';
+                deleteBtn.innerHTML = '&times;';
+                deleteBtn.onclick = function() {
+                    list.removeChild(listItem);
+                };
+                listItem.appendChild(deleteBtn);
+
+                // Add the new list item to the list
+                list.prepend(listItem);
+
+                // Clear the input field
+                input.value = '';
+            }
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('images').addEventListener('change', function(event) {
+        const thumbnailPreview = document.getElementById('thumbnailPreview');
+        thumbnailPreview.innerHTML = ''; // Clear existing previews
+
+        const files = Array.from(event.target.files);
+
+        files.forEach((file, index) => {
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    // Create thumbnail wrapper
+                    const wrapper = document.createElement('div');
+                    wrapper.classList.add('thumbnail-wrapper');
+                    wrapper.dataset.index = index;
+
+                    // Create image element
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+
+                    // Create delete icon
+                    const deleteIcon = document.createElement('div');
+                    deleteIcon.classList.add('delete-icon');
+                    deleteIcon.innerHTML = '&times;';
+                    deleteIcon.addEventListener('click', () => {
+                        wrapper.remove();
+                    });
+
+                    // Append image and delete icon to wrapper
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(deleteIcon);
+
+                    // Append wrapper to thumbnail preview container
+                    thumbnailPreview.appendChild(wrapper);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
     <script>
         $(document).ready(function() {
 

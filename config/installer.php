@@ -172,7 +172,7 @@ return [
     | set a verification code for active from market
     |--------------------------------------------------------------------------
     */
-    'product' => 'Ready Ecommerce', //which product you verify same as supported server
+    'product' => 'Evtopia', //which product you verify same as supported server
     'verify_code' => 'Tg49OTUM4f8ZRgFJ4kPadHVHeW16enJHbWVkcVQzWWJlTTc2NE5YMi9IYlFFeFhpaHhlNHBTWkN2a091ejg5QWowSTZLZ1J6aVhSZGpGN3UrVURnZm5UNzVIdThTbVNFTG5sV0l3PT0=',
     'verify_purchase' => true,
     'verify_rules' => [

@@ -100,7 +100,7 @@
 
                             <div v-if="props.product?.year" class="flex items-center gap-1"
                             >
-                            <div class="text-slate-950 text-sm font-bold leading-tight">
+                            <div class="text-slate-950 text-xs font-bold leading-tight">
                                 {{ props.product?.year }}
                             </div>
 
@@ -113,7 +113,7 @@
                             <div v-if="props.product?.transmission" class="flex items-center gap-1"
                                >
                                 <!-- rating -->
-                                <div class="text-slate-950 text-sm font-bold leading-tight">
+                                <div class="text-slate-950 text-xs font-bold leading-tight">
                                     {{ props.product?.transmission }}
                                 </div>
 
@@ -124,7 +124,7 @@
                             <div v-if="props.product?.drive_train"  class="flex items-center gap-1"
                             >
                              <!-- rating -->
-                             <div class="text-slate-950 text-sm font-bold leading-tight">
+                             <div class="text-slate-950 text-xs font-bold leading-tight">
                                  {{ props.product?.drive_train }}
                              </div>
 
@@ -138,7 +138,7 @@
                             <div v-if="props.product?.mileage" class="flex items-center gap-1"
                                >
                                 <!-- rating -->
-                                <div  class="text-slate-950 text-sm font-bold leading-tight">
+                                <div  class="text-slate-950 text-xs font-bold leading-tight">
                                     {{ props.product?.mileage }} KM
                                 </div>
 
@@ -149,11 +149,11 @@
                                 :class="props.product?.quantity > 0 ? '' : 'opacity-30'">
                                 <StarIcon class="w-4 h-4 text-yellow-400" />
                                 <!-- rating -->
-                                <div class="text-slate-950 text-sm font-bold leading-tight">
+                                <div class="text-slate-950 text-xs font-bold leading-tight">
                                     {{ props.product?.rating }}
                                 </div>
                                 <!-- Total Review -->
-                                <div class="text-slate-500 text-sm font-normal leading-tight">
+                                <div class="text-slate-500 text-xs font-normal leading-tight">
                                     ({{ props.product?.total_reviews }})
                                 </div>
                             </div>
@@ -161,11 +161,11 @@
                             <div class="h-3 w-[0px] border border-slate-300"></div>
                             <!-- total sold -->
                             <div v-if="props.product?.quantity > 0"
-                                class="text-right text-slate-500 text-sm font-normal leading-tight">
+                                class="text-right text-slate-500 text-xs font-normal leading-tight">
                                 {{ props.product?.total_sold }} {{ $t('Sold') }}
                             </div>
                             <!-- Stock Out -->
-                            <div v-else class="text-right text-red-500 text-sm font-normal leading-tight">
+                            <div v-else class="text-right text-red-500 text-xs font-normal leading-tight">
                                 {{ $t('Stock Out') }}
                             </div>
                         </div>

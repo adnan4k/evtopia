@@ -21,7 +21,7 @@ class SocialLinkSeeder extends Seeder
                 'name' => 'Facebook',
             ],
             [
-                'link' => 'https://www.linkedin.com/company/razinsoft',
+                'link' => 'https://www.linkedin.com/company/evtopia',
                 'logo' => '/assets/icons/LinkedIn.svg',
                 'name' => 'LinkedIn',
             ],
@@ -31,7 +31,7 @@ class SocialLinkSeeder extends Seeder
                 'name' => 'Instagram',
             ],
             [
-                'link' => 'https://www.youtube.com/@razinsoft',
+                'link' => 'https://www.youtube.com/@evtopia',
                 'logo' => '/assets/icons/YouTube.svg',
                 'name' => 'YouTube',
             ],

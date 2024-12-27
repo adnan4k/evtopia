@@ -236,7 +236,7 @@
 @if ($businessModel == 'multi')
     @hasPermission(['admin.shop.index', 'admin.product.index'])
         <li class="menu-divider">
-            <span class="menu-title">{{ __('BLOG MANAGEMENT') }}</span>
+            <span class="menu-title">{{ __('POSTS MANAGEMENT') }}</span>
         </li>
     @endhasPermission
 
@@ -247,7 +247,7 @@
                 class="menu {{ request()->routeIs('admin.post_categories.*') ? 'active' : '' }}">
                 <span>
                     <i class="fa-solid fa-border-all menu-icon"></i>
-                    {{ __('Blog Categories') }}
+                    {{ __('Posts Categories') }}
                 </span>
             </a>
         </li>
@@ -261,7 +261,7 @@
                 class="menu {{ request()->routeIs('admin.post_tags.*') ? 'active' : '' }}">
                 <span>
                     <i class="fa-solid fa-border-all menu-icon"></i>
-                    {{ __('Blog Tags') }}
+                    {{ __('Posts Tags') }}
                 </span>
             </a>
         </li>
@@ -277,7 +277,7 @@
                 class="menu {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
                 <span>
                     <i class="fa-brands fa-codepen menu-icon"></i>
-                    {{ __('Blog Posts') }}
+                    {{ __('Posts') }}
                 </span>
             </a>
         </li>

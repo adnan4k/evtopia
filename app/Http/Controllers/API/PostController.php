@@ -91,7 +91,7 @@ class PostController extends Controller
         $tagID = $request->filter['tag_id']??null;
 
         $sortType = $request->sort_type;
-
+        $knowledge = $request->knowledge??0;
         $posts = PostRepository::query()
             ->with(['categories', 'tags', 'comments','user'])
             ->when($categoryID, function ($query) use ($categoryID) {
@@ -119,7 +119,7 @@ class PostController extends Controller
             })
             ->when($sortType == 'newest' || $sortType == 'just_for_you', function ($query) {
                 return $query->orderBy('id', 'desc');
-            })
+            })->where('add_to_knowledge_hub',$knowledge)
             ->latest()
             ->isActive();
 
@@ -134,6 +134,7 @@ class PostController extends Controller
         ]);
     }
 
+    
     public function featured(Request $request)
     {
         $page = $request->page;
@@ -187,6 +188,60 @@ class PostController extends Controller
         ]);
     }
 
+
+    public function knowledge_hubs(Request $request)
+    {
+        $page = $request->page;
+        $perPage = $request->per_page;
+        $skip = ($page * $perPage) - $perPage;
+
+        $search = $request->filter['search']??null;
+        $categoryID = $request->filter['category_id']??null;
+        $tagID = $request->filter['tag_id']??null;
+
+        $sortType = $request->sort_type;
+
+        $posts = PostRepository::query()
+            ->with(['categories', 'tags', 'comments','user'])
+            ->when($categoryID, function ($query) use ($categoryID) {
+                $query->whereHas('categories', function ($query) use ($categoryID) {
+                    $query->where('post_category_id', $categoryID);
+                });
+            })
+            ->when($tagID, function ($query) use ($tagID) {
+                $query->whereHas('tags', function ($query) use ($tagID) {
+                    $query->where('post_tag_id', $tagID);
+                });
+            })
+            ->when($search, function ($query) use ($search) {
+                return $query->where(function ($query) use ($search) {
+                    $query->where('title', 'like', '%' . $search . '%')
+                          ->orWhere('short_description', 'like', '%' . $search . '%')
+                          ->orWhere('description', 'like', '%' . $search . '%');
+                });
+            })
+            ->when($sortType == 'heigh_to_low', function ($query) {
+                $query->orderBy('price', 'desc');
+            })
+            ->when($sortType == 'low_to_high', function ($query) {
+                $query->orderBy('price', 'asc');
+            })
+            ->when($sortType == 'newest' || $sortType == 'just_for_you', function ($query) {
+                return $query->orderBy('id', 'desc');
+            })->isActive()
+            ->where('add_to_knowledge_hub',1)
+            ->latest()
+            ->take(5)->get();
+
+
+        $total = $posts->count();
+
+
+        return $this->json('posts', [
+            'total' => $total,
+            'posts' => PostResource::collection($posts),
+        ]);
+    }
     /**
      * Show the product details.
      *
@@ -198,6 +253,7 @@ class PostController extends Controller
         $request->validate([
             'post_id' => 'required',
         ]);
+        $knowledge = $request->knowledge??0;
 
         $post = Post::with(['categories', 'tags', 'comments','user'])
             ->where(function ($query) use ($request) {
@@ -218,7 +274,8 @@ class PostController extends Controller
                 } else {
                     $query->where('slug','!=', $request->post_id);
                 }
-            })
+            })->where('add_to_knowledge_hub',$knowledge)
+
             ->isActive()
             ->inRandomOrder()
             ->orderBy('id', 'desc')

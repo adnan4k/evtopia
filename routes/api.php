@@ -128,6 +128,7 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/mobile_blogs', 'mobile_index');
     Route::get('/post_categories', 'categories');
     Route::get('/featured_blogs', 'featured');
+    Route::get('/knowledge_hubs', 'knowledge_hubs');
     Route::get('/blog-details', 'show');
 });
 

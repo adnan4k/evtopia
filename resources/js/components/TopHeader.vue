@@ -17,14 +17,13 @@
                 <div class="hidden md:inline-flex justify-start items-center gap-2.5  xlg:gap-4 grow">
                    
                  
-        
                     <div class="w-[0px] h-4 border border-slate-200"></div>
-        
-                    
-                    <router-link to="/about-us"
+
+                    <router-link to="/knowledge-center"
                         class="py-2 border-b-2 border-transparent text-sm font-[300] ">
-                        {{ $t('About Us') }}
-                    </router-link>
+                        {{ $t('Knowledge Hub') }}
+                    </router-link>                    
+        
         
                     <div class="w-[0px] h-4 border border-slate-200"></div>
         
@@ -33,7 +32,18 @@
                         class="py-2 border-b-2 border-transparent text-sm font-[300] ">
                         {{ $t('Blog') }}
                     </router-link>
+                    
+                    <div class="w-[0px] h-4 border border-slate-200"></div>
         
+                    
+                    <router-link to="/about-us"
+                        class="py-2 border-b-2 border-transparent text-sm font-[300] ">
+                        {{ $t('About Us') }}
+                    </router-link>
+        
+                   
+
+                   
                     <div class="w-[0px] h-4 border border-slate-200"></div>
         
                     <router-link to="/contact-us"

@@ -22,6 +22,11 @@
          <div class="py-16">
              <AboutEvtopia/>
          </div>
+
+         <!-- <div class="py-16">
+            <KnowledgeHubSection :knowledge_hubs="knowledge_hubs"/>
+        </div> -->
+
         <BlogSection :posts="posts" />
     </div>
 </template>
@@ -34,6 +39,7 @@ import { onMounted, ref } from "vue";
 import HeroBanner from "../components/HeroBanner.vue";
 import AboutSupport from "../components/AboutSupport.vue";
 import AboutEvtopia from "../components/AboutEvtopia.vue";
+import KnowledgeHubSection from "../components/KnowledgeHubSection.vue";
 import WhyElectricVehicle from "../components/WhyElectricVehicle.vue";
 import Categories from "../components/Categories.vue";
 import FlashSale from "../components/FlashSale.vue";
@@ -64,6 +70,7 @@ onMounted(() => {
     serviceStore.fetchCart();
     fetchViewProducts();
     // fetchBlogs();
+    fetchKnowledgeHubs();
     master.basketCanvas = false;
     authStore.loginModal = false;
     authStore.registerModal = false;
@@ -82,6 +89,7 @@ const justForYou = ref([]);
 const recentlyViewProducts = ref([]);
 const posts = ref([]);
 const ads = ref([]);
+const knowledge_hubs = ref([]);
 
 const getData = () => {
     axios.get('/home?page=1&per_page=12', {
@@ -131,6 +139,20 @@ const fetchBlogs = () => {
             posts.value = response.data.data.posts;
 
             console.log('Blogs : ',blogs.value);
+        }).catch(() => {});
+    }
+}
+
+const fetchKnowledgeHubs = () => {
+    if (authStore.token) {
+        axios.get('/knowledge_hubs',{ params: { per_page: 5 } }, {
+            headers: {
+                Authorization: authStore.token
+            }
+        }).then((response) => {
+            knowledge_hubs.value = response.data.data.posts;
+            console.log('Knowledge Hubs : ',knowledge_hubs.value);
+
         }).catch(() => {});
     }
 }

@@ -206,7 +206,7 @@
 
                     <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
                         <x-input type="text" name="footer_text" label="Footer Text" placeholder="Enter Footer Text"
-                            :value="$generaleSetting?->footer_text ?? 'All right reserved by RazinSoft'" />
+                            :value="$generaleSetting?->footer_text ?? 'All right reserved by Evtopia'" />
                     </div>
 
                     <div class="col-lg-4 col-md-6 mt-4">
