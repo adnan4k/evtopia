@@ -195,11 +195,17 @@
 
                                                 <div class="w-full my-1 h-[0px] border border-slate-200"></div>
 
+                                                <router-link to="/knowledge-center"
+                                                    class="py-2 border-b-2 border-transparent text-base font-normal text-slate-600">
+                                                    {{ $t('Knowledge Hub') }}
+                                                </router-link>
+
+                                                <div class="w-full my-1 h-[0px] border border-slate-200"></div>
+
                                                 <router-link to="/blog"
                                                     class="py-2 border-b-2 border-transparent text-base font-normal text-slate-600">
                                                     {{ $t('Blog') }}
                                                 </router-link>
-
 
                                                 <div class="w-full my-1 h-[0px] border border-slate-200"></div>
 

@@ -88,7 +88,9 @@
                         </div>
 
                         <div class="w-full bg-white rounded-lg border border-slate-100 p-1 md:p-2 xl:p-3">
-                            <h1 class="text-slate-950 font-[roboto] py-1 text-xl font-bold leading-normal">{{ $t('Categories') }}</h1>
+                            <h1 class="text-slate-950 font-[roboto] py-1 text-xl font-bold leading-normal">
+                                {{ $t('Categories2') }}
+                            </h1>
                             <div class="flex flex-wrap gap-2">
                                 <span v-for="category in post.categories" :key="category.id" class="bg-primary text-white font-[roboto] text-xs font-bold leading-normal px-2 py-1 rounded-md">
                                     <router-link :to="`/blog?category_id=${category.id}`">
