@@ -2,8 +2,8 @@
     <div class="main-container py-2 flex items-center justify-between gap-8">
 
         <div class="flex items-center gap-8 grow">
-            <router-link to="/" class="w-[130px] md:w-[180px] lg:w-[240px]">
-                <img :src="master.logo" alt="" class="h-11">
+            <router-link to="/" >
+                <img :src="master.logo" alt="" class="h-12 md:h-16">
             </router-link>
             <div class="relative overflow-hidden grow max-w-[800px] hidden md:block">
                 <input type="text" v-model="search" :placeholder="$t('Search product')"
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div class="md:hidden flex items-center gap-4">
+        <div class="md:hidden flex items-center gap-1">
 
             <div class="h-10 w-10 flex items-center justify-center bg-slate-100 rounded-[40px]" @click="showSearchInput()">
                 <MagnifyingGlassIcon class="w-5 h-5 text-slate-950" />
@@ -221,6 +221,15 @@
                                                     {{ $t('About Us') }}
                                                 </router-link>
 
+                                            </div>
+
+                                             <div class=" flex flex-col gap-3 items-center">
+                                                <a  href="/become_a_seller" class="border border-primary p-2 rounded-md  font-['Roboto'] leading-tight">
+                                                    {{ $t('Become a Seller') }}
+                                                </a>
+                                                <a :href="'tel:' + master.mobile"  class="  font-['Roboto'] leading-tight">
+                                                     {{ master.mobile }}
+                                                </a>
                                             </div>
 
                                         </div>

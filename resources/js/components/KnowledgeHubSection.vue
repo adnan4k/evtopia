@@ -2,22 +2,18 @@
 
 <template>
 
-    <div class="md:gap-16 md:px-12">
-        <h2 class=" text-center text-xl md:text-3xl font-bold text-primary uppercase py-5">Evtopia Knowledge Center </h2>
+    <div class="md:gap-16 md:px-8">
+        <h2 class=" text-center text-2xl md:text-4xl font-bold text-primary  py-5">Evtopia Knowledge Center </h2>
         <div class="flex md:flex-row  px-4 flex-col items-center justify-between gap-8 ">
         
         
-            <div class="md:w-1/ w-full items-center">
+            <!-- <div class="md:w-1/ w-full items-center">
                 <h2 class="text-2xl font-bold ">
                     EV 
                     <span class="">Guides, Tips & Resource</span>
 
                 </h2>
-                <!-- <p class="mt-2 ">
-                    <strong class="text-muted">
-                        Empowering EV users with reliable products for a sustainable future.
-                    </strong>
-                </p> -->
+              
                 <p class="  pt-5">
                     The EV Knowledge Center serves as a comprehensive resource for buyers, 
                     sellers, and dealers in the electric vehicle industry,
@@ -42,23 +38,21 @@
                         <ArrowRightIcon class="w-5 h-5 ml-0.5" />
                     </router-link>
                 </div>
-            </div>
-            <div class="md:w-1/2 w-full items-center">
+            </div> -->
+            <div class=" w-full items-center">
                     <div v-if="props?.knowledge_hubs?.length > 0"  >
-                        <div class="mt-4">
+                        <!-- <div class="mt-4">
                             <swiper :navigation="true" :modules="modules" :breakpoints="breakpoints"  :loop="false">
                                 <swiper-slide v-for="post in knowledge_hubs" :key="post.id">
                                     <div class="w-full  rounded-xl overflow-hidden  border border-slate-100 hover:border-primary transition-all duration-300">
                                         <div class="h-64 md:h-96 w-full relative">
-                                            <!-- Title on top of the image -->
                                             <div class="absolute inset-0 bg-black/50 flex items-center justify-center ">
                                                 <router-link 
                                                     :to="`/knowledge-center/${post?.slug}`" 
-                                                    class="text-primary-50 text-xl   md:text-3xl font-[roboto] font-bold leading-normal px-16"
+                                                    class="text-primary-50 text-[14px]   md:text-3xl font-[roboto] font-bold leading-normal px-16"
                                                 >
-                                                    {{ post?.title.length > 140 ? post.title.slice(0, 140) + '...' : post.title }}
+                                                    {{ post?.title.length > 80 ? post.title.slice(0, 80) + '...' : post.title }}
                                                 </router-link>
-                                                <!-- Read more button -->
                                                 <router-link 
                                                     :to="`/knowledge-center/${post?.slug}`" 
                                                     class="absolute bottom-3 right-3 bg-primary-700 text-white text-sm font-medium py-2 px-3 rounded-md hover:bg-primary-900"
@@ -69,7 +63,6 @@
                                                 
                                             </div>
                                             
-                                            <!-- Image with hover scale effect -->
                                             <img 
                                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-300" 
                                                 :src="post?.banner" 
@@ -80,6 +73,47 @@
                                     </div>
                                 </swiper-slide>
                             </swiper>
+                        </div> -->
+
+                        <div class="mt-4">
+                         <swiper :navigation="true" :modules="modules" :breakpoints="breakpoints" class="recentlyViewed" :loop="false">
+                            <swiper-slide v-for="hub in knowledge_hubs" :key="hub.id">
+                                <!-- <BlogCard :post="hub" /> -->
+
+                                 <div class="w-full group rounded-xl overflow-hidden px-1 border border-slate-100 hover:border-primary transition-all duration-300">
+                                    <div class="h-48 w-full relative">
+                                        <img class="w-full h-full object-cover group-hover:scale-105 transition duration-300" :src="hub?.banner" alt="banner" loading="lazy" />
+
+                                    </div>
+                                    <div class="w-full px-1 pt-3 pb-1 relative transition duration-300">
+                                        <div class="text-slate-950 text-lg font-[roboto] font-bold leading-normal">
+                                            
+                                            <router-link :to="`/knowledge-center/${hub?.slug}`" >
+                                            
+                                                {{ hub?.title.length > 50 ? hub.title.slice(0, 50) + '...' : hub.title }}
+                                            </router-link>
+                                        </div>
+                                        <div class="text-slate-500 mt-1 text-sm font-normal leading-normal ">
+                                            {{ hub?.short_description.length > 150 ? hub.short_description.slice(0, 150) + '...' : hub.short_description }}
+                                        </div>
+                                        
+
+                                        <div class="w-full flex items-center justify-between mt-3">
+                                            <p class="text-slate-500 text-xs md:text-sm font-normal leading-normal"> {{hub?.author?.name}} ({{hub?.created_at}})</p>
+                                            <router-link :to="`/knowledge-center/${hub?.slug}`" 
+                                                class=" flex items-center justify-center px-3 py-2
+                                                transition duration-300 rounded-[10px] text-primary  
+                                                hover:text-black
+                                                font-medium">
+                                                <div class="text-xs  md:text-base font-normal leading-tight">{{ $t('Read More') }}</div>
+                                                <ArrowRightIcon class="w-5 h-5 ml-0.5" />
+                                            </router-link>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </swiper-slide>
+                        </swiper>
                         </div>
                     </div>
             </div>
@@ -96,10 +130,25 @@ import 'swiper/css/navigation';
 const props = defineProps({
     knowledge_hubs: Array
 });
+
+console.log("KH : ", props?.knowledge_hubs)
 const modules = [Navigation, A11y];
 const breakpoints = {
     320: {
         slidesPerView: 1,
+        spaceBetween: 20
+    },
+    768: {
+        slidesPerView: 2,
+        spaceBetween: 20
+    },
+    1024: {
+        slidesPerView: 3,
+        spaceBetween: 20
+    },
+
+    1280: {
+        slidesPerView: 3,
         spaceBetween: 20
     }
 };

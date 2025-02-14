@@ -28,6 +28,7 @@ export default {
                 lgx: "1200px",
                 lgxx: "1235px",
                 xlg: "1245px",
+                xxl:"1400px",
             }
         },
     },

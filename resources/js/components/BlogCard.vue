@@ -15,21 +15,16 @@
             <div class="text-slate-500 mt-1 text-sm font-normal leading-normal ">
                 {{ props.post?.short_description.length > 150 ? props.post.short_description.slice(0, 150) + '...' : props.post.short_description }}
             </div>
-            <div class="flex  gap-4 w-full mt-3">
-                <!-- <span v-for="category in props.post?.categories" :key="category.id"
-                    class="text-slate-900 text-sm font-medium leading-normal bg-primary rounded-lg px-2 py-1">
-                    {{ category.name }}
-                </span> -->
-            </div>
+            
 
             <div class="w-full flex items-center justify-between mt-3">
-                <p class="text-slate-500 text-sm font-normal leading-normal"> {{props.post?.author?.name}} ({{props.post?.created_at}})</p>
+                <p class="text-slate-500 text-xs md:text-sm font-normal leading-normal"> {{props.post?.author?.name}} ({{props.post?.created_at}})</p>
                 <router-link :to="`/blogs/${props.post?.slug}`" 
                     class=" flex items-center justify-center px-3 py-2
                      transition duration-300 rounded-[10px] text-primary  
                      hover:text-black
                      font-medium">
-                    <div class="text-base font-normal leading-tight">{{ $t('Read More') }}</div>
+                    <div class="text-xs  md:text-base  font-normal leading-tight">{{ $t('Read More') }}</div>
                     <ArrowRightIcon class="w-5 h-5 ml-0.5" />
                 </router-link>
             </div>
@@ -45,7 +40,7 @@ const props = defineProps({
     post: Object
 });
 
-console.log("Props : ",props);
+console.log("Hub : ",props.post);
 
 </script>
 

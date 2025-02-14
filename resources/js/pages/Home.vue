@@ -11,7 +11,13 @@
         <!-- <WhyElectricVehicle /> -->
         <!-- <Categories :categories="categories" /> -->
         <!-- <FlashSale /> -->
+
+          <div class="py-8">
+             <AboutEvtopia/>
+         </div>
+
         <PopularServices :products="popularServices" />
+
         <div v-if="master.getMultiVendor">
             <TopRatedShops :shops="topRatedShops" />
         </div>
@@ -19,11 +25,8 @@
         <LatestProducts :justForYou="justForYou" />
         <!-- <RecentlyViews :products="recentlyViewProducts" /> -->
          <hr>
-         <div class="py-16">
-             <AboutEvtopia/>
-         </div>
-
-         <div class="py-16">
+       
+         <div class="py-8">
             <KnowledgeHubSection :knowledge_hubs="knowledge_hubs"/>
         </div>
 

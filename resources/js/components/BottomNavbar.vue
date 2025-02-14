@@ -1,12 +1,12 @@
 <template>
     <div
-        class="main-container px-[10px] md:px-[1rem] flex items-center justify-between md:gap-3 
+        class="main-container px-[10px] md:px-[1rem] hidden md:flex items-center justify-between md:gap-3 
          border-t border-b border-slate-100 flex-wrap md:flex-nowrap relative">
 
         <div class="xl:w-[240px] flex">
             <!--==== Categories dropdown menu ====-->
             <Popover v-slot="{ open }">
-                <div class="border-r border-slate-100 p-1">
+                <div class="border-r border-slate-100 p-1 ">
                     <PopoverButton class="h-10 lg:h-12 flex items-center gap-2 outline-none rounded-lg transition-all"
                         :class="open ? 'bg-primary-100 text-primary' : 'text-slate-900'">
                         <div class="w-12 md:w-auto lg:w-12 flex items-center justify-center">
@@ -94,12 +94,6 @@
         <div  class="inline-block">
             <Menu as="div" class="relative text-left" v-slot="{ open }">
                 <div class="hidden xxmd:flex items-center">
-                    <!-- <MenuButton class="flex items-center gap-1 lg:gap-2 pr-1 lg:pr-3 p-3 rounded-lg"
-                        :class="open ? 'bg-primary-100 text-primary' : 'text-slate-900'">
-                        <DevicePhoneMobileIcon class="w-4 h-5" />
-                        <div class="text-sm lg:text-sm font-[400]  leading-normal">{{ $t('Download ') }}</div>
-                        <ChevronDownIcon class="w-4 h-4 transition" :class="open ? 'rotate-180' : ''" />
-                    </MenuButton> -->
                     <button :class="active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'" @click="playStore">
                         
                         <img class="w-[100px]" :src="'/assets/icons/playstore.png'" alt="">
@@ -111,13 +105,7 @@
                     </button>
                 </div>
 
-                <div class="flex items-center gap-5 xxmd:hidden">
-                    <!-- <MenuButton class="flex items-center gap-1 lg:gap-2 pr-1 lg:pr-3 p-3 rounded-lg"
-                        :class="open ? 'bg-primary-100 text-primary' : 'text-slate-900'">
-                        <DevicePhoneMobileIcon class="w-4 h-5" />
-                        <div class="text-sm lg:text-sm font-[400]  leading-normal">{{ $t('Download ') }}</div>
-                        <ChevronDownIcon class="w-4 h-4 transition" :class="open ? 'rotate-180' : ''" />
-                    </MenuButton> -->
+                <div class="hidden  items-center gap-5 md:flex xxmd:hidden">
                     <button :class="active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'" @click="playStore">
                         
                         <img class="w-7"  :src="'/assets/icons/gplay.png'" alt="">
