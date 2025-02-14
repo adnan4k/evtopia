@@ -1,10 +1,10 @@
 <template>
-    <div v-if="props?.posts?.length > 0" class="main-container py-12 bg-slate-100 border-t border-slate-200">
+    <div v-if="props?.posts?.length > 0" class="main-container py-8 bg-slate-100 border-t border-slate-200">
 
         <div class="flex justify-between items-center gap-4">
-            <div class="text-slate-800 text-lg md:text-3xl font-bold leading-9">{{ $t('News and Insights') }}</div>
+            <div class=" text-2xl md:text-4xl mb-2 text-primary font-bold leading-9">{{ $t('News and Insights') }}</div>
 
-            <router-link to="/blog" class="flex items-center gap-1">
+            <router-link to="/blog" class="hidden md:flex items-center gap-1">
                 <div class="text-slate-600 text-base font-normal leading-normal">{{ $t('View All') }}</div>
                 <ArrowRightIcon class="w-5 h-5 text-slate-600" />
             </router-link>
@@ -16,6 +16,11 @@
                 </swiper-slide>
             </swiper>
         </div>
+
+         <router-link to="/blog" class="flex md:hidden items-center justify-center mt-3 gap-1">
+                <div class="text-slate-600 text-base font-normal leading-normal">{{ $t('View All') }}</div>
+                <ArrowRightIcon class="w-5 h-5 text-slate-600" />
+        </router-link>
 
     </div>
 </template>

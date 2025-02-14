@@ -6,7 +6,7 @@ export const useMaster = defineStore("masterStore", {
         logo: null,
         currency: "$",
         position: "prefix",
-        appName: "ReadyeCommerce",
+        appName: "Evtopia",
         showDownloadApp: false,
         playStoreLink: null,
         appStoreLink: null,

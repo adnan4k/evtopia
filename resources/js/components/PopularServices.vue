@@ -1,9 +1,9 @@
 <template>
-    <div class="main-container py-12">
+    <div class="main-container py-8">
 
         <!-- Header -->
         <div class="flex justify-between items-center gap-4">
-            <div class=" text-primary text-lg md:text-3xl font-bold leading-9">{{ $t('Latest Services') }}</div>
+            <div class=" text-primary text-lg md:text-3xl font-bold leading-9">{{ $t('Our Services') }}</div>
 
             <router-link to="/services" class="flex items-center gap-1">
                 <div class="text-slate-600 text-base font-normal leading-normal">{{ $t('View All') }}</div>
@@ -54,11 +54,11 @@ const breakpoints = {
         spaceBetween: 20
     },
     1024: {
-        slidesPerView: 4,
+        slidesPerView: 3,
         spaceBetween: 20
     },
 
-    1280: {
+    1400: {
         slidesPerView: 4,
         spaceBetween: 20
     }

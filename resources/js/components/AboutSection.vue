@@ -1,9 +1,9 @@
 <template>
     <div class="md:py-8">
-        <div class="grid grid-cols-1 lgx:grid-cols-7 gap-5 py-16 px-3 md:px-16">
+        <div class="grid grid-cols-1 lgx:grid-cols-7 gap-5 py-8 px-3 md:px-16">
            
             <div class="lgx:col-span-4 flex flex-col justify-center">
-                <h1 class="text-2xl md:text-4xl font-bold text-primary animate-border_start"> Why Choose Evtopia?</h1>
+                <h1 class="text-3xl md:text-4xl font-bold text-primary animate-border_start"> Why Choose Evtopia?</h1>
                 <!-- <p class="text-slate-700  text-justify pt-1 md:pt-3">
                     We are a passionate group of electric vehicle (EV) enthusiasts dedicated to advancing and sharing knowledge about the benefits of EVs. From environmental advantages to cutting-edge technology, we see electric vehicles as the future of sustainable transportation. By staying informed on the latest innovations, we aim to inspire others to explore and embrace this eco-friendly alternative.
                 </p> -->
@@ -111,12 +111,12 @@
                     </p>
                 </div>
                 
-                <div class="transform py-1 transition-transform duration-300">
+                <!-- <div class="transform py-1 transition-transform duration-300">
                     <h3 class="font-bold ">Centralized Market Accessibility</h3>
                     <p class="text-gray-700 pl-2">
                         Simplifies Ethiopia's fragmented automotive market by providing a reliable, professional, and user-friendly platform for buying, maintaining, and learning about vehicles.
                     </p>
-                </div>
+                </div> -->
                 
                 <div class="transform py-1 transition-transform duration-300">
                     <h3 class="font-bold ">Commitment to Safety and Sustainability</h3>
@@ -132,12 +132,12 @@
                     </p>
                 </div>
                 
-                <div class="transform py-1 transition-transform duration-300">
+                <!-- <div class="transform py-1 transition-transform duration-300">
                     <h3 class="font-bold ">Alignment with National and Global Goals</h3>
                     <p class="text-gray-700 pl-2">
                         Accelerating Ethiopia’s target of 90% EV adoption by 2030 and contributing to global sustainability efforts, Evtopia drives meaningful change locally and internationally.
                     </p>
-                </div>
+                </div> -->
                 
             </div>
             

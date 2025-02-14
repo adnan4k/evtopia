@@ -1,5 +1,5 @@
 <template>
-    <div class="main-container py-12 bg-[#f3f5f7]">
+    <div class="main-container py-8 bg-[#f3f5f7]">
         <div class="flex justify-between items-center gap-4">
             <div class="  text-lg  text-primary md:text-3xl font-bold leading-9">{{ $t('Special Offers') }}</div>
             <router-link to="/most-popular" class="flex items-center gap-1">
@@ -43,11 +43,11 @@ const breakpoints = {
         spaceBetween: 20
     },
     1024: {
-        slidesPerView: 4,
+        slidesPerView: 3,
         spaceBetween: 20
     },
 
-    1280: {
+    1400: {
         slidesPerView: 4,
         spaceBetween: 20
     }

@@ -6,26 +6,26 @@
             <!--===== ReadyeCommerce (col-1) =====-->
             <div>
                 <div>
-                    <img :src="master.footerLogo" class="h-10" loading="lazy" />
+                    <img :src="masterData.web_footer_logo" class="h-16 bg-slate-900 rounded-md" loading="lazy" />
                 </div>
                 <div class="mt-6 max-w-[328px]">
                     <div class="text-white text-sm font-normal leading-normal">
-                        {{ master.footerDescription }}
+                        {{ masterData.web_footer_description }}
                     </div>
 
                     <div class="mt-4 p-4 bg-black bg-opacity-20 rounded-[56px] flex gap-3">
                         <DevicePhoneMobileIcon class="w-6 h-6 text-white" />
                         <div class="w-[0px] h-6 border border-primary-900"></div>
-                        <a :href="'tel:' + master.mobile"  class="text-white text-base font-normal leading-normal">
-                            {{ master.mobile }}
+                        <a :href="'tel:' + masterData.mobile"  class="text-white text-base font-normal leading-normal">
+                            {{ masterData.mobile }}
                         </a>
                     </div>
                     
                     <div class="mt-3 p-4 bg-black bg-opacity-20 rounded-[56px] flex gap-3">
                         <EnvelopeIcon class="w-6 h-6 text-white" />
                         <div class="w-[0px] h-6 border border-primary-900"></div>
-                        <a :href="'tel:' + master.email"  class="text-white text-base font-normal leading-normal">
-                            {{ master.email }}
+                        <a :href="'tel:' + masterData.email"  class="text-white text-base font-normal leading-normal">
+                            {{ masterData.email }}
                         </a>
                     </div>
                 </div>
