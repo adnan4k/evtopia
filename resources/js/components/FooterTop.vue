@@ -66,7 +66,7 @@
                         {{ $t('Contact') }}
                     </router-link>
 
-                    <a target="_blank" href="https://t.me/EVTOPIACOM"
+                    <a target="_blank" href="#"
                         class="py-2 hover:text-slate-300 text-white text-base font-normal leading-normal">
                         {{ $t('Join Our Forum') }}
                     </a>

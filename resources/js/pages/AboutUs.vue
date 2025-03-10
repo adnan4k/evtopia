@@ -383,7 +383,7 @@
     </section>
 
     <div class="flex justify-center">
-        <a href="https://t.me/EVTOPIACOM" target="_blank" class="text-xl bg-primary px-3 py-2 rounded-md text-white font-bold text-center mb-5 mt-10">
+        <a href="#" target="_blank" class="text-xl bg-primary px-3 py-2 rounded-md text-white font-bold text-center mb-5 mt-10">
             Join the Evtopia Movement
         </a>
     </div>
