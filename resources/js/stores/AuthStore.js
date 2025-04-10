@@ -77,21 +77,22 @@ export const useAuth = defineStore("authStore", {
             }
         },
 
+
         logout() {
 
             // add user id to the logout request
-            id = this.user.id;
+            const id = this.user?.id;
             axios.get("/logout-user" + `/${id}` , {
                 headers: {
                     Authorization: this.token,
                 },
             })
-            .then((response) => {
+            .then(() => {
                 this.user = null;
                 this.addresses = [];
                 this.token = null;
             })
-            .catch((error) => {
+            .catch(() => {
                 this.user = null;
                 this.addresses = [];
                 this.token = null;
