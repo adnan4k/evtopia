@@ -87,12 +87,14 @@ export const useAuth = defineStore("authStore", {
                     Authorization: this.token,
                 },
             })
-            .then(() => {
+            .then((response) => {
+                console.log(response);
                 this.user = null;
                 this.addresses = [];
                 this.token = null;
             })
-            .catch(() => {
+            .catch((error) => {
+                console.log(error);
                 this.user = null;
                 this.addresses = [];
                 this.token = null;
