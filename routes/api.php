@@ -187,10 +187,10 @@ Route::middleware(['auth:sanctum', 'role:customer'])->group(function () {
     //     Route::post('/verify_payment', 'chapa_success')->name('chapa_payment.success');
     // });
 
-Route::controller(PaymentGatewayController::class)->group(function () {
-    Route::post('/verify_payment_mobile', 'chapa_success');
+    Route::controller(PaymentGatewayController::class)->group(function () {
+        Route::post('/verify_payment_mobile', 'chapa_success');
 
-});
+    });
     //order route for version 1
     Route::controller(OrderController::class)->prefix('/v1')->group(function () {
         Route::post('/place-order', 'storeV1');
