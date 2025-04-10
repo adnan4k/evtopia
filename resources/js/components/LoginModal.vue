@@ -146,8 +146,8 @@ const loginFormData = ref({
 
 onMounted(() => {
     if (master.app_environment == 'local') {
-        loginFormData.value.phone = 'user@readyecommerce.com';
-        loginFormData.value.password = 'secret';
+        loginFormData.value.phone = '';
+        loginFormData.value.password = '';
     }
 
     fetchCountries();
@@ -177,26 +177,28 @@ const fetchCountries = () => {
 }
 
 const loginFormSubmit = () => {
-    axios.post('/login', loginFormData.value).then((response) => {
-        AuthStore.setToken(response.data.data.access.token);
-        AuthStore.setUser(response.data.data.user);
-        AuthStore.hideLoginModal();
-        baskerStore.fetchCart();
-        serviceStore.fetchCart();
-        toast(content, {
-            type: "default",
-            hideProgressBar: true,
-            icon: false,
-            position: "top-right",
-            toastClassName: "vue-toastification-alert",
-            timeout: 3000
-        });
-    }).catch((error) => {
-        toast.error(error.response.data.message, {
-            position: "bottom-left",
-        });
-        errors.value = error.response.data.errors
-    })
+    axios.get('/sanctum/csrf-cookie').then(respnse => {
+        axios.post('/login', loginFormData.value).then((response) => {
+            AuthStore.setToken(response.data.data.access.token);
+            AuthStore.setUser(response.data.data.user);
+            AuthStore.hideLoginModal();
+            baskerStore.fetchCart();
+            serviceStore.fetchCart();
+            toast(content, {
+                type: "default",
+                hideProgressBar: true,
+                icon: false,
+                position: "top-right",
+                toastClassName: "vue-toastification-alert",
+                timeout: 3000
+            });
+        }).catch((error) => {
+            toast.error(error.response.data.message, {
+                position: "bottom-left",
+            });
+            errors.value = error.response.data.errors
+        })
+    });
 }
 
 const showRegisterDilog = () => {
