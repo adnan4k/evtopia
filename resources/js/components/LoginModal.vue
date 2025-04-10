@@ -145,10 +145,10 @@ const loginFormData = ref({
 });
 
 onMounted(() => {
-    if (master.app_environment == 'local') {
-        loginFormData.value.phone = '';
-        loginFormData.value.password = '';
-    }
+    // if (master.app_environment == 'local') {
+    //     loginFormData.value.phone = '';
+    //     loginFormData.value.password = '';
+    // }
 
     fetchCountries();
 });
@@ -177,7 +177,6 @@ const fetchCountries = () => {
 }
 
 const loginFormSubmit = () => {
-    axios.get('/sanctum/csrf-cookie').then(respnse => {
         axios.post('/login', loginFormData.value).then((response) => {
             AuthStore.setToken(response.data.data.access.token);
             AuthStore.setUser(response.data.data.user);
@@ -198,7 +197,6 @@ const loginFormSubmit = () => {
             });
             errors.value = error.response.data.errors
         })
-    });
 }
 
 const showRegisterDilog = () => {

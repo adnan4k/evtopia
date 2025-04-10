@@ -360,7 +360,6 @@ const registerFormSubmit = () => {
     // } else {
     //     registerErrors.value = {}
     // }
-    axios.get('/sanctum/csrf-cookie').then(respnse => {
 
     axios.post('/registration', registerFormData.value).then((response) => {
         AuthStore.setToken(response.data.data.access.token);
@@ -393,7 +392,6 @@ const registerFormSubmit = () => {
     }).catch((error) => {
         registerErrors.value = error.response.data.errors
     })
-    });
 }
 
 const sendOTPNumber = ref('');
