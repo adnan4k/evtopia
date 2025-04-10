@@ -16,7 +16,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1' # Use the PHP version compatible with your Laravel app
+          php-version: '8.2' # Use the PHP version compatible with your Laravel app
           extensions: mbstring, ctype, fileinfo, tokenizer, json, pdo_mysql # Add required extensions
           coverage: none
 
