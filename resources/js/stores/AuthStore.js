@@ -78,7 +78,10 @@ export const useAuth = defineStore("authStore", {
         },
 
         logout() {
-            axios.get("/logout", {
+
+            // add user id to the logout request
+            id = this.user.id;
+            axios.get("/logout-user" + `/${id}` , {
                 headers: {
                     Authorization: this.token,
                 },

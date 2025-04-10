@@ -150,6 +150,7 @@ Route::middleware(['auth:sanctum','validate.token', 'role:customer'])->group(fun
 
     //user route
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/logout-user/{user}', [AuthController::class, 'logoutUser']);
     Route::controller(UserController::class)->group(function () {
         Route::get('/profile', 'index');
         Route::post('/update-profile', 'update');

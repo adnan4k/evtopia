@@ -145,4 +145,25 @@ class AuthController extends Controller
 
         return $this->json('User not found!', [], Response::HTTP_NOT_FOUND);
     }
+
+
+    
+
+    public function logoutUser($id)
+    {
+        /** @var \User $user */
+        $user = User::find($id);
+
+        if (! $user) {
+            return $this->json('User not found!', [], Response::HTTP_NOT_FOUND);
+        }
+
+        if ($user) {
+            $user->tokens()->delete();
+
+            return $this->json('Logged out successfully!');
+        }
+
+        return $this->json('User not found!', [], Response::HTTP_NOT_FOUND);
+    }
 }
