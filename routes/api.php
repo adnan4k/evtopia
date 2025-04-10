@@ -146,7 +146,7 @@ Route::controller(ShopController::class)->group(function () {
     Route::get('/shops/{shop}', 'show');
 });
 
-Route::middleware(['auth:sanctum', 'role:customer'])->group(function () {
+Route::middleware(['auth:sanctum','validate.token', 'role:customer'])->group(function () {
 
     //user route
     Route::post('/logout', [AuthController::class, 'logout']);

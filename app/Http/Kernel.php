@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         'authShop' => \App\Http\Middleware\ShopAuthenticate::class,
         'checkPermission' => \App\Http\Middleware\CheckPermission::class,
+        'validate.token' => \App\Http\Middleware\ValidateToken::class,
     ];
 }
