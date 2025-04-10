@@ -118,7 +118,10 @@ const fetchSupportTickets = () => {
         completedTicket.value = response.data.data.completed;
         cancelledTicket.value = response.data.data.cancel;
         supportTickets.value = response.data.data.support_tickets;
-    })
+    }).catch((error) => {
+        console.log(error);
+        authStore.logout();
+    });
 }
 
 </script>

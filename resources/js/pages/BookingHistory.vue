@@ -134,6 +134,9 @@ const fetchOrders = async () => {
         totalItems.value = response.data.data.total;
         orders.value = response.data.data.orders;
         statusWiseOrders.value = response.data.data.status_wise_orders;
+    }).catch((error) => {
+        console.error(error);
+        authStore.logout();
     })
 };
 

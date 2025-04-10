@@ -57,6 +57,10 @@ export const useAuth = defineStore("authStore", {
             })
             .catch((error) => {
                 console.log(error);
+                // logout the user if the token is invalid
+                    this.user = null;
+                    this.addresses = [];
+                    this.token = null;
             });
         },
         fetchFavoriteProducts() {

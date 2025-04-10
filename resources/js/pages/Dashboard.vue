@@ -119,7 +119,10 @@ const fetchOrders = async () => {
         }
     }).then((response) => {
         statusOrders.value = response.data.data.status_wise_orders;
-    })
+    }).catch((error) => {
+        console.error(error);
+        AuthStore.logout();
+    });
 };
 
 

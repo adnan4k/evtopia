@@ -52,6 +52,9 @@ const fetchProducts = async () => {
         }
     }).then((response) => {
         products.value = response.data.data.products;
+    }).catch((error) => {
+        console.log(error);
+        authStore.logout();
     });
 };
 
