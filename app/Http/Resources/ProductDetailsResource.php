@@ -17,6 +17,7 @@ class ProductDetailsResource extends JsonResource
     public function toArray(Request $request): array
     {
         $this->load(['reviews', 'orders', 'colors', 'shop']);
+        $this->loadCount('visits');
 
         $favorite = false;
         $user = Auth::guard('api')->user();
@@ -52,6 +53,7 @@ class ProductDetailsResource extends JsonResource
             'year' => $this->year ?? null,
             'model' => $this->model ?? null,
             'mileage' => $this->kilometers ?? null,
+            'visit_count' => (int) $this->visits_count,
             'is_special' => (bool) $this->is_special,
             'thumbnails' => $this->thumbnails(),
             'sizes' => SizeResource::collection($this->sizes),

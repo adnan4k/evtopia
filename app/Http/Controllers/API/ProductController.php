@@ -10,10 +10,17 @@ use App\Http\Resources\ProductDetailsResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\ReviewResource;
 use App\Models\GeneraleSetting;
+use App\Models\Product;
+use App\Models\ProductVisit;
 use App\Models\User;
 use App\Repositories\ProductRepository;
 use App\Repositories\ReviewRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Jenssegers\Agent\Agent;
+use Torann\GeoIP\Facades\GeoIP;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -161,12 +168,65 @@ class ProductController extends Controller
 
         $popularProducts = $shop->products()->isActive()->where('id', '!=', $product->id)->withCount('orders')->withAvg('reviews as average_rating', 'rating')->orderByDesc('average_rating')->orderByDesc('orders_count')->take(6)->get();
 
+        $this->recordVisit($request, $product);
+
         return $this->json('product details', [
             'product' => ProductDetailsResource::make($product),
             'related_products' => ProductResource::collection($relatedProducts),
             'popular_products' => ProductResource::collection($popularProducts),
         ]);
     }
+
+
+
+    /**
+     * Record a unique visitor’s view of a product (once per calendar day).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product        $product
+     * @return void
+     */
+    protected function recordVisit(Request $request, Product $product): void
+    {
+        $visitorId = sha1(
+            $request->ip()
+          . '|' . $request->header('User-Agent')
+        );
+    
+        $alreadyViewed = ProductVisit::where('product_id', $product->id)
+        ->where('visitor_id', $visitorId)
+        ->whereDate('created_at', Carbon::today())
+        ->exists();
+
+        if ($alreadyViewed) {
+            return;
+        }
+
+        // 3) Gather metadata
+        $ip       = $request->ip();
+        $ua       = $request->header('User-Agent');
+        $agent    = new Agent();
+        $device   = $agent->device();     // e.g. “iPhone”
+        $platform = $agent->platform();   // e.g. “iOS”
+        $browser  = $agent->browser();    // e.g. “Safari”
+        $location = GeoIP::getLocation($ip);
+
+        ProductVisit::create([
+            'product_id' => $product->id,
+            'visitor_id' => $visitorId,
+            'ip_address' => $ip,
+            'user_agent' => $ua,
+            'device'     => $device,
+            'platform'   => $platform,
+            'browser'    => $browser,
+            'country'    => $location->country,
+            'region'     => $location->region,
+            'city'       => $location->city,
+            'latitude'   => $location->lat,
+            'longitude'  => $location->lon,
+        ]);
+    }
+
 
     /**
      * Add or remove favorite product for the user.

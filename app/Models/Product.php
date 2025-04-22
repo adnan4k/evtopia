@@ -235,4 +235,15 @@ class Product extends Model
     {
         return $this->hasMany(Favorite::class);
     }
+
+
+    public function visits()
+    {
+        return $this->hasMany(ProductVisit::class);
+    }
+
+    public function getUniqueVisitorCountAttribute()
+    {
+        return $this->visits()->count();
+    }
 }
