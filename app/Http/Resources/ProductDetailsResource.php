@@ -21,10 +21,10 @@ class ProductDetailsResource extends JsonResource
 
         $favorite = false;
         $user = Auth::guard('api')->user();
-        if ($user) {
-            $favoriteIDs = $user->customer->favorites()->pluck('product_id')->toArray();
-            $favorite = in_array($this->id, $favoriteIDs);
-        }
+        // if ($user) {
+        //     $favoriteIDs = $user->customer->favorites()->pluck('product_id')->toArray();
+        //     $favorite = in_array($this->id, $favoriteIDs);
+        // }
 
         $discountPercentage = $this->getDiscountPercentage($this->price, $this->discount_price);
 
@@ -53,6 +53,10 @@ class ProductDetailsResource extends JsonResource
             'year' => $this->year ?? null,
             'model' => $this->model ?? null,
             'mileage' => $this->kilometers ?? null,
+            'driving_range' => $this->driving_range ?? null,
+            'battery_capacity' => $this->battery_capacity ?? null,
+            'peak_power' => $this->peak_power ?? null,
+            'acceleration_time' => $this->acceleration_time ?? null,
             'visit_count' => (int) $this->visits_count,
             'is_special' => (bool) $this->is_special,
             'thumbnails' => $this->thumbnails(),

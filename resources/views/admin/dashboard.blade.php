@@ -12,18 +12,7 @@
             </div>
         </div>
 
-        @if (app()->environment('local'))
-            <div class="alert alert-danger d-flex align-items-center gap-1 justify-content-between mt-2 mb-0" role="alert"
-                id="alertBox">
-                <div class="d-flex align-items-center gap-2">
-                    <i class="fa-solid fa-bell"></i>
-                    <div>
-                        <strong>{{ __('Note') }}</strong> {{ __('Every 3 hours all data will be cleared') }}
-                    </div>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+        
 
     </div>
 

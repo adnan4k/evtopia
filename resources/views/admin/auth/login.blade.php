@@ -81,7 +81,7 @@
                     </div>
 
                     <button class="btn loginButton" type="submit">Login</button>
-
+{{-- 
                     @if (app()->isLocal())
                         <div class="credentials-section">
                             <div class="item">
@@ -111,7 +111,7 @@
                             </div>
 
                         </div>
-                    @endif
+                    @endif --}}
                 </form>
             </div>
         </div>

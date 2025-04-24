@@ -16,7 +16,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     /**
      * Retrieve the shop that this model belongs to.

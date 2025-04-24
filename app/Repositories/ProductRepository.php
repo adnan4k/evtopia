@@ -82,6 +82,10 @@ class ProductRepository extends Repository
             'is_active' => $isAdmin ? true : $approve,
             'is_special' => $isSpecial??false,
             'is_new' => true,
+            'driving_range' => $request->driving_range,
+            'battery_capacity' => $request->battery_capacity,
+            'peak_power' => $request->peak_power,
+            'acceleration_time' => $request->acceleration_time,
             'is_approve' => $isAdmin ? true : $approve,
         ]);
 
@@ -170,6 +174,10 @@ class ProductRepository extends Repository
             'is_active' => $isAdmin ? true : $approve,
             'is_new' => false,
             'is_special' => $isSpecial??false,
+            'driving_range' => $request->driving_range,
+            'battery_capacity' => $request->battery_capacity,
+            'peak_power' => $request->peak_power,
+            'acceleration_time' => $request->acceleration_time,
             'is_approve' => $isAdmin ? true : $approve,
         ]);
 

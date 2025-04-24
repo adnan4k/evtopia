@@ -141,9 +141,9 @@
 
 
                     <div class="col-lg-4 col-md-6  mt-3 ">
-                        <x-select label="Select Drive Train" name="drive_train" placeholder="Select Drive Train">
+                        <x-select label="Select Power Train" name="drive_train" placeholder="Select Power Train">
                             <option value="">
-                                {{ __('Select Drive Train') }}
+                                {{ __('Select Power Train') }}
                             </option>
                             @foreach ($driveTrains as $driveTrain)
                                 <option value="{{ $driveTrain->id }}"
@@ -194,6 +194,60 @@
                         @enderror
                     </div>
 
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Driving Range ( Miles )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" id="driving_range" name="driving_range" placeholder="Ex: 100" class="form-control"
+                            value="{{ $product->driving_range }}"
+                            />
+                        @error('driving_range')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Battery Capacity ( KWh )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" id="battery_capacity" name="battery_capacity" placeholder="Ex: 100" class="form-control"
+                            value="{{ $product->battery_capacity }}"
+                            />
+                        @error('battery_capacity')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Peak Power ( KW )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" id="peak_power" name="peak_power" placeholder="Ex: 100" class="form-control"
+                            value="{{ $product->peak_power }}"
+                            />
+                        @error('peak_power')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Acceleration Time ( seconds )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input type="number" id="acceleration_time" name="acceleration_time" step="0.1" placeholder="Ex: 4.5" class="form-control"
+                            value="{{ $product->acceleration_time }}"
+                            />
+                        @error('acceleration_time')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+                   
                     <div class="col-lg-4 col-md-6  mt-3 ">
                         <label class="form-label">
                             {{ __('Model') }}
