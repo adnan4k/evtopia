@@ -24,9 +24,9 @@ class AddressRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'phone' => 'required|numeric|digits_between:9,16',
-            'area' => 'required|string|max:255',
+            'area' => 'nullable|string|max:255',
             'flat_no' => 'nullable|string|max:255',
-            'post_code' => 'required|string|max:255',
+            'post_code' => 'nullable|string|max:255',
             'address_line' => 'required|string|max:255',
             'address_line2' => 'nullable|string|max:255',
             'address_type' => 'required|string|max:255',

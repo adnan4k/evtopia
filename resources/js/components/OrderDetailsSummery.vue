@@ -89,17 +89,17 @@
         </div>
 
         <div class="flex items-center gap-2">
-            <button v-if="order.order_status === 'Pending'"
+            <!-- <button v-if="order.order_status === 'Pending'"
                 class="mt-2 px-4 py-3 md:py-4 bg-white rounded-lg text-slate-700 text-base font-medium grow"
                 @click="cancelModal = true">
                 {{ $t('Cancel Order') }}
-            </button>
+            </button> -->
 
-            <button v-if="props.order?.payment_status == 'Pending' && props.order?.payment_method == 'Online Payment'"
+            <!-- <button v-if="props.order?.payment_status == 'Pending' && props.order?.payment_method == 'Online Payment'"
                 class=" mt-2 px-4 py-3 md:py-4 bg-primary rounded-lg text-white text-base font-medium grow"
                 @click="makePaymentModal = true">
                 {{ $t('Make Payment') }}
-            </button>
+            </button> -->
         </div>
 
         <button v-if="order.order_status === 'Delivered'"

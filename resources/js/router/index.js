@@ -1,60 +1,60 @@
-// resources/js/router/index.js
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router'
+import axios from 'axios'
 
-// import master store
-import { useMaster } from '../stores/MasterStore'
+/* master + auth stores */
+import { useMaster } from '@/stores/MasterStore'
+import { useAuth }   from '@/stores/authStore'
 
-// import layouts
-import defaultLayout from "../layouts/default.vue";
-import authLayout from "../layouts/auth.vue";
-import layoutBlank from "../layouts/blank.vue";
+/* layouts (needed for meta) */
+import defaultLayout from '@/layouts/default.vue'
+import authLayout    from '@/layouts/auth.vue'
+import layoutBlank   from '@/layouts/blank.vue'
 
-// import pages
-const Home = () => import("../pages/Home.vue");
-const HowEvWorks = () => import("../pages/HowEvWorks.vue");
-const Shop = () => import("../pages/Shop.vue");
-const Blog = () => import("../pages/Blog.vue");
-const KnowledgeHub = () => import("../pages/KnowledgeHub.vue");
-const Services = () => import("../pages/Services.vue");
-const ShopDetails = () => import("../pages/ShopDetails.vue");
-const BlogDetail = () => import("../pages/BlogDetail.vue");
-const KnowledgeHubDetail = () => import("../pages/KnowledgeHubDetail.vue");
-const ShopCategoryProduct = () => import("../pages/ShopCategoryProduct.vue");
-const ProductDetails = () => import("../pages/ProductDetails.vue");
-const ServiceDetails = () => import("../pages/ServiceDetails.vue");
-const CategoryProduct = () => import("../pages/CategoryProduct.vue");
-const Checkout = () => import("../pages/Checkout.vue");
-const CheckoutVerify = () => import("../pages/CheckoutVerify.vue");
+/* -------- lazy page imports -------- */
+const Home               = () => import('@/pages/Home.vue')
+const HowEvWorks         = () => import('@/pages/HowEvWorks.vue')
+const Shop               = () => import('@/pages/Shop.vue')
+const Blog               = () => import('@/pages/Blog.vue')
+const KnowledgeHub       = () => import('@/pages/KnowledgeHub.vue')
+const Services           = () => import('@/pages/Services.vue')
+const ShopDetails        = () => import('@/pages/ShopDetails.vue')
+const BlogDetail         = () => import('@/pages/BlogDetail.vue')
+const KnowledgeHubDetail = () => import('@/pages/KnowledgeHubDetail.vue')
+const ShopCategoryProduct= () => import('@/pages/ShopCategoryProduct.vue')
+const ProductDetails     = () => import('@/pages/ProductDetails.vue')
+const ServiceDetails     = () => import('@/pages/ServiceDetails.vue')
+const CategoryProduct    = () => import('@/pages/CategoryProduct.vue')
+const Checkout           = () => import('@/pages/Checkout.vue')
+const CheckoutVerify     = () => import('@/pages/CheckoutVerify.vue')
 
-const Dashboard = () => import("../pages/Dashboard.vue");
-const OrderHistory = () => import("../pages/OrderHistory.vue");
-const BookingHistory = () => import("../pages/BookingHistory.vue");
-const OrderDetails = () => import("../pages/OrderDetails.vue");
-const BookingDetails = () => import("../pages/BookingDetails.vue");
-const Wishlist = () => import("../pages/Wishlist.vue");
-const MyProfile = () => import("../pages/MyProfile.vue");
-const ManageAddress = () => import("../pages/ManageAddress.vue");
-const Support = () => import("../pages/Support.vue");
-const TermsAndConditions = () => import("../pages/TermsAndConditions.vue");
-const PrivacyPolicy = () => import("../pages/PrivacyPolicy.vue");
-const AddNewAddress = () => import("../pages/AddNewAddress.vue");
-const EditAddress = () => import("../pages/EditAddress.vue");
-const AboutUs = () => import("../pages/AboutUs.vue");
-const ChangePassword = () => import("../pages/ChangePassword.vue");
-const BuyNow = () => import("../pages/BuyNow.vue");
-const MostPopular = () => import("../pages/MostPopular.vue");
-const ContactUs = () => import("../pages/ContactUs.vue");
-const BestDeal = () => import("../pages/BestDeal.vue");
-const Products = () => import("../pages/Products.vue");
-const Product = () => import("../pages/Product.vue");
-const Category = () => import("../pages/Category.vue");
-const SupportTicket = () => import("../pages/SupportTicket.vue");
-const SupportTicketDetails = () => import("../pages/SupportTicketDetails.vue");
+const Dashboard       = () => import('@/pages/Dashboard.vue')
+const OrderHistory    = () => import('@/pages/OrderHistory.vue')
+const BookingHistory  = () => import('@/pages/BookingHistory.vue')
+const OrderDetails    = () => import('@/pages/OrderDetails.vue')
+const BookingDetails  = () => import('@/pages/BookingDetails.vue')
+const Wishlist        = () => import('@/pages/Wishlist.vue')
+const MyProfile       = () => import('@/pages/MyProfile.vue')
+const ManageAddress   = () => import('@/pages/ManageAddress.vue')
+const Support         = () => import('@/pages/Support.vue')
+const TermsAndConditions = () => import('@/pages/TermsAndConditions.vue')
+const PrivacyPolicy   = () => import('@/pages/PrivacyPolicy.vue')
+const AddNewAddress   = () => import('@/pages/AddNewAddress.vue')
+const EditAddress     = () => import('@/pages/EditAddress.vue')
+const AboutUs         = () => import('@/pages/AboutUs.vue')
+const ChangePassword  = () => import('@/pages/ChangePassword.vue')
+const BuyNow          = () => import('@/pages/BuyNow.vue')
+const MostPopular     = () => import('@/pages/MostPopular.vue')
+const ContactUs       = () => import('@/pages/ContactUs.vue')
+const BestDeal        = () => import('@/pages/BestDeal.vue')
+const Products        = () => import('@/pages/Products.vue')
+const Product         = () => import('@/pages/Product.vue')
+const Category        = () => import('@/pages/Category.vue')
+const SupportTicket   = () => import('@/pages/SupportTicket.vue')
+const SupportTicketDetails = () => import('@/pages/SupportTicketDetails.vue')
 
-// 404 page
-const NotFound = () => import("../errors/404.vue");
+const NotFound        = () => import('@/errors/404.vue')
 
-// all pages router will be here
+/* -------- route definitions (unchanged) -------- */
 const routes = [
     {
         path: "/",
@@ -264,6 +264,7 @@ const routes = [
         meta: {
             layout: authLayout,
             title: "Dashboard",
+            
         },
     },
     {
@@ -433,20 +434,72 @@ const routes = [
         },
     },
 ];
-
-// create router
-const router = createRouter({
+/* tag authLayout routes as protected */
+routes.forEach((r) => {
+    if (r.meta?.layout === authLayout) r.meta.requiresAuth = true
+  })
+  
+  /* ---------- create router ---------- */
+  const router = createRouter({
     history: createWebHistory(),
     routes,
-});
-
-// Dynamic Title for pages
-router.beforeEach((to, from, next) => {
-    const master = useMaster();
-    const appName = master.appName;
-
-    document.title = to.meta.title ? `${to.meta.title} - ${appName}` : appName;
-    next();
-  });
-
-export default router;
+  })
+  
+  /* ---------- navigation guard ---------- */
+  router.beforeEach(async (to, _from, next) => {
+    const auth = useAuth()
+  
+    /* 1️⃣  pull latest token from localStorage on EVERY nav */
+    const persisted = localStorage.getItem('authStore')
+    if (persisted) {
+      try {
+        const { token } = JSON.parse(persisted) ?? {}
+        if (token && token !== auth.token) auth.token = token
+      } catch {/* ignore JSON errors */}
+    }
+  
+    /* 2️⃣  sync Axios header every nav */
+    if (auth.token) {
+      axios.defaults.headers.common.Authorization = auth.token
+    } else {
+      delete axios.defaults.headers.common.Authorization
+    }
+  
+    if (to.meta.requiresAuth) {
+        if (!auth.token) {
+          auth.loginModal = true
+          return next({ name: 'home' })
+        }
+    
+        try {
+          const res = await axios.get('/me', {
+            headers: { Authorization: `Bearer ${auth.token}` }
+          })
+    
+          console.log('user', res)
+          const newToken = res?.data?.data?.access?.token
+          if (newToken && newToken !== auth.token) {
+            auth.setToken(newToken)        
+            axios.defaults.headers.common.Authorization = `Bearer ${newToken}`
+          }
+    
+          return next()                    
+        } catch (err) {
+            auth.logout()           
+            // auth.loginModal = true  
+            next(false)                              
+            window.location.href = '/' 
+        }
+      }
+  
+    /* 4️⃣  public route */
+    return next()
+  })
+  
+  /* ---------- page titles ---------- */
+  router.afterEach((to) => {
+    const appName = useMaster().appName
+    document.title = to.meta.title ? `${to.meta.title} - ${appName}` : appName
+  })
+  
+  export default router

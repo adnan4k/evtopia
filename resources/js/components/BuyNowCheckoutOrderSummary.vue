@@ -195,7 +195,7 @@ const content = {
 
 const processOrderConfirm = () => {
     if (!basketStore.address) {
-        toast.error("Please select shipping address");
+        toast.error("Please select address");
         return;
     }
     if (props.paymentMethod == null) {

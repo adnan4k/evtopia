@@ -16,9 +16,12 @@ use App\Repositories\UserRepository;
 use App\Repositories\VerificationCodeRepository;
 use App\Repositories\WalletRepository;
 use App\Services\SmsGatewayService;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -28,6 +31,38 @@ class AuthController extends Controller
      * @param  RegistrationRequest  $request  The registration request data
      * @return Some_Return_Value The registration result data
      */
+
+     public function me(Request $request)
+     {
+         /** @var \Illuminate\Http\Request $request */   // <- helps Intelephense
+ 
+         // 1. Extract the bearer token
+         $plainToken = $request->bearerToken()           // Laravel 7 +
+             ?? $request->getBearerToken();              // fallback for very old versions
+ 
+         if (! $plainToken) {
+             return response()->json(['message' => 'Missing bearer token.'], 401);
+         }
+ 
+         $tokenModel = PersonalAccessToken::findToken($plainToken);
+ 
+         if (! $tokenModel) {
+             return response()->json(['message' => 'Invalid token.'], 401);
+         }
+ 
+         if ($tokenModel->expires_at !== null && Carbon::parse($tokenModel->expires_at)->isPast()) {
+             $tokenModel->delete();   
+             return response()->json(['message' => 'Token expired.'], 401);
+         }
+ 
+         $user = $tokenModel->tokenable;
+ 
+         return $this->json('Checked successfully', [
+            'user' => new UserResource($user),
+            'access' => UserRepository::getAccessToken($user),
+        ]);
+     }
+
     public function register(RegistrationRequest $request)
     {
         // Create a new user
@@ -134,12 +169,13 @@ class AuthController extends Controller
      */
     public function logout()
     {
+
         /** @var \User $user */
         $user = auth()->user();
 
         if ($user) {
             $user->tokens()->delete();
-
+            $user->unsetRelation('tokens');
             return $this->json('Logged out successfully!');
         }
 

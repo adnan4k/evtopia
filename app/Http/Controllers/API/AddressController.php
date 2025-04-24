@@ -43,7 +43,7 @@ class AddressController extends Controller
      */
     public function store(AddressRequest $request)
     {
-        // Create a new address for the logged-in user which he requests
+
         $address = AddressRepository::storeByRequest($request);
 
         return $this->json('address created successfully', [

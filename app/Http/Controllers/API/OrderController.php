@@ -213,7 +213,12 @@ class OrderController extends Controller
 
         if($paymentMethod->name == 'CHAPA'){
             $response = $this->chapaService->initializePayment($payment->amount, auth()->user(),$payment, $paymentGateway);
-            if ($response['payment']['status'] == 'success') {
+
+            if (
+                isset($response['payment']) &&
+                isset($response['payment']['status']) &&
+                $response['payment']['status'] === 'success'
+            ) {
                 $paymentUrl = $response['payment']['data']['checkout_url'];
             }
         }

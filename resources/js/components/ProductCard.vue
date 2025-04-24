@@ -38,18 +38,18 @@
                 <div class="cursor-pointer" @click="showProductDetails">
                     <div class="bg-white p-2 flex flex-col items-start gap-2 col-span-2">
 
-                        <div>
+                        <div >
                             <div class="text-slate-950 text-base font-normal leading-normal truncate w-full"
                                 :class="props.product?.quantity > 0 ? '' : 'opacity-30'">
-                                {{ props.product?.name }} 
+                                {{ props.product?.name }}  - {{ props.product?.model }}
                                
                             </div>
     
-                            <div v-if="props.product?.model">
+                            <!-- <div v-if="props.product?.model">
                                 <span class="text-muted text-xs">
                                     Model : {{props.product?.model}}
                                 </span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="flex justify-between gap-2" :class="props.product?.quantity > 0 ? '' : 'opacity-30'">
                             <!-- price -->

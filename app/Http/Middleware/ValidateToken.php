@@ -5,64 +5,62 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken as SanctumToken;
 
 class ValidateToken
 {
+    /** Simple time-to-live for tokens (adjust as you like) */
+    private const TOKEN_TTL_DAYS = 30;
+
     /**
-     * Handle an incoming request and verify the token’s validity.
-     *
-     * This middleware checks:
-     *   - That a user is authenticated.
-     *   - That the token used for this request exists (i.e. is present in the personal_access_tokens table).
-     *   - Optionally, that the token is not expired.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * Verify the bearer token, delete it when invalid/expired,
+     * and authenticate the owner for this request.
      */
     public function handle(Request $request, Closure $next)
     {
-        // Check if a user is authenticated.
-        $user = $request->user();
-        if (!$user) {
-            return response()->json(
-                ['error' => 'Unauthorized. Invalid or missing token.'], 
-                Response::HTTP_UNAUTHORIZED
-            );
+        /* ──────────────────────────────────────────────
+         | 1. Extract the plain bearer token string      |
+         ────────────────────────────────────────────── */
+        $plainToken = $request->bearerToken();
+        if (! $plainToken) {
+            return $this->deny('Bearer token missing.');
         }
 
-        // Retrieve the token used for the current request.
-        $token = $user->currentAccessToken();
-
-        if (!$token) {
-            return response()->json(
-                ['error' => 'Unauthorized. No active token found.'], 
-                Response::HTTP_UNAUTHORIZED
-            );
+        /* ──────────────────────────────────────────────
+         | 2. Find the hashed token row in the database |
+         ────────────────────────────────────────────── */
+        $token = SanctumToken::findToken($plainToken);
+        if (! $token) {
+            return $this->deny('Invalid token.');     // nothing to delete
         }
 
-        // Additional check: Verify the token still exists in the personal_access_tokens table.
-        $storedToken = PersonalAccessToken::find($token->id);
-        if (!$storedToken) {
-            return response()->json(
-                ['error' => 'Unauthorized. Token does not exist.'], 
-                Response::HTTP_UNAUTHORIZED
-            );
+        /* ──────────────────────────────────────────────
+         | 3. Integrity checks                          |
+         ────────────────────────────────────────────── */
+        // 3-a) Token has no owner (user deleted?)
+        if (! $token->tokenable) {
+            $token->delete();                         // wipe orphaned token
+            return $this->deny('Token owner no longer exists.');
         }
 
-        // Optional: Check if the token is expired. For example, enforce a 30-day expiration period.
-        $expirationTime = $token->created_at->addDays(30);
-        if (now()->greaterThan($expirationTime)) {
-            // Optionally delete the token if expired.
-            $token->delete();
-            return response()->json(
-                ['error' => 'Token expired. Please log in again.'],
-                Response::HTTP_UNAUTHORIZED
-            );
+        // 3-b) Expired?
+        if (now()->greaterThan($token->created_at->addDays(self::TOKEN_TTL_DAYS))) {
+            $token->delete();                         // wipe expired token
+            return $this->deny('Token expired – please log in again.');
         }
 
-        // Token is valid, so allow the request to proceed.
+        /* ──────────────────────────────────────────────
+         | 4. All good – authenticate the user          |
+         ────────────────────────────────────────────── */
+        Auth::setUser($token->tokenable);             // attaches user to request
+
         return $next($request);
+    }
+
+    /** Consistent JSON 401 helper */
+    private function deny(string $msg)
+    {
+        return response()->json(['error' => $msg], Response::HTTP_UNAUTHORIZED);
     }
 }

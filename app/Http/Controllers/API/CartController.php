@@ -61,6 +61,7 @@ class CartController extends Controller
      */
     public function store(CartRequest $request)
     {
+
         $isBuyNow = $request->is_buy_now ?? false;
 
         $product = ProductRepository::find($request->product_id);
