@@ -190,6 +190,9 @@ const loginFormSubmit = () => {
         AuthStore.hideLoginModal();
         baskerStore.fetchCart();
         serviceStore.fetchCart();
+        //reset login form data
+        loginFormData.value.phone = '';
+        loginFormData.value.password = '';
         toast(content, {
             type: "default",
             hideProgressBar: true,

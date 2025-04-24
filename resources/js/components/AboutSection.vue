@@ -1,161 +1,232 @@
 <template>
-    <div class="md:py-8">
-        <div class="grid grid-cols-1 lgx:grid-cols-7 gap-5 py-8 px-3 md:px-16">
-           
-            <div class="lgx:col-span-4 flex flex-col justify-center">
-                <h1 class="text-3xl md:text-4xl font-bold text-primary animate-border_start"> Why Choose Evtopia?</h1>
-                <!-- <p class="text-slate-700  text-justify pt-1 md:pt-3">
-                    We are a passionate group of electric vehicle (EV) enthusiasts dedicated to advancing and sharing knowledge about the benefits of EVs. From environmental advantages to cutting-edge technology, we see electric vehicles as the future of sustainable transportation. By staying informed on the latest innovations, we aim to inspire others to explore and embrace this eco-friendly alternative.
-                </p> -->
-                <!-- <p class="text-slate-700 font-bold  text-justify pt-3 pb-1">
-                   Showcase unique selling points for each group:
-                </p>
-                <div class="pl-2 flex flex-col gap-1">
-                    <p >
-                       <strong class="text-primary">
-                        <font-awesome-icon :icon="faCheck" class="text-primary"/>
-                        Buyers : 
-                       </strong> Competitive pricing, verified sellers, and fast delivery.
-                    </p>
+  <section
+    id="why-evtopia"
+    class="py-32 bg-white overflow-hidden"
+  >
+    <div class="max-w-[100rem] mx-auto px-4 sm:px-6 lg:px-8">
 
-                    <p >
-                        <strong class="text-primary">
-                            <font-awesome-icon :icon="faCheck" class="text-primary"/>
-                            Sellers : 
-                        </strong> Reach EV enthusiasts globally, free listings, sales analytics.
-                     </p>
-
-                     <p >
-                        <strong class="text-primary">
-                            <font-awesome-icon :icon="faCheck" class="text-primary"/>
-                            Dealers : 
-                        </strong> Platform to showcase inventory, connect with a growing EV audience.
-                     </p>
-
-                     <p >
-                        <strong class="text-primary">
-                            <font-awesome-icon :icon="faCheck" class="text-primary"/>
-                            Community : 
-                        </strong> Events, forums, and shared goals for sustainability.
-                     </p>
-                </div> -->
-
-
-
-                <!-- <p class="text-slate-700 font-bold  text-justify pt-3 pb-1">
-                    Benefits of shopping on Evtopia:
-                 </p> -->
-                 <!-- <div class="pl-5 flex flex-col gap-1">
-                     <p >
-                        <strong class="text-primary">
-                         Buyers : 
-                        </strong> Competitive pricing, verified sellers, and fast delivery.
-                     </p>
- 
-                     <p >
-                         <strong class="text-primary">
-                             Sellers : 
-                         </strong> Reach EV enthusiasts globally, free listings, sales analytics.
-                      </p>
- 
-                      <p >
-                         <strong class="text-primary">
-                             Dealers : 
-                         </strong> Platform to showcase inventory, connect with a growing EV audience.
-                      </p>
- 
-                      <p >
-                         <strong class="text-primary">
-                             Community : 
-                         </strong> Events, forums, and shared goals for sustainability.
-                      </p>
-                 </div> -->
-                <!-- <ul class="list-none  text-black gap-1">
-                    <li class="flex items-center gap-3  font-bold">
-                        <font-awesome-icon :icon="faUsers" class="text-primary"/>
-                        Trusted by 10,000+ EV Enthusiasts</li>
-                    <li class="flex items-center gap-3  font-bold">
-                        <font-awesome-icon :icon="faHandshakeAlt" class=" text-primary"/>
-                        Eco-Friendly Marketplace</li>
-                    <li class="flex items-center gap-3  font-bold">
-                        
-                        <font-awesome-icon :icon="faShieldAlt" class=" text-primary"/>
-                        Secure Payments</li>
-                    <li class="flex items-center gap-3  font-bold">
-                        
-                        <font-awesome-icon :icon="faCheckSquare" class=" text-primary"/>
-                        Quality assurance and Fast delivery</li>
-                    <li class="flex items-center gap-3  font-bold">
-                        <font-awesome-icon :icon="faChain" class=" text-primary"/>
-                        Wide selection and competitive pricing </li>
-                </ul> -->
-
-                <div class="transform mt-4 py-1 transition-transform duration-300">
-                    <h3 class="font-bold ">Centralized EV Ecosystem</h3>
-                    <p class="text-gray-700 pl-2">
-                        The first-of-its-kind platform in Ethiopia, uniting EV suppliers, importers, buyers, sellers, manufacturers, and service providers.
-                    </p>
-                </div>
-                
-                <div class="transform py-1 transition-transform duration-300">
-                    <h3 class="font-bold ">Comprehensive Support for EV Adoption</h3>
-                    <p class="text-gray-700 pl-2">
-                        We offer expert consultancy, advice, sales, after-sales services, and access to quality spare parts.
-                    </p>
-                </div>
-                
-                <div class="transform py-1 transition-transform duration-300">
-                    <h3 class="font-bold ">Empowering Through Education</h3>
-                    <p class="text-gray-700 pl-2">
-                        Through an innovative e-learning platform, Evtopia empowers users with automotive knowledge and certifications, fostering local skills development and workforce readiness in the growing EV sector.
-                    </p>
-                </div>
-                
-                <!-- <div class="transform py-1 transition-transform duration-300">
-                    <h3 class="font-bold ">Centralized Market Accessibility</h3>
-                    <p class="text-gray-700 pl-2">
-                        Simplifies Ethiopia's fragmented automotive market by providing a reliable, professional, and user-friendly platform for buying, maintaining, and learning about vehicles.
-                    </p>
-                </div> -->
-                
-                <div class="transform py-1 transition-transform duration-300">
-                    <h3 class="font-bold ">Commitment to Safety and Sustainability</h3>
-                    <p class="text-gray-700 pl-2">
-                        Addresses critical challenges like traffic accidents and environmental pollution by promoting energy-efficient vehicles, safer roads, and eco-conscious driving practices.
-                    </p>
-                </div>
-                
-                <div class="transform py-1 transition-transform duration-300">
-                    <h3 class="font-bold ">Innovation and R&D Hub</h3>
-                    <p class="text-gray-700 pl-2">
-                        Developing a 10,000-square-meter innovation and R&D center to create tailored solutions for Ethiopia, drive local innovation, and advance EV infrastructure and industry across Africa.
-                    </p>
-                </div>
-                
-                <!-- <div class="transform py-1 transition-transform duration-300">
-                    <h3 class="font-bold ">Alignment with National and Global Goals</h3>
-                    <p class="text-gray-700 pl-2">
-                        Accelerating Ethiopia’s target of 90% EV adoption by 2030 and contributing to global sustainability efforts, Evtopia drives meaningful change locally and internationally.
-                    </p>
-                </div> -->
-                
-            </div>
-            
-
-            <div class="lgx:col-span-3 flex items-center">
-                <img class="w-full lgx:h-[600px]" src="./../assets/about.PNG" alt="">
-            </div>
+      <!-- Intro row (fades/slides once) -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center transition-all duration-700"
+        :class="isShown
+          ? 'opacity-100 translate-y-0'
+          : 'opacity-0 translate-y-10'"
+      >
+        <!-- label + headline -->
+        <div>
+          <span
+            class="font-semibold uppercase text-primary tracking-wide block"
+            >Why EVtopia</span
+          >
+          <h1 class="mt-2 text-4xl font-extrabold text-gray-900">
+            Building Ethiopia's EV Future
+          </h1>
         </div>
-        
 
+        <!-- quote -->
+        <blockquote
+          class="relative pl-14 py-4 text-lg leading-relaxed text-gray-600 italic"
+        >
+          <BoltIcon
+            class="absolute left-0 top-2 left-5 text-primary w-8 h-8"
+            aria-hidden="true"
+          />
+
+          The first-of-its-kind platform in Ethiopia, uniting EV suppliers,
+          importers, buyers, sellers, manufacturers, and service providers.
+        </blockquote>
+      </div>
+
+      <!-- Features row -->
+      <div
+        class="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        <!-- CARD component -->
+        <div
+          v-for="(feature, i) in features"
+          :key="i"
+          class="flex flex-col gap-3 p-6 rounded-lg shadow-lg bg-white
+                 transition-transform duration-300 ease-out
+                 transform
+                 hover:-translate-y-3 hover:scale-[1.03] hover:shadow-2xl
+                 focus-visible:-translate-y-3 focus-visible:scale-[1.03] focus-visible:shadow-2xl
+                 outline-none"
+          tabindex="0"
+          :style="{ transitionDelay: isShown ? `${i * 120}ms` : '0ms' }"
+          :class="isShown
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 translate-y-10'"
+        >
+          <!-- icon -->
+          <component
+            :is="feature.icon"
+            class="h-20 w-20 text-primary"
+          />
+
+          <h3 class="text-xl font-semibold text-gray-900">
+            {{ feature.title }}
+          </h3>
+          <p class="mt-2 text-gray-600 text-[17px] py-1">
+            {{ feature.body }}
+          </p>
+        </div>
+      </div>
     </div>
+
+    <div
+      id="ev-blocks"
+      class="max-w-[100rem] sm:px-6 lg:px-8 mt-20 mx-auto grid gap-6 md:grid-cols-12 hidden"
+    >
+      <!-- CARD -->
+      <div
+        v-for="(b, i) in blocks"
+        :key="b.title"
+        class="relative group overflow-hidden rounded-lg text-white shadow-md
+               transition duration-500 ease-out transform
+               mx-4 sm:mx-2
+               hover:-translate-y-2 hover:shadow-xl
+               flex flex-col justify-between"
+        :class="[
+          b.color,
+          /* skyline effect: span rows based on tier */
+          `md:row-span-${b.tier}`,
+          /* alternate left / right columns */
+          i % 2 === 0 ? 'md:col-span-6' : 'md:col-start-7 md:col-span-6',
+          /* scroll fade */
+          isShown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+        ]"
+        :style="{ transitionDelay: show ? `${i * 120}ms` : '0ms' }"
+      >
+        <!-- content -->
+        <div class="p-6 space-y-3">
+          <component :is="b.icon" class="w-8 h-8" />
+          <h3 class="text-lg font-semibold">{{ b.title }}</h3>
+          <p class="text-sm leading-relaxed">
+            {{ b.body }}
+          </p>
+        </div>
+
+        <!-- decorative angled bottom to mimic screenshot -->
+        <div
+          class="hidden md:block absolute bottom-0 left-1/2 -translate-x-1/2
+                 w-8 h-8 bg-inherit rotate-45 origin-top"
+        />
+      </div>
+    </div>
+  
+  </section>
 </template>
 
 <script setup>
-    import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-    import { faChain, faCheck, faCheckSquare, faHandshakeAlt, faMoneyBill, faSeedling, faShieldAlt, faShieldHalved, faSquareCheck, faUsers } from '@fortawesome/free-solid-svg-icons';
-    import { faCar } from '@fortawesome/free-solid-svg-icons';
-    import { faScrewdriverWrench } from '@fortawesome/free-solid-svg-icons';
-import { ArrowRightCircleIcon } from '@heroicons/vue/24/solid';
+
+import { onMounted, ref } from 'vue'
+
+/* Heroicons you already use */
+import {
+  Squares2X2Icon,
+  WrenchScrewdriverIcon,
+  AcademicCapIcon,
+  BoltIcon
+} from '@heroicons/vue/24/solid'
+
+import {
+  TruckIcon,
+  WrenchIcon,
+  CubeTransparentIcon,
+  BuildingStorefrontIcon,
+  Cog6ToothIcon,
+} from '@heroicons/vue/24/outline'
+
+/* track “visible” state so we can animate only once */
+const isShown = ref(false)
+
+onMounted(() => {
+  const el = document.getElementById('why-evtopia')
+  const io = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        isShown.value = true
+        io.disconnect()
+      }
+    },
+    { threshold: 0.3 }
+  )
+  io.observe(el)
+})
+
+
+/* data + icon map */
+const blocks = [
+  {
+    title: 'Service Providers',
+    body: 'Offering maintenance and support for EV users.',
+    icon: WrenchIcon,
+    color: 'bg-green-800',
+    tier: 3, // how “tall” (3 = tallest)
+  },
+  {
+    title: 'Comprehensive Support',
+    body: 'Delivering consultancy, sales, and after-sales services.',
+    icon: Cog6ToothIcon,
+    color: 'bg-green-700',
+    tier: 4,
+  },
+  {
+    title: 'Buyers & Sellers',
+    body: 'Connecting buyers and sellers in the EV marketplace.',
+    icon: BuildingStorefrontIcon,
+    color: 'bg-green-700',
+    tier: 2,
+  },
+  {
+    title: 'E-learning',
+    body:
+      'Through an innovative e-learning platform, Evtopia empowers and certifies our community.',
+    icon: AcademicCapIcon,
+    color: 'bg-green-900',
+    tier: 2,
+  },
+  {
+    title: 'Manufacturing',
+    body: 'Supporting local EV manufacturing and innovation.',
+    icon: CubeTransparentIcon,
+    color: 'bg-green-900',
+    tier: 1,
+  },
+  {
+    title: 'Importers',
+    body: 'Facilitating importation of EVs and components.',
+    icon: TruckIcon,
+    color: 'bg-green-800',    
+    tier: 1,
+  },
+]
+/* feature data & icon mapping */
+const features = [
+  {
+    title: 'Comprehensive Support for EV Adoption',
+    body:
+      'We offer expert consultancy, advice, sales, after-sales services, and access to quality spare parts.',
+    icon: Squares2X2Icon
+  },
+  {
+    title: 'Empowering Through Education',
+    body:
+      'Through an innovative e-learning platform, Evtopia empowers users with automotive knowledge and certifications, fostering local skills development and workforce readiness in the growing EV sector.',
+    icon: AcademicCapIcon
+  },
+  {
+    title: 'Centralized EV Ecosystem',
+    body:
+      'The first-of-its-kind platform in Ethiopia, uniting EV suppliers, importers, buyers, sellers, manufacturers, and service providers.',
+    icon: WrenchScrewdriverIcon
+  }
+]
 </script>
 
+<style scoped>
+/* ensure opacity + transform animate together */
+div[id='ev-blocks'] > div {
+  transition-property: opacity, transform;
+}
+</style>

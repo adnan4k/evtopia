@@ -22,34 +22,25 @@
     }
 
     .promotionSection {
-        width: 35%;
-        background-image: url("{{ asset('assets/images/shop-register.png') }}");
+        width: 75%;
+        background-image: url("{{ asset('assets/images/reg.png') }}");
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
     }
 
     .registerFormSection {
-        width: 65%;
+        width: 25%;
+        background-image: url("{{ asset('assets/images/patter.png') }}");
+        background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         display: flex;
         flex-direction: column;
         row-gap: 24px;
     }
 
-    @media (max-width: 767px) {
-        .wrapper {
-            flex-direction: column;
-        }
-
-        .promotionSection {
-            display: none;
-        }
-
-        .registerFormSection {
-            width: 100%;
-        }
-    }
-
+  
     .step-indicators {
         display: flex;
         column-gap: 32px;
@@ -105,21 +96,66 @@
         top: -16px;
         background: #FFFFFF;
     }
+
+    .customButtons {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+    }
+
+    @media (max-width: 1365px) {
+        .customButtons {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    @media (max-width: 1000px) {
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .registerFormSection {
+            display: flex;
+            background-image: url("{{ asset('assets/images/patter.png') }}");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            flex-direction: column;
+            row-gap: 24px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            margin-top: 32px;
+        }
+
+        .promotionSection {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background-image: url("{{ asset('assets/images/reg.png') }}");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    }
 </style>
 
 <body>
 
     <div class="wrapper">
-        <div class="promotionSection">
-        </div>
-      
-        <div class="d-flex flex-column gap-4  justify-content-center align-items-center" style="width: 100%; height:100vh;">
+        <div class="d-flex flex-column gap-4  justify-content-center align-items-center registerFormSection">
             
             <div class="text-center">
                 <h3 style="color:#228B22; font-weight: 600;">Evtopia</h2>    
                     <p>Register to become a seller</p>
                 </div>    
-            <div class="d-flex flex-column flex-md-row gap-4  justify-content-center align-items-center">
+            <div class="customButtons ">
                <a href="/shop/individual"
                class="customButton2"
                >
@@ -138,6 +174,10 @@
             </a>
         </div>
 
+        <div class="promotionSection">
+        </div>
+      
+      
        
     </div>
 
