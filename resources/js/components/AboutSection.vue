@@ -77,7 +77,6 @@
       id="ev-blocks"
       class="max-w-[100rem] sm:px-6 lg:px-8 mt-20 mx-auto grid gap-6 md:grid-cols-12 hidden"
     >
-      <!-- CARD -->
       <div
         v-for="(b, i) in blocks"
         :key="b.title"
@@ -88,16 +87,12 @@
                flex flex-col justify-between"
         :class="[
           b.color,
-          /* skyline effect: span rows based on tier */
           `md:row-span-${b.tier}`,
-          /* alternate left / right columns */
           i % 2 === 0 ? 'md:col-span-6' : 'md:col-start-7 md:col-span-6',
-          /* scroll fade */
           isShown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
         ]"
         :style="{ transitionDelay: show ? `${i * 120}ms` : '0ms' }"
       >
-        <!-- content -->
         <div class="p-6 space-y-3">
           <component :is="b.icon" class="w-8 h-8" />
           <h3 class="text-lg font-semibold">{{ b.title }}</h3>
@@ -106,7 +101,6 @@
           </p>
         </div>
 
-        <!-- decorative angled bottom to mimic screenshot -->
         <div
           class="hidden md:block absolute bottom-0 left-1/2 -translate-x-1/2
                  w-8 h-8 bg-inherit rotate-45 origin-top"
