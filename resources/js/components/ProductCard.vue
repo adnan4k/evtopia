@@ -37,7 +37,6 @@
                 </div>
                 <div class="cursor-pointer" @click="showProductDetails">
                     <div class="bg-white p-2 flex flex-col items-start gap-2 col-span-2">
-
                         <div>
                             <div class="text-slate-950 text-base font-normal leading-normal truncate w-full"
                                 :class="props.product?.quantity > 0 ? '' : 'opacity-30'">

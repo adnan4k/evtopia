@@ -118,19 +118,19 @@
                     </p>
                 </div> -->
                 
-                <div class="transform py-1 transition-transform duration-300">
+                <!-- <div class="transform py-1 transition-transform duration-300">
                     <h3 class="font-bold ">Commitment to Safety and Sustainability</h3>
                     <p class="text-gray-700 pl-2">
                         Addresses critical challenges like traffic accidents and environmental pollution by promoting energy-efficient vehicles, safer roads, and eco-conscious driving practices.
                     </p>
-                </div>
+                </div> -->
                 
-                <div class="transform py-1 transition-transform duration-300">
+                <!-- <div class="transform py-1 transition-transform duration-300">
                     <h3 class="font-bold ">Innovation and R&D Hub</h3>
                     <p class="text-gray-700 pl-2">
                         Developing a 10,000-square-meter innovation and R&D center to create tailored solutions for Ethiopia, drive local innovation, and advance EV infrastructure and industry across Africa.
                     </p>
-                </div>
+                </div> -->
                 
                 <!-- <div class="transform py-1 transition-transform duration-300">
                     <h3 class="font-bold ">Alignment with National and Global Goals</h3>

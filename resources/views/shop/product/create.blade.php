@@ -298,8 +298,14 @@
 
                     <div class="col-lg-3 col-md-6 mt-3 mt-lg-0">
                         <x-input type="text" onlyNumber="true" name="min_order_quantity"
-                            label="Minimum Order Quantity" placeholder="Minimum Order Quantity" value="1"/>
+                            label="Minimum Order Quantity" placeholder="Minimum Order Quanti" value="1"/>
                     </div>
+                    
+                    <div class="col-lg-3 col-md-6 mt-3 mt-lg-0">
+                        <label for="custom_file_media_id" class="form-label">File</label>
+                        <input type="file" class="form-control" name="pdf_file" id="custom_file_media_id">
+                    </div>
+                    
 
                 </div>
             </div>

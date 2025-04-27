@@ -28,6 +28,11 @@ class Product extends Model
         return $this->belongsTo(Shop::class);
     }
 
+    public function pdfFiles()
+{
+    return $this->morphToMany(Media::class, 'mediable');
+}
+
     /**
      * Retrieve the categories associated with the current model.
      */

@@ -301,45 +301,58 @@
             </div>
         </div>
 
-        <!--######## Price Information ##########-->
-        <div class="card mt-4 mb-4">
-            <div class="card-body">
+     <!--######## Price Information ##########-->
+<div class="card mt-4 mb-4">
+    <div class="card-body">
+        <div class="d-flex gap-2 border-bottom pb-2">
+            <i class="fa-solid fa-user"></i>
+            <h5>
+                {{ __('Price Information') }}
+            </h5>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-3 col-md-6">
+                <x-input type="text" name="buy_price" label="Buying Price" placeholder="Buying Price"
+                    required="true" onlyNumber="true" :value="$product->buy_price" />
+            </div>
 
-                <div class="d-flex gap-2 border-bottom pb-2">
-                    <i class="fa-solid fa-user"></i>
-                    <h5>
-                        {{ __('Price Information') }}
-                    </h5>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-lg-3 col-md-6">
-                        <x-input type="text" name="buy_price" label="Buying Price" placeholder="Buying Price"
-                            required="true" onlyNumber="true" :value="$product->buy_price" />
+            <div class="col-lg-3 col-md-6">
+                <x-input type="text" name="price" label="Selling Price" placeholder="Selling Price"
+                    required="true" onlyNumber="true" :value="$product->price" />
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-3 mt-md-0">
+                <x-input type="text" name="discount_price" label="Discount Price"
+                    placeholder="Discount Price" onlyNumber="true" :value="$product->discount_price" />
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-3 mt-lg-0">
+                <x-input type="text" name="quantity" label="Current Stock Quantity"
+                    placeholder="Current Stock Quantity" onlyNumber="true" required="true" :value="$product->quantity" />
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-3">
+                <x-input type="text" onlyNumber="true" name="min_order_quantity"
+                    label="Minimum Order Quantity" placeholder="Minimum Order Quantity" :value="$product->min_order_quantity" />
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mt-3">
+                <label for="custom_file_media_id" class="form-label">File</label>
+                <input type="file" class="form-control" name="pdf_file" id="custom_file_media_id">
+                @if($product->pdf_file)
+                    <div class="mt-2">
+                        <a href="{{ Storage::url($product->pdf_file) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-file-pdf"></i> View Current File
+                        </a>
+                        <a href="{{ route('shop.product.remove.pdf', $product->id) }}" class="btn btn-sm btn-outline-danger">
+                            <i class="fa fa-trash"></i> Remove
+                        </a>
                     </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <x-input type="text" name="price" label="Selling Price" placeholder="Selling Price"
-                            required="true" onlyNumber="true" :value="$product->price" />
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 mt-3 mt-md-0">
-                        <x-input type="text" name="discount_price" label="Discount Price"
-                            placeholder="Discount Price" onlyNumber="true" :value="$product->discount_price" />
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 mt-3 mt-lg-0">
-                        <x-input type="text" name="quantity" label="Current Stock Quantity"
-                            placeholder="Current Stock Quantity" onlyNumber="true" required="true" :value="$product->quantity" />
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 mt-3">
-                        <x-input type="text" onlyNumber="true" name="min_order_quantity"
-                            label="Minimum Order Quantity" placeholder="Minimum Order Quantity" :value="$product->min_order_quantity" />
-                    </div>
-
-                </div>
+                @endif
             </div>
         </div>
+    </div>
+</div>
 
         <!--######## Thumbnail Information ##########-->
         <div class="row mb-3">
