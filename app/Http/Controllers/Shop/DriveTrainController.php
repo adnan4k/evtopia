@@ -46,7 +46,7 @@ class DriveTrainController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->route('shop.drive_train.index')->with('success', 'Drive Train created successfully');
+        return redirect()->route('shop.drive_train.index')->with('success', 'Power Train created successfully');
     }
 
     /**
@@ -81,7 +81,7 @@ class DriveTrainController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect()->route('shop.drive_train.index')->with('success', 'Drive Train updated successfully');
+        return redirect()->route('shop.drive_train.index')->with('success', 'Power Train updated successfully');
     }
 
 
@@ -102,6 +102,6 @@ class DriveTrainController extends Controller
         $drivetrain = $this->drivetrain->find($id);
         $drivetrain->delete();
 
-        return redirect()->route('shop.drive_train.index')->with('success', 'Drive Train deleted successfully');
+        return redirect()->route('shop.drive_train.index')->with('success', 'Power Train deleted successfully');
     }
 }

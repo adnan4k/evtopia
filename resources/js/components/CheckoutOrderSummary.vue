@@ -182,7 +182,7 @@ const content = {
 const processOrderConfirm = () => {
 
     if (!basketStore.address) {
-        toast.error("Please select shipping address", {
+        toast.error("Please select  address", {
             position: "bottom-left",
         });
         return;

@@ -11,8 +11,8 @@
                 {{ $t('Our friendly assistant is here to assist you 24 hours a day') }}!
             </div>
             <form @submit.prevent="contactFormSubmit()">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="md:col-span-2 order-2 md:order-1">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="order-2 order-1 shadow-lg p-8 rounded-lg bg-white">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label class="form-label mb-2">
@@ -67,10 +67,10 @@
 
                     </div>
 
-                    <div class="col-span-1 items-center order-1 lg:order-2">
-                        <div class="lg:max-w-[450px] lg:max-h-[450px] rounded-2xl overflow-hidden">
+                    <div class="flex items-center justify-center order-2">
+                        <!-- <div class="lg:max-w-[450px] lg:max-h-[450px] rounded-2xl overflow-hidden"> -->
                             <img :src="'assets/images/contact-us.png'" alt="image" class="w-full h-full object-cover">
-                        </div>
+                        <!-- </div> -->
                     </div>
 
                 </div>

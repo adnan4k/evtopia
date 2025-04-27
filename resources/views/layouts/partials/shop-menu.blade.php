@@ -193,7 +193,7 @@
     <a class="menu {{ $request->routeIs('shop.drive_train.*') ? 'active' : '' }}" href="{{ route('shop.drive_train.index') }}">
         <span>
             <i class="fa-brands fa-unity menu-icon"></i>
-            {{ __('Drive Train') }}
+            {{ __('Power Train') }}
         </span>
     </a>
 </li>

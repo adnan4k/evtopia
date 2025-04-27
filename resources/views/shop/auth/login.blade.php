@@ -105,7 +105,7 @@
                                 </div>
                             </div>
 
-                            <div class="item">
+                            {{-- <div class="item">
                                 <div class="header">Admin Credentials</div>
                                 <div class="content">
                                     <div class="credentials">
@@ -116,7 +116,7 @@
                                         <i class="fa-regular fa-copy"></i>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
                     @endif

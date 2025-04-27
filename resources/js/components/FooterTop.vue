@@ -24,7 +24,7 @@
                     <div class="mt-3 p-4 bg-black bg-opacity-20 rounded-[56px] flex gap-3">
                         <EnvelopeIcon class="w-6 h-6 text-white" />
                         <div class="w-[0px] h-6 border border-primary-900"></div>
-                        <a :href="'tel:' + masterData.email"  class="text-white text-base font-normal leading-normal">
+                        <a :href="'mailto:' + masterData.email"  class="text-white text-base font-normal leading-normal">
                             {{ masterData.email }}
                         </a>
                     </div>

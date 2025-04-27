@@ -17,6 +17,7 @@ class ProductResource extends JsonResource
     public function toArray(Request $request): array
     {
         $this->load(['reviews', 'orders']);
+        $this->loadCount('visits');
 
         $favorite = false;
         $user = Auth::guard('api')->user();
@@ -42,6 +43,7 @@ class ProductResource extends JsonResource
             'total_sold' => (string) number_format($totalSold, 0, '.', ','),
             'quantity' => (int) $this->quantity,
             'is_favorite' => (bool) $favorite,
+            'visit_count'          => (int) $this->visits_count,
             'is_special' => (bool) $this->is_special,
             'sizes' => SizeResource::collection($this->sizes),
             'colors' => ColorResource::collection($this->colors),
@@ -49,6 +51,10 @@ class ProductResource extends JsonResource
             'transmission'=> $this->carTransmission?->name ?? null,
             'drive_train' => $this->drivetrain?->name ?? null,
             'year' => $this->year ?? null,
+            'driving_range' => $this->driving_range ?? null,
+            'battery_capacity' => $this->battery_capacity ?? null,
+            'peak_power' => $this->peak_power ?? null,
+            'acceleration_time' => $this->acceleration_time ?? null,
             'model' => $this->model ?? null,
             'mileage' => $this->kilometers ?? null,
             'brand' => $this->brand?->name ?? null,

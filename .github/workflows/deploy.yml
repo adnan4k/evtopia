@@ -16,7 +16,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2' # Use the PHP version compatible with your Laravel app
+          php-version: '8.1' # Use the PHP version compatible with your Laravel app
           extensions: mbstring, ctype, fileinfo, tokenizer, json, pdo_mysql # Add required extensions
           coverage: none
 
@@ -32,7 +32,10 @@ jobs:
           source: "./"
           target: ${{ secrets.CPANEL_DEPLOY_PATH }}
           debug: true
-          rm: true # Remove files not in the source
+          overwrite: true # Only overwrite existing files
+          exclude: |
+            storage/
+            storage/**
 
       - name: Run Laravel deployment commands
         uses: appleboy/ssh-action@v0.1.3
@@ -47,7 +50,6 @@ jobs:
             php artisan route:cache
             php artisan view:cache
             php artisan migrate --force
-            php artisan optimize:clear
             if [ ! -L "public/storage" ]; then
             php artisan storage:link
             fi

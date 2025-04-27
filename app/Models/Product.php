@@ -16,7 +16,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     /**
      * Retrieve the shop that this model belongs to.
@@ -239,5 +239,16 @@ class Product extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+
+    public function visits()
+    {
+        return $this->hasMany(ProductVisit::class);
+    }
+
+    public function getUniqueVisitorCountAttribute()
+    {
+        return $this->visits()->count();
     }
 }
