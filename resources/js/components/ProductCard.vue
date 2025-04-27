@@ -41,23 +41,28 @@
                         <div class="flex justify-between items-center w-full">
                             <div class="text-slate-950 text-base font-normal leading-normal truncate w-full"
                                 :class="props.product?.quantity > 0 ? '' : 'opacity-30'">
-                                {{ props.product?.name }}  - {{ props.product?.model }}
+                                {{ props.product?.name }} - {{ props.product?.model }}
                             </div>
-    
+
                             <div>
-                                <span class="text-primary cursor-pointer ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                                    <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Zm-9 13.5a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                                <span class="text-primary cursor-pointer" @click="openPdf">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                        class="size-6">
+                                        <path fill-rule="evenodd"
+                                            d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Zm-9 13.5a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z"
+                                            clip-rule="evenodd" />
                                     </svg>
                                 </span>
-
                             </div>
+
+
                         </div>
-                        <div class="flex justify-between gap-2" :class="props.product?.quantity > 0 ? '' : 'opacity-30'">
+                        <div class="flex justify-between gap-2"
+                            :class="props.product?.quantity > 0 ? '' : 'opacity-30'">
                             <!-- price -->
 
 
-                               <!--discount--->
+                            <!--discount--->
 
 
 
@@ -69,7 +74,8 @@
 
                             <div class="flex items-center gap-2">
                                 <div class="text-primary text-base font-bold leading-normal">
-                                    {{ masterStore.showCurrency(props.product?.discount_price > 0 ? props.product?.discount_price : props.product?.price) }}
+                                    {{ masterStore.showCurrency(props.product?.discount_price > 0 ?
+                                        props.product?.discount_price : props.product?.price) }}
                                 </div>
                                 <!-- discount price -->
                                 <div v-if="props.product?.discount_price > 0"
@@ -82,63 +88,47 @@
 
 
 
-                            <div v-if="props.product?.is_special"
-                                >
-                                    🔥
+                            <div v-if="props.product?.is_special">
+                                🔥
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 md:grid-cols-3 space-y-2 w-full">
 
-                            <div v-if="props.product?.driving_range" class="flex items-center gap-1 ml-0 md:ml-2"
-                            >
+                            <div v-if="props.product?.driving_range" class="flex items-center gap-1 ml-0 md:ml-2">
                                 <div class="text-slate-950   font-bold leading-tight flex items-center">
-                                    
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        width="24" height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                         stroke-linejoin="round">
 
-                                    <!-- pole: from y=4 down to y=16 -->
-                                    <line x1="5" y1="4" x2="5" y2="16" />
+                                        <!-- pole: from y=4 down to y=16 -->
+                                        <line x1="5" y1="4" x2="5" y2="16" />
 
-                                    <!-- flag top edge: starts exactly at pole top (5,4) -->
-                                    <line x1="5"  y1="4"  x2="14" y2="8" />
+                                        <!-- flag top edge: starts exactly at pole top (5,4) -->
+                                        <line x1="5" y1="4" x2="14" y2="8" />
 
-                                    <!-- flag bottom edge -->
-                                    <line x1="5"  y1="12" x2="14" y2="8" />
+                                        <!-- flag bottom edge -->
+                                        <line x1="5" y1="12" x2="14" y2="8" />
 
-                                    <!-- oval base: center at (5,18), rx=3, ry=2 -->
-                                    <ellipse cx="5" cy="18" rx="3" ry="2" fill="none"/>
+                                        <!-- oval base: center at (5,18), rx=3, ry=2 -->
+                                        <ellipse cx="5" cy="18" rx="3" ry="2" fill="none" />
                                     </svg>
 
                                     {{ props.product?.driving_range }}mi
 
 
-                                    
+
                                 </div>
 
                             </div>
 
-                            <div v-if="props.product?.battery_capacity" class="flex items-center gap-1"
-                               >
-                                
+                            <div v-if="props.product?.battery_capacity" class="flex items-center gap-1">
+
                                 <div class="flex items-center gap-1 text-slate-950 font-bold leading-tight">
-                                    <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24"
-                                fill="currentColor"
-                                stroke="currentColor"
-                                stroke-width="0"
-                                version="1.2"
-                                baseProfile="tiny"
-                                >
-                                <path
-                                    d="
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                        stroke="currentColor" stroke-width="0" version="1.2" baseProfile="tiny">
+                                        <path d="
                                     M9 16
                                         c-.552 0-1-.447-1-1
                                         v-4
@@ -198,30 +188,20 @@
                                         c.551 0 1 .448 1 1
                                         v6
                                     z
-                                    "
-                                />
-                                </svg>
+                                    " />
+                                    </svg>
                                     {{ props.product?.battery_capacity }}kWh
                                 </div>
 
                             </div>
 
 
-                            <div v-if="props.product?.year" class="flex items-center gap-1"
-                               >
-                                
+                            <div v-if="props.product?.year" class="flex items-center gap-1">
+
                                 <div class="flex items-center text-slate-950 gap-2 font-bold leading-tight">
-                                    <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 448 512"
-                                    width="1em"
-                                    height="1em"
-                                    fill="currentColor"
-                                    stroke="currentColor"
-                                    stroke-width="0"
-                                    >
-                                    <path
-                                        d="
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="1em"
+                                        height="1em" fill="currentColor" stroke="currentColor" stroke-width="0">
+                                        <path d="
                                         M0 464
                                             c0 26.5 21.5 48 48 48
                                             h352
@@ -317,8 +297,7 @@
                                             v-48
                                             c0-26.5-21.5-48-48-48
                                             z
-                                        "
-                                    />
+                                        " />
                                     </svg>
 
                                     {{ props.product?.year }}
@@ -326,23 +305,11 @@
 
                             </div>
 
-                            <div v-if="props.product?.peak_power" class="flex items-center gap-1"
-                               >
-                               <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                stroke="currentColor"
-                                stroke-width="0"
-                                >
-                                <path
-                                    fill="none"
-                                    d="M0 0h24v24H0z"
-                                />
-                                <path
-                                    d="
+                            <div v-if="props.product?.peak_power" class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="currentColor" stroke="currentColor" stroke-width="0">
+                                    <path fill="none" d="M0 0h24v24H0z" />
+                                    <path d="
                                     M11 21
                                         h-1
                                         l1-7
@@ -355,34 +322,24 @@
                                         c.4 0 .62.19.4.66
                                         C12.97 17.55 11 21 11 21
                                     z
-                                    "
-                                />
+                                    " />
                                 </svg>
 
-                                <div  class="text-slate-950  font-bold leading-tight">
+                                <div class="text-slate-950  font-bold leading-tight">
                                     {{ props.product?.peak_power }} kW
                                 </div>
 
                             </div>
                             <!-- <div v-if="props.product?.mileage" class="h-3 w-[0px] border border-slate-300"></div> -->
 
-                            
 
-                            <div class="flex items-center gap-2"
-                             v-if="props.product?.acceleration_time"
-                              >
+
+                            <div class="flex items-center gap-2" v-if="props.product?.acceleration_time">
                                 <!-- <StarIcon class="w-4 h-4 text-yellow-400" /> -->
 
-                                <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                width="20" height="20"
-                                fill="currentColor"
-                                stroke="currentColor"
-                                stroke-width="0"
-                                >
-                                    <path
-                                        d="
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20"
+                                    fill="currentColor" stroke="currentColor" stroke-width="0">
+                                    <path d="
                                         M8 2
                                         a.5.5 0 0 1 .5.5
                                         V4
@@ -418,13 +375,10 @@
                                         l3.434-4.297
                                         a.39.39 0 0 0-.029-.518
                                         z
-                                        "
-                                    />
+                                        " />
 
                                     <!-- silhouette / outline -->
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="
+                                    <path fill-rule="evenodd" d="
                                         M6.664 15.889
                                         A8 8 0 1 1 9.336.11
                                         a8 8 0 0 1-2.672 15.78
@@ -434,17 +388,16 @@
                                         A11.95 11.95 0 0 1 8 10
                                         c2.186 0 4.236.585 6.001 1.606
                                         a7 7 0 1 0-12.002 0
-                                        "
-                                    />
+                                        " />
                                 </svg>
 
                                 <!-- rating -->
                                 <div class="text-slate-950 font-bold leading-tight">
                                     {{ props.product?.acceleration_time }} s
                                 </div>
-                                
+
                                 <!-- total sold -->
-                                
+
                                 <!-- Stock Out -->
                                 <!-- <div v-else class="text-right text-red-500 text-xs font-normal leading-tight">
                                     {{ $t('Stock Out') }}
@@ -452,18 +405,10 @@
                             </div>
 
 
-                            <div 
-                                class="flex  font-bold leading-tight flex items-center  gap-2">
-                                <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 576 512"
-                                width="20" height="20"
-                                fill="currentColor"
-                                stroke="currentColor"
-                                stroke-width="0"
-                                >
-                                <path
-                                    d="
+                            <div class="flex  font-bold leading-tight flex items-center  gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20" height="20"
+                                    fill="currentColor" stroke="currentColor" stroke-width="0">
+                                    <path d="
                                     M288 32
                                         c-80.8 0-145.5 36.8-192.6 80.6
                                         C48.6 156 17.3 208 2.5 243.7
@@ -493,17 +438,16 @@
                                         c-5.8-.2-9.2 6.1-7.4 11.7
                                         c2.1 6.4 3.3 13.2 3.3 20.3
                                     z
-                                    "
-                                />
+                                    " />
                                 </svg>
 
-                                {{ props.product?.visit_count }} 
+                                {{ props.product?.visit_count }}
                             </div>
                         </div>
 
 
 
-                        
+
                     </div>
                 </div>
             </div>
@@ -517,12 +461,14 @@
                     </button> -->
 
                     <button
-                        class="justify-center items-center gap-0.5 flex border border-primary grow py-2.5 rounded-[10px]" @click="addToBasket(props.product)">
+                        class="justify-center items-center gap-0.5 flex border border-primary grow py-2.5 rounded-[10px]"
+                        @click="addToBasket(props.product)">
                         <div class="text-primary text-sm font-normal leading-tight">{{ $t('Add to Cart') }}</div>
                     </button>
                 </div>
                 <button v-else
-                    class="justify-center items-center gap-0.5 flex border border-red-300 py-2.5 rounded-[10px] w-full" disabled>
+                    class="justify-center items-center gap-0.5 flex border border-red-300 py-2.5 rounded-[10px] w-full"
+                    disabled>
                     <div class="text-red-300 text-sm font-normal leading-tight">
                         <!-- Request Stock -->
                         {{ $t('Buy Now') }}
@@ -538,7 +484,7 @@ import { useToast } from 'vue-toastification';
 import { useBaskerStore } from '../stores/BasketStore';
 import { useMaster } from '../stores/MasterStore';
 import { StarIcon, HeartIcon } from '@heroicons/vue/24/solid';
-import { HeartIcon as HeartIconOutline, EyeIcon} from '@heroicons/vue/24/outline';
+import { HeartIcon as HeartIconOutline, EyeIcon } from '@heroicons/vue/24/outline';
 import { TiBatteryFull } from "react-icons/ti";
 
 import { useAuth } from '../stores/AuthStore';
@@ -572,6 +518,17 @@ const addToBasket = (product) => {
     // add product to basket
     baskerStore.addToCart(orderData, product);
 };
+const openPdf = () => {
+    const pdfUrl = props.product?.pdf_file; // Dynamically fetch the PDF URL from product data
+    if (pdfUrl) {
+        window.open(pdfUrl, '_blank'); // Open PDF in a new tab
+    } else {
+        toast.error('PDF file not available for this product.', {
+            position: "bottom-left",
+        });
+    }
+};
+
 
 const buyNow = () => {
     if (authStore.token === null) {
@@ -582,6 +539,7 @@ const buyNow = () => {
 };
 
 const isFavorite = ref(props.product?.is_favorite);
+// console.log(props.product,'here it is ')
 
 const favoriteAddOrRemove = () => {
     if (authStore.token === null) {
@@ -611,7 +569,7 @@ const favoriteAddOrRemove = () => {
 }
 
 const showProductDetails = () => {
-    if(props.product.quantity > 0) {
+    if (props.product.quantity > 0) {
         router.push({ name: 'productDetails', params: { id: props.product.id } })
     }
 }

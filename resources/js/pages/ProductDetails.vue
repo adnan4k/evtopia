@@ -729,7 +729,7 @@
                     <div v-html="product.description"></div>
 
                     <!-- PDF Download -->
-                    <div v-if="product.pdf_file" class="mt-6">
+                    <div  class="mt-6">
                         <h3 class="text-lg font-medium text-slate-800 mb-3">Product Documents</h3>
                         <a :href="product.pdf_file" target="_blank"
                             class="inline-flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary-50 transition">
@@ -742,6 +742,8 @@
                         </a>
                     </div>
                 </div>
+
+                
 
                 <!-- Reviews -->
                 <div v-if="review" class="">

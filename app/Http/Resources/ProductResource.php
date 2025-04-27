@@ -48,7 +48,7 @@ class ProductResource extends JsonResource
             'sizes' => SizeResource::collection($this->sizes),
             'colors' => ColorResource::collection($this->colors),
             'units' => $this->units,
-            'transmission'=> $this->carTransmission?->name ?? null,
+            'transmission' => $this->carTransmission?->name ?? null,
             'drive_train' => $this->drivetrain?->name ?? null,
             'year' => $this->year ?? null,
             'driving_range' => $this->driving_range ?? null,
@@ -59,6 +59,8 @@ class ProductResource extends JsonResource
             'mileage' => $this->kilometers ?? null,
             'brand' => $this->brand?->name ?? null,
             'shop' => ProductShopResource::make($this->shop),
+            'pdf_file' => $this->pdf_file ? asset('storage/' . $this->pdf_file) : null,
+
         ];
     }
 }

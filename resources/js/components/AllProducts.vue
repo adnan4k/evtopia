@@ -75,6 +75,7 @@ const loadMoreProducts = () => {
             hasMoreProducts.value = false;
         }
         loadMore.value = false
+        console.log(products,'products')
     }).catch((error) => {
         loadMore.value = false
         console.log(error);
