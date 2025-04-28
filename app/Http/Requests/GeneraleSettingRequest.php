@@ -47,7 +47,7 @@ class GeneraleSettingRequest extends FormRequest
     {
         $request = request();
         if ($request->is('api/*')) {
-            $lan = $request->header('accept-language') ?? 'en';
+            $lan = 'en';
             app()->setLocale($lan);
         }
 
