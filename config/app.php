@@ -187,6 +187,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\SmsServiceProvider::class,
         App\Providers\PermissionServiceProvider::class,
+        \Torann\GeoIP\GeoIPServiceProvider::class,
 
     ])->toArray(),
 
@@ -204,6 +205,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
     ])->toArray(),
 
 ];

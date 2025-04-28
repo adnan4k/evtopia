@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <Categories :categories="categories" />
+        <Categories :categories="categories" :loading="loading"/>
 
         <div class="main-container py-4 bg-slate-100">
 
@@ -48,12 +48,12 @@
             </div>
         </div>
 
-        <AllProducts :justForYou="justForYou" />
-        <PopularProducts :products="popularProducts" />
+        <AllProducts :justForYou="justForYou" :loading="loading"/>
+        <PopularProducts :products="popularProducts" :loading="loading"/>
         <div v-if="master.getMultiVendor">
-            <TopRatedShops :shops="topRatedShops" />
+            <TopRatedShops :shops="topRatedShops" :loading="loading"/>
         </div>
-        <RecentlyViews :products="recentlyViewProducts" />
+        <RecentlyViews :products="recentlyViewProducts" :loading="loading"/>
 
 
         <!-- Filter Canvas Drawer -->
@@ -300,6 +300,7 @@ const categories = ref([]);
 const products = ref([]);
 const totalProducts = ref(0);
 const popularProducts = ref([]);
+const loading = ref(true);
 
 const fetchProducts = async () => {
     const params = {
@@ -318,6 +319,11 @@ const fetchProducts = async () => {
         totalProducts.value = response.data.data.total;
         products.value = response.data.data.products;
         justForYou.value = response.data.data;
+    }).catch(() => {
+        products.value = [];
+        totalProducts.value = 0;
+    }).finally(() => {
+        loading.value = false;
     });
 };
 
@@ -376,12 +382,18 @@ const getData = () => {
         topRatedShops.value = response.data.data.shops.slice(0, 4);
         categories.value = response.data.data.categories;
 
-    }).catch(() => {});
+    }).catch(() => {}).
+    finally(() => {
+        loading.value = false;
+    });
 
     // fetch categories
     axios.get('/categories').then((response) => {
         master.categories = response.data.data.categories;
-    }).catch(() => {});
+    }).catch(() => {}).
+    finally(() => {
+        loading.value = false;
+    });
 }
 
 const filterSortBy = [

@@ -9,18 +9,36 @@
                 <ArrowRightIcon class="w-5 h-5 text-slate-600" />
             </router-link>
         </div>
-        <div class="mt-4">
+        
+        <div v-if="loading">
             <swiper :navigation="true" :modules="modules" :breakpoints="breakpoints" class="recentlyViewed" :loop="false">
-                <swiper-slide v-for="post in posts" :key="post.id">
-                    <BlogCard :post="post" />
+                <swiper-slide v-for="i in 6" :key="`shimmer-${i}`">
+                    <div class="bg-white shadow-md rounded-lg p-4 animate-pulse">
+                        <div class="h-60 bg-gray-200 rounded"></div>
+                        <div class="mt-4 h-8 bg-gray-200 rounded"></div>
+                        <div class="mt-2 h-8 bg-gray-200 rounded"></div>
+                        <div class="mt-2 h-8 w-3/4 bg-gray-200 rounded"></div>
+                    </div>
                 </swiper-slide>
             </swiper>
         </div>
+        <div v-else >
 
-         <router-link to="/blog" class="flex md:hidden items-center justify-center mt-3 gap-1">
-                <div class="text-slate-600 text-base font-normal leading-normal">{{ $t('View All') }}</div>
-                <ArrowRightIcon class="w-5 h-5 text-slate-600" />
-        </router-link>
+            <div class="mt-4">
+    
+                <swiper :navigation="true" :modules="modules" :breakpoints="breakpoints" class="recentlyViewed" :loop="false">
+                    <swiper-slide v-for="post in posts" :key="post.id">
+                        <BlogCard :post="post" />
+                    </swiper-slide>
+                </swiper>
+            </div>
+    
+             <router-link to="/blog" class="flex md:hidden items-center justify-center mt-3 gap-1">
+                    <div class="text-slate-600 text-base font-normal leading-normal">{{ $t('View All') }}</div>
+                    <ArrowRightIcon class="w-5 h-5 text-slate-600" />
+            </router-link>
+
+        </div>
 
     </div>
 </template>
@@ -37,7 +55,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 const props = defineProps({
-    posts: Array
+    posts: {
+    type: Array,
+    default: () => []
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const modules = [Navigation, A11y];

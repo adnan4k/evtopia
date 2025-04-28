@@ -23,9 +23,15 @@ export const useAuth = defineStore("authStore", {
     },
 
     actions: {
-        setToken(token) {
-            this.token = `Bearer ${token}`;
-        },
+        setToken(raw) {
+            if (raw) {
+              this.token = raw.startsWith('Bearer ') ? raw : `Bearer ${raw}`
+              axios.defaults.headers.common.Authorization = this.token
+            } else {
+              delete axios.defaults.headers.common.Authorization
+              this.token = null
+            }
+          },
         setUser(user) {
             this.user = user;
         },
@@ -82,12 +88,15 @@ export const useAuth = defineStore("authStore", {
 
             // add user id to the logout request
             const id = this.user?.id;
-            axios.get("/logout-user" + `/${id}` , {
+            if (!id) {
+                console.error("User ID is not available for logout.");
+                return;
+            }
+           axios.post("/logout-user" + `/${id}` , {
                 headers: {
                     Authorization: this.token,
                 },
-            })
-            .then((response) => {
+            }).then((response) => {
                 console.log(response);
                 this.user = null;
                 this.addresses = [];
@@ -95,6 +104,7 @@ export const useAuth = defineStore("authStore", {
             })
             .catch((error) => {
                 console.log(error);
+
                 this.user = null;
                 this.addresses = [];
                 this.token = null;

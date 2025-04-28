@@ -108,7 +108,7 @@
                             class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                             <div class="bg-white p-5 sm:p-8 text-center">
 
-                                <div class="bg-red-500 w-20 h-20 rounded-full mx-auto flex justify-center items-center">
+                                <div class="bg-primary w-20 h-20 rounded-full mx-auto flex justify-center items-center">
                                     <img :src="'/assets/icons/logoutWhite.svg'" alt="icon" loading="lazy" />
                                 </div>
 
@@ -118,7 +118,7 @@
 
                                 <div
                                     class="mt-4 text-center text-slate-700 text-xl font-normal font-['Roboto'] leading-7">
-                                    {{ $t('logout_confirmation') }}
+                                    {{ $t('Are you sure want to log out ?') }}
                                 </div>
 
                                 <div class="flex justify-between items-center gap-4 mt-8">
@@ -127,7 +127,7 @@
                                         @click="logoutModal = false">{{ $t('Cancel') }}</button>
 
                                     <button
-                                        class="text-white grow bg-red-500 text-base font-medium px-6 py-4 rounded-[10px]"
+                                        class="text-white grow bg-primary text-base font-medium px-6 py-4 rounded-[10px]"
                                         @click="logout">{{ $t('Yes') }}</button>
                                 </div>
 

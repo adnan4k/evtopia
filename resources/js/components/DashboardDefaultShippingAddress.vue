@@ -2,7 +2,7 @@
     <div class="bg-white rounded-xl p-6">
 
         <div class="pb-3 text-slate-950 text-lg font-medium leading-normal tracking-tight">
-            {{ $t('Default Shipping Address') }}
+            {{ $t('Default Address') }}
         </div>
 
         <div class="border-t border-slate-200">

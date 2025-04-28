@@ -7,11 +7,30 @@
                 <ArrowRightIcon class="w-5 h-5 text-[#343a40]" />
             </router-link>
         </div>
-        <div class="mt-8 ">
-            <swiper :navigation="true" :modules="modules" :breakpoints="breakpoints" class="recentlyViewed" :loop="true">
-                <swiper-slide  v-for="product in products" :key="product.id">
-                    <ProductCard :product="product"/>
-                </swiper-slide>
+
+
+        <div class="mt-8">
+            <swiper
+            :navigation="true"
+            :modules="modules"
+            :breakpoints="breakpoints"
+            class="recentlyViewed"
+            :loop="!loading"
+            >
+            <!-- Shimmer slides when loading -->
+            <swiper-slide v-if="loading" v-for="i in 6" :key="`shimmer-${i}`">
+                <div class="bg-white shadow-md rounded-lg p-4 animate-pulse">
+                <div class="h-60 bg-gray-200 rounded"></div>
+                <div class="mt-4 h-8 bg-gray-200 rounded"></div>
+                <div class="mt-2 h-8 bg-gray-200 rounded"></div>
+                <div class="mt-2 h-8 w-3/4 bg-gray-200 rounded"></div>
+                </div>
+            </swiper-slide>
+
+            <!-- Real slides once data is loaded -->
+            <swiper-slide v-else v-for="product in products" :key="product.id">
+                <ProductCard :product="product" />
+            </swiper-slide>
             </swiper>
         </div>
     </div>
@@ -27,10 +46,15 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 const props = defineProps({
-    products: Array
+    products: {
+    type: Array,
+        default: () => []
+    },
+    loading: {
+        type: Boolean,
+        default: false
+  }
 })
-
-
 
 const modules = [Navigation, A11y];
 const breakpoints = {

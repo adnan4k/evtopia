@@ -16,7 +16,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id'];
+    protected $guarded = [];
 
     /**
      * Retrieve the shop that this model belongs to.
@@ -26,6 +26,20 @@ class Product extends Model
     public function shop(): BelongsTo
     {
         return $this->belongsTo(Shop::class);
+    }
+
+    public function pdfFiles()
+    {
+        return $this->morphToMany(Media::class, 'mediable');
+    }
+
+    protected function pdfFile(): Attribute
+    {
+        return new Attribute(
+            get: fn () => optional($this->customPdfMedia)->src
+                         ? Storage::url($this->customPdfMedia->src)
+                         : null
+        );
     }
 
     /**
@@ -50,6 +64,11 @@ class Product extends Model
     public function media(): BelongsTo
     {
         return $this->belongsTo(Media::class);
+    }
+
+    public function customPdfMedia(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'custom_file_media_id', 'id');
     }
 
     /**
@@ -234,5 +253,16 @@ class Product extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+
+    public function visits()
+    {
+        return $this->hasMany(ProductVisit::class);
+    }
+
+    public function getUniqueVisitorCountAttribute()
+    {
+        return $this->visits()->count();
     }
 }

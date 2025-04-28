@@ -141,9 +141,9 @@
 
 
                     <div class="col-lg-4 col-md-6  mt-3 ">
-                        <x-select label="Select Drive Train" name="drive_train" placeholder="Select Drive Train">
+                        <x-select label="Select Power Train" name="drive_train" placeholder="Select Power Train">
                             <option value="">
-                                {{ __('Select Drive Train') }}
+                                {{ __('Select Power Train') }}
                             </option>
                             @foreach ($driveTrains as $driveTrain)
                                 <option value="{{ $driveTrain->id }}"
@@ -194,6 +194,60 @@
                         @enderror
                     </div>
 
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Driving Range ( Miles )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" id="driving_range" name="driving_range" placeholder="Ex: 100" class="form-control"
+                            value="{{ $product->driving_range }}"
+                            />
+                        @error('driving_range')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Battery Capacity ( KWh )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" id="battery_capacity" name="battery_capacity" placeholder="Ex: 100" class="form-control"
+                            value="{{ $product->battery_capacity }}"
+                            />
+                        @error('battery_capacity')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Peak Power ( KW )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" id="peak_power" name="peak_power" placeholder="Ex: 100" class="form-control"
+                            value="{{ $product->peak_power }}"
+                            />
+                        @error('peak_power')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Acceleration Time ( seconds )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input type="number" id="acceleration_time" name="acceleration_time" step="0.1" placeholder="Ex: 4.5" class="form-control"
+                            value="{{ $product->acceleration_time }}"
+                            />
+                        @error('acceleration_time')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+                   
                     <div class="col-lg-4 col-md-6  mt-3 ">
                         <label class="form-label">
                             {{ __('Model') }}
@@ -301,45 +355,56 @@
             </div>
         </div>
 
-        <!--######## Price Information ##########-->
-        <div class="card mt-4 mb-4">
-            <div class="card-body">
+     <!--######## Price Information ##########-->
+<div class="card mt-4 mb-4">
+    <div class="card-body">
+        <div class="d-flex gap-2 border-bottom pb-2">
+            <i class="fa-solid fa-user"></i>
+            <h5>
+                {{ __('Price Information') }}
+            </h5>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-3 col-md-6">
+                <x-input type="text" name="buy_price" label="Buying Price" placeholder="Buying Price"
+                    required="true" onlyNumber="true" :value="$product->buy_price" />
+            </div>
 
-                <div class="d-flex gap-2 border-bottom pb-2">
-                    <i class="fa-solid fa-user"></i>
-                    <h5>
-                        {{ __('Price Information') }}
-                    </h5>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-lg-3 col-md-6">
-                        <x-input type="text" name="buy_price" label="Buying Price" placeholder="Buying Price"
-                            required="true" onlyNumber="true" :value="$product->buy_price" />
+            <div class="col-lg-3 col-md-6">
+                <x-input type="text" name="price" label="Selling Price" placeholder="Selling Price"
+                    required="true" onlyNumber="true" :value="$product->price" />
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-3 mt-md-0">
+                <x-input type="text" name="discount_price" label="Discount Price"
+                    placeholder="Discount Price" onlyNumber="true" :value="$product->discount_price" />
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-3 mt-lg-0">
+                <x-input type="text" name="quantity" label="Current Stock Quantity"
+                    placeholder="Current Stock Quantity" onlyNumber="true" required="true" :value="$product->quantity" />
+            </div>
+
+            <div class="col-lg-3 col-md-6 mt-3">
+                <x-input type="text" onlyNumber="true" name="min_order_quantity"
+                    label="Minimum Order Quantity" placeholder="Minimum Order Quantity" :value="$product->min_order_quantity" />
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mt-3">
+                <label for="custom_file_media_id" class="form-label">File</label>
+                <input type="file" class="form-control" name="pdf_file" id="custom_file_media_id">
+                @if($product->pdf_file)
+                    <div class="mt-2">
+                        <a href="{{ $product->pdf_file }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                            <i class="fa fa-file-pdf"></i> View Current File
+                        </a>
+                        
                     </div>
-
-                    <div class="col-lg-3 col-md-6">
-                        <x-input type="text" name="price" label="Selling Price" placeholder="Selling Price"
-                            required="true" onlyNumber="true" :value="$product->price" />
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 mt-3 mt-md-0">
-                        <x-input type="text" name="discount_price" label="Discount Price"
-                            placeholder="Discount Price" onlyNumber="true" :value="$product->discount_price" />
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 mt-3 mt-lg-0">
-                        <x-input type="text" name="quantity" label="Current Stock Quantity"
-                            placeholder="Current Stock Quantity" onlyNumber="true" required="true" :value="$product->quantity" />
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 mt-3">
-                        <x-input type="text" onlyNumber="true" name="min_order_quantity"
-                            label="Minimum Order Quantity" placeholder="Minimum Order Quantity" :value="$product->min_order_quantity" />
-                    </div>
-
-                </div>
+                @endif
             </div>
         </div>
+    </div>
+</div>
 
         <!--######## Thumbnail Information ##########-->
         <div class="row mb-3">

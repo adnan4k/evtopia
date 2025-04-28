@@ -7,77 +7,22 @@
         <div class="flex md:flex-row  px-4 flex-col items-center justify-between gap-8 ">
         
         
-            <!-- <div class="md:w-1/ w-full items-center">
-                <h2 class="text-2xl font-bold ">
-                    EV 
-                    <span class="">Guides, Tips & Resource</span>
-
-                </h2>
-              
-                <p class="  pt-5">
-                    The EV Knowledge Center serves as a comprehensive resource for buyers, 
-                    sellers, and dealers in the electric vehicle industry,
-                    offering practical guides such as “How to Choose the Best Charger,”
-                    selling tips for accessories, and strategies for expanding dealer networks.
-                    It features technical how-tos, comparisons of EV models, and accessory compatibility charts,
-                    ensuring users have access to valuable insights tailored to their needs.
-                        Enhancing user experience, the platform can include downloadable PDFs 
-                        and quick videos for easy reference, along with AI-driven recommendations based on user activity, 
-                    making it an indispensable tool for navigating the evolving EV landscape.               
-                </p>
-                    
-                <div class="w-full flex items-center justify-start mr-16 mt-3">
-                    <router-link :to="`/knowledge-center`" 
-                        class=" flex items-center justify-center py-3
-                        transition duration-300 rounded-[10px] text-white px-3  
-                        bg-primary-700 
-                        hover:text-primary-200
-                        hover:bg-primary-900
-                        font-medium">
-                        <div class="text-base font-normal leading-tight">{{ $t('Explore') }}</div>
-                        <ArrowRightIcon class="w-5 h-5 ml-0.5" />
-                    </router-link>
-                </div>
-            </div> -->
             <div class=" w-full items-center">
                     <div v-if="props?.knowledge_hubs?.length > 0"  >
-                        <!-- <div class="mt-4">
-                            <swiper :navigation="true" :modules="modules" :breakpoints="breakpoints"  :loop="false">
-                                <swiper-slide v-for="post in knowledge_hubs" :key="post.id">
-                                    <div class="w-full  rounded-xl overflow-hidden  border border-slate-100 hover:border-primary transition-all duration-300">
-                                        <div class="h-64 md:h-96 w-full relative">
-                                            <div class="absolute inset-0 bg-black/50 flex items-center justify-center ">
-                                                <router-link 
-                                                    :to="`/knowledge-center/${post?.slug}`" 
-                                                    class="text-primary-50 text-[14px]   md:text-3xl font-[roboto] font-bold leading-normal px-16"
-                                                >
-                                                    {{ post?.title.length > 80 ? post.title.slice(0, 80) + '...' : post.title }}
-                                                </router-link>
-                                                <router-link 
-                                                    :to="`/knowledge-center/${post?.slug}`" 
-                                                    class="absolute bottom-3 right-3 bg-primary-700 text-white text-sm font-medium py-2 px-3 rounded-md hover:bg-primary-900"
-                                                >
-                                                    {{ $t('Read More ...') }}
-                                                </router-link>
-
-                                                
-                                            </div>
-                                            
-                                            <img 
-                                                class="w-full h-full object-cover group-hover:scale-105 transition duration-300" 
-                                                :src="post?.banner" 
-                                                alt="banner" 
-                                                loading="lazy" 
-                                            />
-                                        </div>
-                                    </div>
-                                </swiper-slide>
-                            </swiper>
-                        </div> -->
-
+                       
                         <div class="mt-4">
+
                          <swiper :navigation="true" :modules="modules" :breakpoints="breakpoints" class="recentlyViewed" :loop="false">
-                            <swiper-slide v-for="hub in knowledge_hubs" :key="hub.id">
+                            <!-- Shimmer slides when loading -->
+                            <swiper-slide v-if="loading" v-for="i in 6" :key="`shimmer-${i}`">
+                                <div class="bg-white shadow-md rounded-lg p-4 animate-pulse">
+                                    <div class="h-60 bg-gray-200 rounded"></div>
+                                    <div class="mt-4 h-8 bg-gray-200 rounded"></div>
+                                    <div class="mt-2 h-8 bg-gray-200 rounded"></div>
+                                    <div class="mt-2 h-8 w-3/4 bg-gray-200 rounded"></div>
+                                </div>
+                            </swiper-slide>
+                            <swiper-slide v-else v-for="hub in knowledge_hubs" :key="hub.id">
                                 <!-- <BlogCard :post="hub" /> -->
 
                                  <div class="w-full group rounded-xl overflow-hidden px-1 border border-slate-100 hover:border-primary transition-all duration-300">
@@ -128,7 +73,14 @@ import { ArrowRightIcon } from '@heroicons/vue/24/outline';
 import 'swiper/css';
 import 'swiper/css/navigation';
 const props = defineProps({
-    knowledge_hubs: Array
+    knowledge_hubs: {
+    type: Array,
+    default: () => []
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  }
 });
 
 console.log("KH : ", props?.knowledge_hubs)

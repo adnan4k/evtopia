@@ -126,9 +126,9 @@
 
 
                     <div class="col-lg-4 col-md-6  mt-3 ">
-                        <x-select label="Select Drive Train" name="drive_train" placeholder="Select Drive Train">
+                        <x-select label="Select Power Train" name="drive_train" placeholder="Select Power Train">
                             <option value="">
-                                {{ __('Select Drive Train') }}
+                                {{ __('Select Power Train') }}
                             </option>
                             @foreach ($driveTrains as $driveTrain)
                                 <option value="{{ $driveTrain->id }}">{{ $driveTrain->name }}</option>
@@ -176,6 +176,64 @@
                     </div>
 
 
+
+                    {{-- 'driving_range' => $this->driving_range ?? null,
+                    'battery_capacity' => $this->battery_capacity ?? null,
+                    'peak_power' => $this->peak_power ?? null,
+                    'acceleration_time' => $this->acceleration_time ?? null, --}}
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Driving Range ( Miles )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" id="driving_range" name="driving_range" placeholder="Ex: 100" class="form-control"
+                            value="{{ old('driving_range') }}"
+                            />
+                        @error('driving_range')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Battery Capacity ( KWh )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" id="battery_capacity" name="battery_capacity" placeholder="Ex: 100" class="form-control"
+                            value="{{ old('battery_capacity') }}"
+                            />
+                        @error('battery_capacity')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Peak Power ( KW )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="number" id="peak_power" name="peak_power" placeholder="Ex: 100" class="form-control"
+                            value="{{ old('peak_power') }}"
+                            />
+                        @error('peak_power')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-6  mt-3 ">
+                        <label class="form-label">
+                            {{ __('Acceleration Time ( seconds )') }}
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input type="number" id="acceleration_time" name="acceleration_time" placeholder="Ex: 100" step="0.1" class="form-control"
+                            value="{{ old('acceleration_time') }}"
+                            />
+                        @error('acceleration_time')
+                            <p class="text text-danger m-0">{{ $message }}</p>
+                        @enderror
+                    </div>
                     
                     <div class="col-lg-4 col-md-6  mt-3 ">
                         <label class="form-label">
@@ -298,8 +356,14 @@
 
                     <div class="col-lg-3 col-md-6 mt-3 mt-lg-0">
                         <x-input type="text" onlyNumber="true" name="min_order_quantity"
-                            label="Minimum Order Quantity" placeholder="Minimum Order Quantity" value="1"/>
+                            label="Minimum Order Quantity" placeholder="Minimum Order Quanti" value="1"/>
                     </div>
+                    
+                    <div class="col-lg-3 col-md-6 mt-3 mt-lg-0">
+                        <label for="custom_file_media_id" class="form-label">File</label>
+                        <input type="file" class="form-control" name="pdf_file" id="custom_file_media_id">
+                    </div>
+                    
 
                 </div>
             </div>

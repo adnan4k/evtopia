@@ -4,33 +4,46 @@
         <!-- <div class="text-slate-800 text-lg md:text-3xl font-bold leading-9">{{ $t('Just For You') }}</div> -->
 
         <!-- Products -->
-        <div v-if="products"
-            class="mt-4 md:mt-8 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 xxl:grid-cols-4   gap-3 md:gap-6 items-start">
-            <div v-for="product in products" :key="product.id" class="w-full">
-                <ProductCard :product="product" />
+        <div v-if="loading" class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xxl:grid-cols-4 gap-3 md:gap-6 items-start">
+            <div v-for="i in 12" :key="`skeleton-${i}`" class="w-full">
+                <div class="bg-white shadow-md rounded-lg p-4 animate-pulse">
+                    <div class="h-60 bg-gray-200 rounded"></div>
+                    <div class="mt-4 h-8 bg-gray-200 rounded"></div>
+                    <div class="mt-2 h-8 bg-gray-200 rounded"></div>
+                    <div class="mt-2 h-8 w-3/4 bg-gray-200 rounded"></div>
+                </div>
             </div>
         </div>
+        <div v-else>
+            <div v-if="products"
+                class="mt-4 md:mt-8 grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 xxl:grid-cols-4   gap-3 md:gap-6 items-start">
+                <div v-for="product in products" :key="product.id" class="w-full">
+                    <ProductCard :product="product" />
+                </div>
+            </div>
+    
+            <!-- Load More Products -->
+            <div class="mt-4 md:mt-8 w-full flex justify-center">
+                <button v-if="hasMoreProducts && !loadMore"
+                    class="md:w-[448px] px-6 py-2 md:py-4 rounded-[10px] border border-primary text-primary text-base font-medium leading-normal"
+                    @click="loadMoreProducts()">
+                    <span>{{ 'Load More Products' }}</span>
+                </button>
+    
+                <button v-if="loadMore"
+                    class="md:w-[448px] px-6 py-2 md:py-4 rounded-[10px] border border-primary-200 text-primary flex items-center justify-center cursor-not-allowed"
+                    disabled>
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
+                    {{ 'Loading products' }}...
+                </button>
+            </div>
 
-        <!-- Load More Products -->
-        <div class="mt-4 md:mt-8 w-full flex justify-center">
-            <button v-if="hasMoreProducts && !loadMore"
-                class="md:w-[448px] px-6 py-2 md:py-4 rounded-[10px] border border-primary text-primary text-base font-medium leading-normal"
-                @click="loadMoreProducts()">
-                <span>{{ 'Load More Products' }}</span>
-            </button>
-
-            <button v-if="loadMore"
-                class="md:w-[448px] px-6 py-2 md:py-4 rounded-[10px] border border-primary-200 text-primary flex items-center justify-center cursor-not-allowed"
-                disabled>
-                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                    </path>
-                </svg>
-                {{ 'Loading products' }}...
-            </button>
         </div>
 
     </div>
@@ -44,7 +57,14 @@ import { useAuth } from '../stores/AuthStore';
 const authStore = useAuth();
 
 const props = defineProps({
-    justForYou: Object
+    justForYou: {
+        type: Object,
+        default: () => ({ products: [], total: 0 })
+    },
+    loading: {
+        type: Boolean,
+        default: false
+  }
 });
 
 console.log("Props : ",props?.justForYou);
@@ -75,6 +95,7 @@ const loadMoreProducts = () => {
             hasMoreProducts.value = false;
         }
         loadMore.value = false
+        console.log(products,'products')
     }).catch((error) => {
         loadMore.value = false
         console.log(error);

@@ -1,234 +1,287 @@
 <template>
     <div class="main-container">
 
-        <div class="grid grid-cols-1 xl:grid-cols-4">
-
-            <div class="xl:col-span-3 col-span-1 lg:pr-6">
-
-                <div class="flex items-center gap-2 overflow-hidden pt-4">
-                    <router-link to="/" class="w-6 h-6">
-                        <HomeIcon class="w-5 h-5 text-slate-600" />
-                    </router-link>
-
-                    <div class="grow w-full overflow-hidden">
-                        <div class="space-x-1 text-slate-600 text-sm font-normal truncate">
-                            <router-link to="/">{{ $t('Home') }}</router-link>
-                            <span>/</span>
-                            <span>{{ product.name }}</span>
-                        </div>
-                    </div>
+         <!-- shimmmer  -->
+            <div v-if="loading" class="space-y-6 animate-pulse py-8">
+                <!-- Breadcrumbs skeleton -->
+                <div class="flex items-center gap-2 pt-4">
+                    <div class="w-6 h-6 bg-slate-200 rounded"></div>
+                    <div class="flex-1 h-4 bg-slate-200 rounded"></div>
                 </div>
 
-                <div class="flex flex-wrap lg:flex-nowrap gap-4 mt-6">
-                    <div class="lg:w-[480px] w-full">
+                <!-- Hero slider skeleton -->
+                <div class="w-full h-96 bg-slate-200 rounded-xl"></div>
+                <div class="grid grid-cols-4 gap-2">
+                    <div v-for="i in 4" :key="i" class="h-24 bg-slate-200 rounded"></div>
+                </div>
 
-                        <div class="w-full">
-                            <div class="bg-slate-50 rounded-xl border border-slate-100 px-6">
-                                <swiper :spaceBetween="10" :thumbs="{ swiper: thumbsSwiper }" :modules="modules"
-                                    class="product-details-slider">
-                                    <swiper-slide v-for="thumbnail in product.thumbnails" :key="thumbnail.id"
-                                        class="max-h-[448px] h-auto">
-                                        <img :src="thumbnail.thumbnail" alt="" class="h-full w-full object-contain">
-                                    </swiper-slide>
-                                </swiper>
-                            </div>
-                            <div class="px-1 mt-2">
-                                <swiper @swiper="setThumbsSwiper" :spaceBetween="10" :slidesPerView="4" :freeMode="true"
-                                    :navigation="true" :watchSlidesProgress="true" :modules="modules"
-                                    class="product-details-thumbnail">
-                                    <swiper-slide v-for="thumbnail in product.thumbnails" :key="thumbnail.id">
-                                        <img :src="thumbnail.thumbnail" alt="" class="h-full w-full object-cover">
-                                    </swiper-slide>
-                                </swiper>
-                            </div>
+                <!-- Title & model skeleton -->
+                <div class="space-y-2 lg:pl-6">
+                    <div class="h-8 bg-slate-200 rounded w-1/2"></div>
+                    <div class="h-4 bg-slate-200 rounded w-1/4"></div>
+                </div>
 
-                        </div>
+                <!-- Short description skeleton -->
+                <div class="h-4 bg-slate-200 rounded w-full"></div>
+                <div class="h-4 bg-slate-200 rounded w-5/6"></div>
 
-                    </div>
+                <!-- Stats row skeleton (range, battery, year) -->
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div v-for="i in 3" :key="i" class="h-6 bg-slate-200 rounded"></div>
+                </div>
 
-                    <div class="">
-                        <div>
-                            <span
-                                v-for="(category, index) in product.categories || ['Uncategorized']"
-                                :key="index"
-                                class="text-primary text-xs font-normal leading-none px-1.5 py-1 bg-primary-50 rounded"
-                            >
-                                {{ category }}
-                            </span>
-                        </div>
-                        
-                    
+                <!-- Price & discount skeleton -->
+                <div class="flex items-center gap-4">
+                    <div class="h-10 bg-slate-200 rounded w-32"></div>
+                    <div class="h-6 bg-slate-200 rounded w-20"></div>
+                </div>
 
-                        <!-- Title -->
-                        <div class="mt-3 text-slate-950 text-2xl font-medium leading-normal">
-                            {{ product.name }}
-                        </div>
+                <!-- Action buttons skeleton -->
+                <div class="flex gap-4">
+                    <div class="h-10 bg-slate-200 rounded flex-1"></div>
+                    <div class="h-10 bg-slate-200 rounded flex-1"></div>
+                </div>
 
-                        <!-- Short Desciption -->
-                        <div class="mt-2 text-slate-700 text-base font-normal leading-normal">
-                            {{ product.short_description }}
-                        </div>
+                <!-- Related products heading skeleton -->
+                <div class="mt-6 h-6 bg-slate-200 rounded w-1/4"></div>
 
-                        <!-- Rating  review, sold and share -->
-                        <!-- <div class="py-5 flex flex-wrap justify-start items-center gap-4 border-b border-slate-200">
-
-                            <div class="w-[1px] h-4 bg-slate-200"></div>
-
-                            <div class="text-slate-800 text-base font-normal leading-normal">
-                                {{ product.total_sold }} {{ $t('Sold') }}
-                            </div>
-
-                            <div class="w-[1px] h-4 bg-slate-200"></div>
-                            <button class="border-none" @click="favoriteAddOrRemove">
-                                <HeartIcon v-if="!product.is_favorite" class="w-6 h-6 text-slate-600" />
-                                <HeartIconFill v-else class="w-6 h-6 text-red-500" />
-                            </button>
-                        </div> -->
-
-                        <!-- Price part -->
-                        <div class="flex items-center gap-3 py-4 border-b border-slate-200 flex-wrap">
-                            <!-- discount Price -->
-                            <div class="text-primary text-3xl font-bold leading-9">
-                                {{ masterStore.showCurrency(product.discount_price > 0 ? product.discount_price: product.price) }}
-                            </div>
-
-                            <!-- Price -->
-                            <div v-if="product.discount_price > 0"
-                                class="text-slate-400 text-2xl font-normal line-through leading-loose">
-                                {{ masterStore.showCurrency(product.price) }}
-                            </div>
-
-                            <!-- discount -->
-                            <div v-if="product.discount_percentage"
-                                class="px-2 py-1 bg-red-500 rounded-2xl text-white text-base font-medium">
-                                {{ product.discount_percentage }}% {{ $t('OFF') }}
-                            </div>
-                        </div>
-
-
-                    
-
-                        <div class="flex flex-wrap gap-4">
-                            <!-- Quantity Increase Or Decrease -->
-                        <button v-if="cartService"
-                            disabled
-                            class="grow max-w-56 justify-center items-center text-black flex gap-2  px-6 py-4 rounded-[10px] border border-black"
-                            >
-                            <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5">
-                            <div class="text-base font-medium leading-normal" >
-                                {{ $t('Added to Cart') }}
-                            </div>
-                        </button>
-
-                            <!-- Add to Cart -->
-                            <button v-if="!cartService"
-                                class="grow max-w-56 justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
-                                @click="addToCart">
-                                <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5">
-                                <div class="text-base font-medium leading-normal">
-                                    {{ $t('Add to Cart') }}
+                <!-- Related products grid skeleton -->
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-3">
+                    <div v-for="i in 5" :key="i" class="h-48 bg-slate-200 rounded"></div>
+                </div>
+            </div>
+            <div v-else> 
+                <div class="grid grid-cols-1 xl:grid-cols-4">
+        
+        
+                    <div class="xl:col-span-3 col-span-1 lg:pr-6">
+        
+                        <div class="flex items-center gap-2 overflow-hidden pt-4">
+                            <router-link to="/" class="w-6 h-6">
+                                <HomeIcon class="w-5 h-5 text-slate-600" />
+                            </router-link>
+        
+                            <div class="grow w-full overflow-hidden">
+                                <div class="space-x-1 text-slate-600 text-sm font-normal truncate">
+                                    <router-link to="/">{{ $t('Home') }}</router-link>
+                                    <span>/</span>
+                                    <span>{{ product.name }}</span>
                                 </div>
+                            </div>
+                        </div>
+        
+                        <div class="flex flex-wrap lg:flex-nowrap gap-4 mt-6">
+                            <div class="lg:w-[480px] w-full">
+        
+                                <div class="w-full">
+                                    <div class="bg-slate-50 rounded-xl border border-slate-100 px-6">
+                                        <swiper :spaceBetween="10" :thumbs="{ swiper: thumbsSwiper }" :modules="modules"
+                                            class="product-details-slider">
+                                            <swiper-slide v-for="thumbnail in product.thumbnails" :key="thumbnail.id"
+                                                class="max-h-[448px] h-auto">
+                                                <img :src="thumbnail.thumbnail" alt="" class="h-full w-full object-contain">
+                                            </swiper-slide>
+                                        </swiper>
+                                    </div>
+                                    <div class="px-1 mt-2">
+                                        <swiper @swiper="setThumbsSwiper" :spaceBetween="10" :slidesPerView="4" :freeMode="true"
+                                            :navigation="true" :watchSlidesProgress="true" :modules="modules"
+                                            class="product-details-thumbnail">
+                                            <swiper-slide v-for="thumbnail in product.thumbnails" :key="thumbnail.id">
+                                                <img :src="thumbnail.thumbnail" alt="" class="h-full w-full object-cover">
+                                            </swiper-slide>
+                                        </swiper>
+                                    </div>
+        
+                                </div>
+        
+                            </div>
+        
+                            <div class="">
+                                <div>
+                                    <span
+                                        v-for="(category, index) in product.categories || ['Uncategorized']"
+                                        :key="index"
+                                        class="text-primary text-xs font-normal leading-none px-1.5 py-1 bg-primary-50 rounded"
+                                    >
+                                        {{ category }}
+                                    </span>
+                                </div>
+                                
+                            
+        
+                                <!-- Title -->
+                                <div class="mt-3 text-slate-950 text-2xl font-medium leading-normal">
+                                    {{ product.name }}
+                                </div>
+        
+                                <!-- Short Desciption -->
+                                <div class="mt-2 text-slate-700 text-base font-normal leading-normal">
+                                    {{ product.short_description }}
+                                </div>
+        
+                                <!-- Rating  review, sold and share -->
+                                <!-- <div class="py-5 flex flex-wrap justify-start items-center gap-4 border-b border-slate-200">
+        
+                                    <div class="w-[1px] h-4 bg-slate-200"></div>
+        
+                                    <div class="text-slate-800 text-base font-normal leading-normal">
+                                        {{ product.total_sold }} {{ $t('Sold') }}
+                                    </div>
+        
+                                    <div class="w-[1px] h-4 bg-slate-200"></div>
+                                    <button class="border-none" @click="favoriteAddOrRemove">
+                                        <HeartIcon v-if="!product.is_favorite" class="w-6 h-6 text-slate-600" />
+                                        <HeartIconFill v-else class="w-6 h-6 text-red-500" />
+                                    </button>
+                                </div> -->
+        
+                                <!-- Price part -->
+                                <div class="flex items-center gap-3 py-4 border-b border-slate-200 flex-wrap">
+                                    <!-- discount Price -->
+                                    <div class="text-primary text-3xl font-bold leading-9">
+                                        {{ masterStore.showCurrency(product.discount_price > 0 ? product.discount_price: product.price) }}
+                                    </div>
+        
+                                    <!-- Price -->
+                                    <div v-if="product.discount_price > 0"
+                                        class="text-slate-400 text-2xl font-normal line-through leading-loose">
+                                        {{ masterStore.showCurrency(product.price) }}
+                                    </div>
+        
+                                    <!-- discount -->
+                                    <div v-if="product.discount_percentage"
+                                        class="px-2 py-1 bg-red-500 rounded-2xl text-white text-base font-medium">
+                                        {{ product.discount_percentage }}% {{ $t('OFF') }}
+                                    </div>
+                                </div>
+        
+        
+                            
+        
+                                <div class="flex flex-wrap gap-4">
+                                    <!-- Quantity Increase Or Decrease -->
+                                <button v-if="cartService"
+                                    disabled
+                                    class="grow max-w-56 justify-center items-center text-black flex gap-2  px-6 py-4 rounded-[10px] border border-black"
+                                    >
+                                    <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5">
+                                    <div class="text-base font-medium leading-normal" >
+                                        {{ $t('Added to Cart') }}
+                                    </div>
+                                </button>
+        
+                                    <!-- Add to Cart -->
+                                    <button v-if="!cartService"
+                                        class="grow max-w-56 justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
+                                        @click="addToCart">
+                                        <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5">
+                                        <div class="text-base font-medium leading-normal">
+                                            {{ $t('Add to Cart') }}
+                                        </div>
+                                    </button>
+        
+                            
+        
+                                    <!-- Buy Now -->
+                                    <!-- <button
+                                        class="grow text-white bg-primary px-6 py-4 rounded-[10px] border border-primary max-w-[50%]"
+                                        @click="buyNow">
+                                        <span class="text-base font-medium leading-normal">
+                                            {{ $t('Order Now') }}
+                                        </span>
+                                    </button> -->
+                                </div>
+        
+                            </div>
+                        </div>
+        
+                        <div class="block xl:hidden w-full pt-6 border-slate-200">
+                            <ServiceDetailsRightSide :product="product" :serviceProducts="popularServices" />
+                        </div>
+        
+                        <div class="flex items-center gap-8 flex-wrap border-b mt-3 mb-4 xl:my-6">
+        
+                            <button class="py-3 transition text-base font-medium leading-normal border-b"
+                                :class="aboutService ? 'text-primary border-primary' : 'text-slate-600 border-transparent'"
+                                @click="aboutService = true; review = false">
+                                {{ $t('About Service') }}
                             </button>
-
-                    
-
-                            <!-- Buy Now -->
-                            <!-- <button
-                                class="grow text-white bg-primary px-6 py-4 rounded-[10px] border border-primary max-w-[50%]"
-                                @click="buyNow">
-                                <span class="text-base font-medium leading-normal">
-                                    {{ $t('Order Now') }}
-                                </span>
+        <!-- 
+                            <button class="py-3 transition text-base font-medium leading-normal border-b"
+                                :class="review ? 'text-primary border-primary' : 'text-slate-600 border-transparent'"
+                                @click="showReview()">
+                                {{ $t('Reviews') }}
                             </button> -->
                         </div>
-
-                    </div>
-                </div>
-
-                <div class="block xl:hidden w-full pt-6 border-slate-200">
-                    <ServiceDetailsRightSide :product="product" :serviceProducts="popularServices" />
-                </div>
-
-                <div class="flex items-center gap-8 flex-wrap border-b mt-3 mb-4 xl:my-6">
-
-                    <button class="py-3 transition text-base font-medium leading-normal border-b"
-                        :class="aboutService ? 'text-primary border-primary' : 'text-slate-600 border-transparent'"
-                        @click="aboutService = true; review = false">
-                        {{ $t('About Service') }}
-                    </button>
-<!-- 
-                    <button class="py-3 transition text-base font-medium leading-normal border-b"
-                        :class="review ? 'text-primary border-primary' : 'text-slate-600 border-transparent'"
-                        @click="showReview()">
-                        {{ $t('Reviews') }}
-                    </button> -->
-                </div>
-
-                <!-- About Product -->
-                <div v-if="aboutService" class="">
-                    <div v-html="product.description"></div>
-                </div>
-
-                <!-- Reviews -->
-                <div v-if="review" class="">
-                    <div class="text-slate-950 text-lg lg:text-2xl font-medium leading-loose mb-4">
-                        {{ $t('Rating and Review') }}
-                    </div>
-
-                    <!-- Review Rating percentage -->
-                    <div class="max-w-2xl">
-                        <ReviewRatings :reviewRatings="avarageRatings.percentages"
-                            :avarageRating="avarageRatings?.rating" :totalReview="avarageRatings.total_review" />
-                    </div>
-
-                    <!-- Reviews -->
-                    <div class="border-t border-slate-200 mt-6">
-                        <div class="mt-4 lg:mt-6 text-slate-950 text-lg lg:text-2xl font-medium leading-loose">
-                            {{ $t('Reviews') }}
+        
+                        <!-- About Product -->
+                        <div v-if="aboutService" class="">
+                            <div v-html="product.description"></div>
                         </div>
-
-                        <div class="space-y-6 mt-6">
-                            <Review v-for="review in reviews" :key="review.id" :review="review" />
-                        </div>
-
-                        <!-- paginations -->
-                        <div class="flex justify-between items-center w-full mt-8  gap-4 flex-wrap">
-                            <div class="text-slate-800 text-base font-normal leading-normal">
-                                {{ $t('Showing') }} {{ perPage * (currentPage - 1) + 1 }} {{ $t('to') }} {{ perPage * (currentPage - 1) +
-                                    reviews.length }} {{ $t('of') }} {{ totalReviews }} {{ $t('results') }}
+        
+                        <!-- Reviews -->
+                        <div v-if="review" class="">
+                            <div class="text-slate-950 text-lg lg:text-2xl font-medium leading-loose mb-4">
+                                {{ $t('Rating and Review') }}
                             </div>
-                            <div>
-                                <vue-awesome-paginate :total-items="totalReviews" :items-per-page="perPage"
-                                    type="button" :max-pages-shown="3" v-model="currentPage"
-                                    :hide-prev-next-when-ends="true"
-                                    @click="onClickHandler" />
+        
+                            <!-- Review Rating percentage -->
+                            <div class="max-w-2xl">
+                                <ReviewRatings :reviewRatings="avarageRatings.percentages"
+                                    :avarageRating="avarageRatings?.rating" :totalReview="avarageRatings.total_review" />
                             </div>
+        
+                            <!-- Reviews -->
+                            <div class="border-t border-slate-200 mt-6">
+                                <div class="mt-4 lg:mt-6 text-slate-950 text-lg lg:text-2xl font-medium leading-loose">
+                                    {{ $t('Reviews') }}
+                                </div>
+        
+                                <div class="space-y-6 mt-6">
+                                    <Review v-for="review in reviews" :key="review.id" :review="review" />
+                                </div>
+        
+                                <!-- paginations -->
+                                <div class="flex justify-between items-center w-full mt-8  gap-4 flex-wrap">
+                                    <div class="text-slate-800 text-base font-normal leading-normal">
+                                        {{ $t('Showing') }} {{ perPage * (currentPage - 1) + 1 }} {{ $t('to') }} {{ perPage * (currentPage - 1) +
+                                            reviews.length }} {{ $t('of') }} {{ totalReviews }} {{ $t('results') }}
+                                    </div>
+                                    <div>
+                                        <vue-awesome-paginate :total-items="totalReviews" :items-per-page="perPage"
+                                            type="button" :max-pages-shown="3" v-model="currentPage"
+                                            :hide-prev-next-when-ends="true"
+                                            @click="onClickHandler" />
+                                    </div>
+                                </div>
+        
+                            </div>
+        
                         </div>
-
+        
                     </div>
-
+        
+                    <!-- Right side -->
+                    <div
+                        class="hidden xl:block col-span-1 w-full pt-6 h-full xl:pt-6 xl:pl-8 xl:border-l border-slate-200 xl:pb-6">
+                        <ServiceDetailsRightSide :product="product" :serviceProducts="popularServices" />
+                    </div>
+        
+                </div>
+        
+                <!-- Similar Products -->
+                <div class="mt-4 xl:mt-6 text-slate-800 text-lg md:text-2xl lg:text-3xl font-bold leading-9">
+                    {{ $t('Similar Services') }}
+                </div>
+        
+                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5  gap-3 sm:gap-6 items-start my-6">
+                    <div v-for="product in relatedServices" :key="product.id">
+                        <ServiceCard :product="product" />
+                    </div>
                 </div>
 
             </div>
-
-            <!-- Right side -->
-            <div
-                class="hidden xl:block col-span-1 w-full pt-6 h-full xl:pt-6 xl:pl-8 xl:border-l border-slate-200 xl:pb-6">
-                <ServiceDetailsRightSide :product="product" :serviceProducts="popularServices" />
-            </div>
-
-        </div>
-
-        <!-- Similar Products -->
-        <div class="mt-4 xl:mt-6 text-slate-800 text-lg md:text-2xl lg:text-3xl font-bold leading-9">
-            {{ $t('Similar Services') }}
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5  gap-3 sm:gap-6 items-start my-6">
-            <div v-for="product in relatedServices" :key="product.id">
-                <ServiceCard :product="product" />
-            </div>
-        </div>
 
 
     </div>
@@ -270,6 +323,7 @@ import { useToast } from 'vue-toastification';
 const toast = useToast();
 
 const thumbsSwiper = ref(null);
+const loading = ref(true);
 
 const modules = [FreeMode, Navigation, Thumbs];
 
@@ -415,6 +469,8 @@ const favoriteAddOrRemove = () => {
         authStore.fetchFavoriteProducts();
     }).catch((error) => {
         console.log(error);
+    }).finally(() => {
+        loading.value = false;
     });
 }
 
@@ -437,7 +493,11 @@ const fetchServiceDetails = async () => {
         popularServices.value = response.data.data.popular_products;
 
         findServiceInCart(route.params.id);
-    })
+    }).catch((error) => {
+        console.error('Error fetching service details:', error);
+    }).finally(() => {
+        loading.value = false;
+    });
 };
 
 const avarageRatings = ref({});

@@ -24,7 +24,8 @@
                                     </div>
                                     <!-- end close button -->
 
-                                    <div class="text-slate-950 text-lg sm:text-2xl font-medium leading-loose">{{ $t('Welcome') }}!
+                                    <div class="text-slate-950 text-lg sm:text-2xl font-medium leading-loose">{{
+                                        $t('Welcome') }}!
                                     </div>
 
                                     <div class="text-slate-950 text-lg font-normal leading-7 tracking-tight mt-3">
@@ -33,29 +34,33 @@
 
                                     <!-- Phone Number -->
                                     <div class="mt-8">
-                                        <label
-                                            class="text-slate-700 text-base font-normal leading-normal mb-2 block">
+                                        <label class="text-slate-700 text-base font-normal leading-normal mb-2 block">
                                             {{ $t('Email / Phone Number') }}
                                         </label>
 
-                                        <input type="text" v-model="loginFormData.phone"
+                                        <input type="text" name="login_username" v-model="loginFormData.phone"
                                             :placeholder="$t('Enter email or phone number')"
                                             class="text-base font-normal w-full p-3 placeholder:text-slate-400 rounded-lg border  focus:border-primary outline-none"
-                                            :class="errors && errors?.phone ? 'border-red-500' : 'border-slate-200'">
+                                            :class="errors && errors?.phone ? 'border-red-500' : 'border-slate-200'"
+                                            autocomplete="off" autocorrect="off" autocapitalize="off"
+                                            spellcheck="false" />
+
                                         <span v-if="errors && errors?.phone" class="text-red-500 text-sm">{{
                                             errors?.phone[0] }}</span>
                                     </div>
 
                                     <!-- Password -->
                                     <div class="mt-4">
-                                        <label
-                                            class="text-slate-700 text-base font-normal leading-normal mb-2 block">{{ $t('Password') }}</label>
+                                        <label class="text-slate-700 text-base font-normal leading-normal mb-2 block">{{
+                                            $t('Password') }}</label>
 
                                         <div class="relative">
-                                            <input :type="showLoginPassword ? 'text' : 'password'"
+                                            <input :type="showLoginPassword ? 'text' : 'password'" name="login_password"
                                                 v-model="loginFormData.password" :placeholder="$t('Enter Password')"
                                                 class="text-base font-normal w-full p-3 placeholder:text-slate-400 rounded-lg border focus:border-primary outline-none"
-                                                :class="errors && errors?.password ? 'border-red-500' : 'border-slate-200'">
+                                                :class="errors && errors?.password ? 'border-red-500' : 'border-slate-200'"
+                                                autocomplete="new-password" />
+
                                             <button @click="showLoginPassword = !showLoginPassword">
                                                 <EyeIcon v-if="showLoginPassword"
                                                     class="w-6 h-6 text-slate-700 absolute right-4 top-1/2 -translate-y-1/2" />
@@ -100,10 +105,12 @@
         </TransitionRoot>
 
         <!-- forget password dialog -->
-        <ForgetPasswordDialogModal :forgetPasswordDilog="forgetPasswordDilog" :countries="countries" @closeForget="forgetPasswordDilog = false" />
+        <ForgetPasswordDialogModal :forgetPasswordDilog="forgetPasswordDilog" :countries="countries"
+            @closeForget="forgetPasswordDilog = false" />
 
         <!-- registration dialog -->
-        <RegistrationDialogModal :registerDilog="registerDilog" :countries="countries" @hideRegisterDilog="registerDilog = false" @showLogin="showLoginDilog" />
+        <RegistrationDialogModal :registerDilog="registerDilog" :countries="countries"
+            @hideRegisterDilog="registerDilog = false" @showLogin="showLoginDilog" />
 
     </div>
 </template>
@@ -177,26 +184,29 @@ const fetchCountries = () => {
 }
 
 const loginFormSubmit = () => {
-        axios.post('/login', loginFormData.value).then((response) => {
-            AuthStore.setToken(response.data.data.access.token);
-            AuthStore.setUser(response.data.data.user);
-            AuthStore.hideLoginModal();
-            baskerStore.fetchCart();
-            serviceStore.fetchCart();
-            toast(content, {
-                type: "default",
-                hideProgressBar: true,
-                icon: false,
-                position: "top-right",
-                toastClassName: "vue-toastification-alert",
-                timeout: 3000
-            });
-        }).catch((error) => {
-            toast.error(error.response.data.message, {
-                position: "bottom-left",
-            });
-            errors.value = error.response.data.errors
-        })
+    axios.post('/login', loginFormData.value).then((response) => {
+        AuthStore.setToken(response.data.data.access.token);
+        AuthStore.setUser(response.data.data.user);
+        AuthStore.hideLoginModal();
+        baskerStore.fetchCart();
+        serviceStore.fetchCart();
+        //reset login form data
+        loginFormData.value.phone = '';
+        loginFormData.value.password = '';
+        toast(content, {
+            type: "default",
+            hideProgressBar: true,
+            icon: false,
+            position: "top-right",
+            toastClassName: "vue-toastification-alert",
+            timeout: 3000
+        });
+    }).catch((error) => {
+        toast.error(error.response.data.message, {
+            position: "bottom-left",
+        });
+        errors.value = error.response.data.errors
+    })
 }
 
 const showRegisterDilog = () => {

@@ -4,12 +4,14 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\CustomerVehicle;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -32,13 +34,14 @@ class UserController extends Controller
      *
      * @param  UserRequest  $request  The request object containing the updated user data.
      */
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request)
     {
         // if (app()->environment() == 'local') {
         //     return $this->json('You can not update your profile in demo mode', [
         //         'user' => UserResource::make(auth()->user()),
         //     ]);
         // }
+        // Log::info($request->all());
         $user = UserRepository::updateByRequest($request, auth()->user());
         $vehicleInfo = $user->customer->vehicle; // Get the related vehicle
 

@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\RecentView;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ProductRepository extends Repository
@@ -48,6 +49,7 @@ class ProductRepository extends Repository
 
         $shop = generaleSetting('shop');
         $generaleSetting = generaleSetting('setting');
+        Log::info($generaleSetting);
         $approve = $generaleSetting?->new_product_approval ? false : true;
 
         /**
@@ -55,10 +57,13 @@ class ProductRepository extends Repository
          */
         $user = auth()->user();
         $isAdmin = false;
-        if ($user->hasRole('root') || ($generaleSetting->shop_type == 'single')) {
+        if (
+            $user->hasRole('root') ||
+            ($generaleSetting && $generaleSetting->shop_type == 'single')
+        ) {
             $isAdmin = true;
         }
-        $isSpecial = auth()->user()->is_individual? 1 :$request->is_special;
+        $isSpecial = auth()->user()->is_individual ? 1 : $request->is_special;
 
         $product = self::create([
             'shop_id' => $shop?->id,
@@ -80,10 +85,34 @@ class ProductRepository extends Repository
             'code' => $request->code,
             'buy_price' => $request->buy_price ?? 0,
             'is_active' => $isAdmin ? true : $approve,
-            'is_special' => $isSpecial??false,
+            'is_special' => $isSpecial ?? false,
             'is_new' => true,
+            'driving_range' => $request->driving_range,
+            'battery_capacity' => $request->battery_capacity,
+            'peak_power' => $request->peak_power,
+            'acceleration_time' => $request->acceleration_time,
             'is_approve' => $isAdmin ? true : $approve,
         ]);
+
+
+        if ($request->hasFile('pdf_file')) {
+            $pdfFile = $request->file('pdf_file');
+
+            if ($product->custom_file_media_id) {
+                $oldPdf = Media::find($product->custom_file_media_id);
+                if ($oldPdf && Storage::exists($oldPdf->src)) {
+                    Storage::delete($oldPdf->src);
+                    $oldPdf->delete();
+                }
+            }
+            $pdf = MediaRepository::storeByRequest($pdfFile, 'products/pdfs', 'file', 'pdf');
+        
+            $product->custom_file_media_id = $pdf->id;
+            $product->save();
+        }
+        
+
+
 
         if ($request->is('api/*')) {
             if ($request->color && is_array($request->color)) {
@@ -144,21 +173,21 @@ class ProductRepository extends Repository
          */
         $user = auth()->user();
         $isAdmin = false;
-        if ($user->hasRole('root') || ($generaleSetting->shop_type == 'single')) {
+        if ($user->hasRole('root') || ($generaleSetting && $generaleSetting->shop_type == 'single')) {
             $isAdmin = true;
         }
-        $isSpecial = auth()->user()->is_individual? 1 :$request->is_special;
+        $isSpecial = auth()->user()->is_individual ? 1 : $request->is_special;
 
         self::update($product, [
             'name' => $request->name,
             'description' => $request->description,
             'short_description' => $request->short_description,
             'brand_id' => $request->brand ?? null,
-            'car_transmission_id' => $request->transmission?? null,
-            'drive_train_id' => $request->drive_train?? null,
-            'kilometers' => $request->kilometer?? null,
-            'model' => $request->model?? null,
-            'year' => $request->year?? null,
+            'car_transmission_id' => $request->transmission ?? null,
+            'drive_train_id' => $request->drive_train ?? null,
+            'kilometers' => $request->kilometer ?? null,
+            'model' => $request->model ?? null,
+            'year' => $request->year ?? null,
             'unit_id' => $request->unit ?? null,
             'price' => $request->price,
             'discount_price' => $request->discount_price,
@@ -170,9 +199,32 @@ class ProductRepository extends Repository
             'is_active' => $isAdmin ? true : $approve,
             'is_new' => false,
             'is_special' => $isSpecial??false,
+            'driving_range' => $request->driving_range,
+            'battery_capacity' => $request->battery_capacity,
+            'peak_power' => $request->peak_power,
+            'acceleration_time' => $request->acceleration_time,
             'is_approve' => $isAdmin ? true : $approve,
         ]);
 
+        if ($request->hasFile('pdf_file')) {
+
+            if ($product->custom_file_media_id) {
+                $oldPdf = Media::find($product->custom_file_media_id);
+                if ($oldPdf && Storage::exists($oldPdf->src)) {
+                    Storage::delete($oldPdf->src);
+                    $oldPdf->delete();
+                }
+            }
+            $pdfFile = $request->file('pdf_file');
+            $pdf = MediaRepository::storeByRequest($pdfFile, 'products/pdfs', 'file', 'pdf');
+        
+            // write the media ID into your custom column
+            $product->custom_file_media_id = $pdf->id;
+            $product->save();
+        }
+        
+
+    
         if ($request->is('api/*')) {
             if ($request->is('api/*')) {
                 $colors = [];
@@ -229,7 +281,7 @@ class ProductRepository extends Repository
 
         $folders = $folders !== null ? array_keys($folders) : [];
 
-        $galleryPath = 'gallery/shop'.$shop->id;
+        $galleryPath = 'gallery/shop' . $shop->id;
 
         foreach ($rows as $row) {
 
@@ -247,8 +299,8 @@ class ProductRepository extends Repository
                     foreach ($explodeThumbnails as $thumbnail) {
                         $storeFile = null;
                         foreach ($folders as $folder) {
-                            if (Storage::disk('public')->exists($galleryPath.'/'.$folder)) {
-                                $files = File::files(Storage::disk('public')->path($galleryPath.'/'.$folder));
+                            if (Storage::disk('public')->exists($galleryPath . '/' . $folder)) {
+                                $files = File::files(Storage::disk('public')->path($galleryPath . '/' . $folder));
                                 foreach ($files as $file) {
                                     if (basename($file) == $thumbnail) {
                                         $storeFile = $file;
@@ -407,7 +459,7 @@ class ProductRepository extends Repository
 
             $path = 'thumbnails';
 
-            $fileName = random_int(100000, 999999).date('YmdHis').'.'.pathinfo($realPath, PATHINFO_EXTENSION);
+            $fileName = random_int(100000, 999999) . date('YmdHis') . '.' . pathinfo($realPath, PATHINFO_EXTENSION);
 
             $storagePath = Storage::disk('public')->putFileAs($path, $thumbnail, $fileName);
 

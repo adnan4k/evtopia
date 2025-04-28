@@ -50,7 +50,7 @@
                                         </div>
 
                                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
-                                            <div>
+                                            <div class="hidden">
                                                 <label for="Area" class="form-label mb-2"> {{ $t('Area') }}
                                                     <small class="text-red-500">*</small>
                                                 </label>
@@ -59,7 +59,7 @@
                                                     :class="errors && errors?.area ? 'border-red-500' : 'border-slate-200'">
                                                 <span v-if="errors && errors?.area" class="text-red-500 text-sm">{{ errors?.area[0] }}</span>
                                             </div>
-                                            <div>
+                                            <div class="hidden">
                                                 <label for="Flat" class="form-label mb-2"> {{ $t('Flat') }}</label>
                                                 <input type="text" id="Flat" :placeholder="$t('Enter Flat no')" value=""
                                                     class="form-input" v-model="formData.flat_no"
@@ -67,7 +67,7 @@
                                                 <span v-if="errors && errors?.flat_no" class="text-red-500 text-sm">{{ errors?.flat_no[0] }}</span>
                                             </div>
 
-                                            <div>
+                                            <div class="hidden">
                                                 <label for="Postal" class="form-label mb-2"> {{ $t('Postal Code') }}
                                                     <small class="text-red-500">*</small>
                                                 </label>
@@ -80,16 +80,16 @@
 
                                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
                                             <div>
-                                                <label for="address" class="form-label mb-2"> {{ $t('Address Line 1') }}
+                                                <label for="address" class="form-label mb-2"> {{ $t('Address') }}
                                                     <small class="text-red-500">*</small>
                                                 </label>
                                                 <input type="text" id="address" v-model="formData.address_line"
-                                                    :placeholder="$t('Enter address 1')" class="form-input"
+                                                    :placeholder="$t('Enter address ')" class="form-input"
                                                     :class="errors && errors?.address_line ? 'border-red-500' : 'border-slate-200'" />
                                                 <span v-if="errors && errors?.address_line"
                                                     class="text-red-500 text-sm">{{ errors?.address_line[0] }}</span>
                                             </div>
-                                            <div>
+                                            <div class="hidden">
                                                 <label for="address2" class="form-label mb-2"> {{ $t('Address Line 2') }}</label>
                                                 <input type="text" id="address2" v-model="formData.address_line2"
                                                     :placeholder="$t('Enter address 2')" value="" class="form-input"

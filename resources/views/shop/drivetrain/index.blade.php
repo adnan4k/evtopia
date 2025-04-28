@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center flex-wrap gap-3 justify-content-between px-3">
 
         <h4>
-            {{ __('Drive Train List') }}
+            {{ __('Power Train List') }}
         </h4>
 
         @hasPermission('shop.drive_train.create')
@@ -95,7 +95,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            {{ __('Create Drive Train') }}
+                            {{ __('Create Power Train') }}
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>

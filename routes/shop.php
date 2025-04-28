@@ -165,6 +165,7 @@ Route::name('shop.')->group(function () {
             Route::get('/product/{product}/generate-barcode', 'generateBarcode')->name('product.barcode');
         });
 
+
         //profile
         Route::controller(ProfileController::class)->group(function () {
             Route::get('/profile', 'index')->name('profile.index');

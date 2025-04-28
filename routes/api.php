@@ -62,6 +62,7 @@ Route::controller(CountryController::class)->group(function () {
 });
 
 Route::controller(AuthController::class)->group(function () {
+    Route::get('/me', 'me');
     Route::post('/registration', 'register');
     Route::post('/login', 'login');
 });
@@ -146,7 +147,7 @@ Route::controller(ShopController::class)->group(function () {
     Route::get('/shops/{shop}', 'show');
 });
 
-Route::middleware(['auth:sanctum','validate.token', 'role:customer'])->group(function () {
+Route::middleware(['auth:sanctum','validate.token'])->group(function () {
 
     //user route
     Route::post('/logout', [AuthController::class, 'logout']);

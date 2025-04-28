@@ -12,6 +12,7 @@
             <div class="d-flex gap-3">
                 <div class="text-center">
                     <div class="rounded overflow-hidden ratio1x1">
+                           
                         <img src="{{ $product->thumbnail }}" alt="" width="140">
                     </div>
                     <a href="/products/{{ $product->id }}/details" target="_blank" class="btn btn-outline-primary mt-3">
@@ -81,12 +82,6 @@
                 <div>
                     <h5 class="text-dark fw-bold">{{__('General Information')}}</h5>
                     <table class="table table-borderless mb-0 border-0">
-                        {{-- <tr>
-                            <td class="ps-0 py-1">
-                                {{__('Brand')}}
-                            </td>
-                            <td class="py-1">:{{ $product->brand?->name }}</td>
-                        </tr> --}}
                         <tr>
                             <td class="ps-0 py-1">
                                 {{__('Brand')}}
@@ -97,26 +92,59 @@
                                 @endforeach
                             </td>
                         </tr>
-                        {{-- <tr>
+                        <tr>
                             <td class="ps-0 py-1">
-                                {{__('Colors')}}
+                                {{__('Model')}}
                             </td>
                             <td class="py-1">
-                                :@foreach ($product->colors as $color)
-                                    {{ $color->name }}@if (!$loop->last), @endif
-                                @endforeach
+                                :{{ $product->model }}
                             </td>
                         </tr>
                         <tr>
                             <td class="ps-0 py-1">
-                                {{__('Sizes')}}
+                                {{__('Year')}}
                             </td>
                             <td class="py-1">
-                                :@foreach ($product->sizes as $size)
-                                    {{ $size->name }}@if (!$loop->last), @endif
-                                @endforeach
+                                :{{ $product->year }}
                             </td>
-                        </tr> --}}
+                        </tr>
+                        <tr>
+                            <td class="ps-0 py-1">
+                                {{__('Mileage (Kilometers)')}}
+                            </td>
+                            <td class="py-1">
+                                :{{ $product->kilometers }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ps-0 py-1">
+                                {{__('PDF File')}}
+                            </td>
+                            <td class="py-1">
+                                :@if($product->pdf_file)
+                                    @php
+                                        $pdfUrl = Storage::url($product->pdf_file);
+                                        $fileName = basename($product->pdf_file);
+                                    @endphp
+                                    
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a href="{{ $pdfUrl }}" 
+                                           target="_blank" 
+                                           class="btn btn-sm btn-outline-primary"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-title="{{ __('View PDF File') }}">
+                                            <i class="fa fa-file-pdf"></i> {{__('View PDF')}}
+                                        </a>
+                                        {{-- <span class="text-muted small">{{ $fileName }}</span> --}}
+                                        <span class="badge bg-light text-dark small">
+                                            PDF
+                                        </span>
+                                    </div>
+                                @else
+                                    <span class="text-muted">{{__('No PDF File')}}</span>
+                                @endif
+                            </td>
+                        </tr>
                     </table>
                 </div>
 

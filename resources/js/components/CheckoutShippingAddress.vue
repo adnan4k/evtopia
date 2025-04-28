@@ -2,7 +2,7 @@
     <div>
         <div class="mt-6 sm:mt-8 flex justify-between items-center gap-2">
             <div class="text-slate-950 text-xl font-medium leading-7">
-                {{ $t('Shipping Address') }}
+                {{ $t('Address Info') }}
             </div>
 
             <button v-if="authStore.addresses.length > 0" class="text-slate-950 text-base font-normal leading-normal"
@@ -39,9 +39,15 @@
                     {{ basketStore.address?.phone }}
                 </div>
                 <div class="text-slate-500 text-base font-normal leading-normal truncate">
-                    {{ (basketStore.address?.flat_no ? basketStore.address?.flat_no + ', ' : '') + basketStore.address?.address_line + ', ' +
-                (basketStore.address?.address_line2 ? basketStore.address?.address_line2 + ', ' : '') }} {{ basketStore.address?.area + '-' +
-                basketStore.address?.post_code }}
+                    {{ 
+                     basketStore.address?.address_line
+                  
+                }} 
+                -
+                {{ 
+                
+                basketStore.address?.post_code 
+                }}
                 </div>
             </div>
         </div>

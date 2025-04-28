@@ -17,13 +17,14 @@ class ProductDetailsResource extends JsonResource
     public function toArray(Request $request): array
     {
         $this->load(['reviews', 'orders', 'colors', 'shop']);
+        $this->loadCount('visits');
 
         $favorite = false;
         $user = Auth::guard('api')->user();
-        if ($user) {
-            $favoriteIDs = $user->customer->favorites()->pluck('product_id')->toArray();
-            $favorite = in_array($this->id, $favoriteIDs);
-        }
+        // if ($user) {
+        //     $favoriteIDs = $user->customer->favorites()->pluck('product_id')->toArray();
+        //     $favorite = in_array($this->id, $favoriteIDs);
+        // }
 
         $discountPercentage = $this->getDiscountPercentage($this->price, $this->discount_price);
 
@@ -47,13 +48,19 @@ class ProductDetailsResource extends JsonResource
             'total_sold' => (string) number_format($totalSold, 0, '.', ','),
             'quantity' => (int) $this->quantity,
             'is_favorite' => (bool) $favorite,
-            'transmission'=> $this->carTransmission?->name ?? null,
+            'transmission' => $this->carTransmission?->name ?? null,
             'drive_train' => $this->drivetrain?->name ?? null,
             'year' => $this->year ?? null,
             'model' => $this->model ?? null,
             'mileage' => $this->kilometers ?? null,
+            'driving_range' => $this->driving_range ?? null,
+            'battery_capacity' => $this->battery_capacity ?? null,
+            'peak_power' => $this->peak_power ?? null,
+            'acceleration_time' => $this->acceleration_time ?? null,
+            'visit_count' => (int) $this->visits_count,
             'is_special' => (bool) $this->is_special,
             'thumbnails' => $this->thumbnails(),
+            'pdf_file' => $this->pdf_file,
             'sizes' => SizeResource::collection($this->sizes),
             'colors' => ColorResource::collection($this->colors),
             'brand' => $this->brand?->name ?? null,
@@ -64,10 +71,10 @@ class ProductDetailsResource extends JsonResource
                 'name' => $this->shop->name,
                 'logo' => $this->shop->logo,
                 'rating' => (float) round($this->shop->averageRating, 1),
-                'estimated_delivery_time' => (string) ($this->shop->estimated_delivery_time ?? 3).' days',
+                'estimated_delivery_time' => (string) ($this->shop->estimated_delivery_time ?? 3) . ' days',
                 'delivery_charge' => (float) getDeliveryCharge(1),
             ],
-            'user'=> [
+            'user' => [
                 'id' => $this->shop->user->id,
                 'name' => $this->shop->user->name,
                 'email' => $this->shop->user->email,
