@@ -60,7 +60,7 @@ class ProductDetailsResource extends JsonResource
             'visit_count' => (int) $this->visits_count,
             'is_special' => (bool) $this->is_special,
             'thumbnails' => $this->thumbnails(),
-            'pdf_file' => $this->pdf_file ? asset('storage/' . $this->pdf_file) : null,
+            'pdf_file' => $this->pdf_file,
             'sizes' => SizeResource::collection($this->sizes),
             'colors' => ColorResource::collection($this->colors),
             'brand' => $this->brand?->name ?? null,

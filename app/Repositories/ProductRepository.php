@@ -95,11 +95,23 @@ class ProductRepository extends Repository
         ]);
 
 
-          if ($request->hasFile('pdf_file')) {
-            $pdfPath = $request->file('pdf_file')->store('products/pdfs', 'public');
-            $product->pdf_file = $pdfPath;
+        if ($request->hasFile('pdf_file')) {
+            $pdfFile = $request->file('pdf_file');
+
+            if ($product->custom_file_media_id) {
+                $oldPdf = Media::find($product->custom_file_media_id);
+                if ($oldPdf && Storage::exists($oldPdf->src)) {
+                    Storage::delete($oldPdf->src);
+                    $oldPdf->delete();
+                }
+            }
+            $pdf = MediaRepository::storeByRequest($pdfFile, 'products/pdfs', 'file', 'pdf');
+        
+            $product->custom_file_media_id = $pdf->id;
             $product->save();
         }
+        
+
 
 
         if ($request->is('api/*')) {
@@ -195,15 +207,14 @@ class ProductRepository extends Repository
         ]);
 
         if ($request->hasFile('pdf_file')) {
-            // Delete old file if exists
-            if ($product->pdf_file) {
-                Storage::disk('public')->delete($product->pdf_file);
-            }
-            
-            // Store new file
-            $pdfPath = $request->file('pdf_file')->store('products/pdfs', 'public');
-            $product->pdf_file = $pdfPath;
+            $pdfFile = $request->file('pdf_file');
+            $pdf = MediaRepository::storeByRequest($pdfFile, 'products/pdfs', 'file', 'pdf');
+        
+            // write the media ID into your custom column
+            $product->custom_file_media_id = $pdf->id;
+            $product->save();
         }
+        
 
     
         if ($request->is('api/*')) {

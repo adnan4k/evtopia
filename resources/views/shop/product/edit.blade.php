@@ -395,12 +395,10 @@
                 <input type="file" class="form-control" name="pdf_file" id="custom_file_media_id">
                 @if($product->pdf_file)
                     <div class="mt-2">
-                        <a href="{{ Storage::url($product->pdf_file) }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                        <a href="{{ $product->pdf_file }}" target="_blank" class="btn btn-sm btn-outline-primary">
                             <i class="fa fa-file-pdf"></i> View Current File
                         </a>
-                        <a href="{{ route('shop.product.remove.pdf', $product->id) }}" class="btn btn-sm btn-outline-danger">
-                            <i class="fa fa-trash"></i> Remove
-                        </a>
+                        
                     </div>
                 @endif
             </div>

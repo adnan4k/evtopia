@@ -29,9 +29,18 @@ class Product extends Model
     }
 
     public function pdfFiles()
-{
-    return $this->morphToMany(Media::class, 'mediable');
-}
+    {
+        return $this->morphToMany(Media::class, 'mediable');
+    }
+
+    protected function pdfFile(): Attribute
+    {
+        return new Attribute(
+            get: fn () => optional($this->customPdfMedia)->src
+                         ? Storage::url($this->customPdfMedia->src)
+                         : null
+        );
+    }
 
     /**
      * Retrieve the categories associated with the current model.
@@ -55,6 +64,11 @@ class Product extends Model
     public function media(): BelongsTo
     {
         return $this->belongsTo(Media::class);
+    }
+
+    public function customPdfMedia(): BelongsTo
+    {
+        return $this->belongsTo(Media::class, 'custom_file_media_id', 'id');
     }
 
     /**

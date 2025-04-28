@@ -59,7 +59,7 @@ class ProductResource extends JsonResource
             'mileage' => $this->kilometers ?? null,
             'brand' => $this->brand?->name ?? null,
             'shop' => ProductShopResource::make($this->shop),
-            'pdf_file' => $this->pdf_file ? asset('storage/' . $this->pdf_file) : null,
+            'pdf_file' => $this->pdf_file,
 
         ];
     }

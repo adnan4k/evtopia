@@ -1,13 +1,13 @@
 <template>
     <div>
-        <HeroBanner :banners="banner" :ads="ads" />
+        <HeroBanner :banners="banner" :ads="ads"  :loading="loading" />
         <CategoriesOverview />
-        <SpecialOffer :products="specialOffers" />
+        <SpecialOffer :products="specialOffers"  :loading="loading"/>
         <AboutSection />
 
-        <Categories :categories="categories" />
+        <Categories :categories="categories" :loading="loading"/>
 
-        <PopularProducts :products="popularProducts" />
+        <PopularProducts :products="popularProducts"  :loading="loading"/>
         <!-- <WhyElectricVehicle /> -->
         <!-- <Categories :categories="categories" /> -->
         <!-- <FlashSale /> -->
@@ -16,21 +16,21 @@
              <AboutEvtopia/>
          </div>
 
-        <PopularServices :products="popularServices" />
+        <PopularServices :products="popularServices"  :loading = "loading"/>
 
         <div v-if="master.getMultiVendor">
-            <TopRatedShops :shops="topRatedShops" />
+            <TopRatedShops :shops="topRatedShops" :loading="loading"/>
         </div>
          <!-- <StatisticsSection/> -->
-        <LatestProducts :justForYou="justForYou" />
+        <LatestProducts :justForYou="justForYou" :loading="loading"/>
         <!-- <RecentlyViews :products="recentlyViewProducts" /> -->
          <hr>
        
          <div class="py-8">
-            <KnowledgeHubSection :knowledge_hubs="knowledge_hubs"/>
+            <KnowledgeHubSection :knowledge_hubs="knowledge_hubs" :loading="loading"/>
         </div>
 
-        <BlogSection :posts="posts" />
+        <BlogSection :posts="posts"  :loading="loading"/>
     </div>
 </template>
 
@@ -65,6 +65,8 @@ const baskerStore = useBaskerStore();
 const serviceStore = useServiceStore();
 
 const authStore = useAuth();
+const loading = ref(true);
+
 
 onMounted(() => {
     getData();
@@ -95,6 +97,8 @@ const ads = ref([]);
 const knowledge_hubs = ref([]);
 
 const getData = () => {
+    loading.value = true;
+
     axios.get('/home?page=1&per_page=12', {
         headers: {
             Authorization: authStore.token
@@ -112,12 +116,18 @@ const getData = () => {
         knowledge_hubs.value = response.data.data.knowledge_hubs.slice(0, 5);
 
         console.log('specialOffers : ',specialOffers.value);
-    }).catch(() => {});
+    }).catch(() => {})
+    .finally(() => {
+      loading.value = false;
+    });
 
     // fetch categories
     axios.get('/categories').then((response) => {
         master.categories = response.data.data.categories;
-    }).catch(() => {});
+    }).catch(() => {})
+    .finally(() => {
+      loading.value = false;
+    });
 }
 
 const fetchViewProducts = () => {

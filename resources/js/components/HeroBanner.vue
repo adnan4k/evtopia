@@ -1,7 +1,50 @@
 <template>
     <div class=" mt-3 grid grid-cols-4 gap-3 lg:gap-8">
+        <div v-if="loading" class="col-span-4">
+            <div class="relative">
+                    <img src="../assets/banner1.jpg" loading="lazy" class="w-full object-cover aspect-[9/4]" />
+                    <div class="absolute inset-0 flex items-center jp-4 md:p-8">
+                        <div class="text-white p-4 customContainer md:p-6 rounded-lg flex flex-col  md:gap-5">
+                            <h2 class="text-xl  md:text-[53px] lg:text-[50px] text-center md:text-start font-bold mb-2 Title">Welcome to Evtopia</h2>
+                            <p class="text-xs hidden md:flex  md:text-[20px] lg:text-[20px] Description"
+
+
+                                >Revolutionizing Transportation in Ethiopia Through Sustainable EV Solutions</p>
+
+                            <div class="flex gap-3 justify-center md:justify-start">
+
+                                <div  class="flex  justify-center md:justify-start">
+                                    <a href="/about-us"
+                                    class="text-white
+                                            bg-[#28a745]
+                                            rounded-md
+                                            hover:bg-primary
+                                            transition
+                                            px-2
+                                            dynamicButton
+                                            py-1
+                                            md:px-8
+                                            md:py-3
+                                            text-sm
+                                            font-medium
+                                            md:text-base
+                                            md:font-bold mt-2   inline-flex items-center gap-2"
+                                    >
+                                        <span>
+                                            {{$t('Read More') }}
+                                        </span>
+                                        <ArrowRightIcon class="w-5 h-5 arrow text-white" />
+
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        </div>
         <!-- main-container -->
-        <div class="col-span-4 lg:col-span-4">
+        <div v-else class="col-span-4 lg:col-span-4">
             <!-- Main Banner Slider -->
             <swiper :navigation="false" :pagination="{ clickable: true }" :slides-per-view="1"
                     :space-between="1"
@@ -81,10 +124,6 @@
         </div>
 
 
-        <!-- Banner Thumbnails -->
-        <!-- <div class="col-span-4 lg:col-span-1 flex flex-col sm:flex-row  lg:flex-col gap-4 lg:gap-8">
-            <img v-for="ad in ads" :key="ad.id" :src="ad.thumbnail" loading="lazy" class="w-full h-[136px] sm:h-auto aspect-[9/6] object-cover rounded-lg" />
-        </div> -->
     </div>
 </template>
 
@@ -105,9 +144,19 @@ const modules = [
 ];
 
 const props = defineProps({
-    banners: Array,
-    ads: Array
-})
+  banners: {
+    type: Array,
+    default: () => []
+  },
+  ads: {
+    type: Array,
+    default: () => []
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  }
+});
 
 </script>
 

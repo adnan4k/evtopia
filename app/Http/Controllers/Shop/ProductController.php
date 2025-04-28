@@ -13,6 +13,7 @@ use App\Models\DriveTrain;
 use App\Models\CarTransmission;
 use App\Repositories\NotificationRepository;
 use App\Repositories\ProductRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -149,6 +150,8 @@ class ProductController extends Controller
         })->isActive()->get();
 
 
+        // return $product;
+
         return view('shop.product.edit', compact('product', 'brands', 'driveTrains', 'transmissions', 'colors', 'categories', 'units', 'sizes', 'subCategories'));
     }
 
@@ -238,4 +241,6 @@ class ProductController extends Controller
 
         return view('shop.product.barcode', compact('product', 'quantitys'));
     }
+
+  
 }

@@ -5,7 +5,6 @@
         <h1 class="text-white text-3xl sm:text-4xl font-bold text-center">Evtopia News and Insights</h1>
     </div>
     <div class="main-container py-14">
-        <!-- Say Search Results if there is search key on url parameters -->
         <div class="w-full bg-white rounded-lg border border-slate-100 p-1 md:p-2 xl:p-3">
             <div class="relative overflow-hidden grow">
                 <input type="text" v-model="search" :placeholder="$t('Search Blog')"
@@ -41,21 +40,34 @@
         </div>
 
           
-        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start">
-            
-            <div v-for="post in posts" :key="post.id" class="w-full">
-                <BlogCard :post="post" />
+        <!-- shimmer -->
+        <div v-if="loading" class="mt-8 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6 items-start">
+            <div v-for="i in perPage" :key="`skeleton-${i}`" class="animate-pulse">
+                <div class="bg-white shadow-md rounded-lg p-4">
+                    <div class="h-60 bg-gray-200 rounded"></div>
+                    <div class="mt-4 h-8 bg-gray-200 rounded"></div>
+                    <div class="mt-2 h-8 bg-gray-200 rounded"></div>
+                    <div class="mt-2 h-8 w-3/4 bg-gray-200 rounded"></div>
+                </div>
             </div>
-
         </div>
-
-        <div class="flex justify-between items-center w-full mt-8  gap-4 flex-wrap">
-            <div class="text-slate-800 text-base font-normal leading-normal">
-                {{ $t('Showing') }} {{ perPage * (currentPage - 1) + 1 }} {{ $t('to') }} {{ perPage * (currentPage - 1) + shops.length }} {{ $t('of') }} {{
-                totalPosts }} {{ $t('results') }}
+        <div v-else >
+            <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start">
+                
+                <div v-for="post in posts" :key="post.id" class="w-full">
+                    <BlogCard :post="post" />
+                </div>
+    
             </div>
-            <div>
-                <vue-awesome-paginate :total-items="totalPosts" :items-per-page="perPage" type="button" :hide-prev-next-when-ends="true" :max-pages-shown="5" v-model="currentPage" @click="onClickHandler" />
+    
+            <div class="flex justify-between items-center w-full mt-8  gap-4 flex-wrap">
+                <div class="text-slate-800 text-base font-normal leading-normal">
+                    {{ $t('Showing') }} {{ perPage * (currentPage - 1) + 1 }} {{ $t('to') }} {{ perPage * (currentPage - 1) + shops.length }} {{ $t('of') }} {{
+                    totalPosts }} {{ $t('results') }}
+                </div>
+                <div>
+                    <vue-awesome-paginate :total-items="totalPosts" :items-per-page="perPage" type="button" :hide-prev-next-when-ends="true" :max-pages-shown="5" v-model="currentPage" @click="onClickHandler" />
+                </div>
             </div>
         </div>
 
@@ -83,6 +95,7 @@ const posts = ref([]);
 const route = useRoute();
 const formData = ref({  });
 const search = ref('');
+const loading = ref(true);
 
 onMounted(() => {
     formData.value = { ...route.query };
@@ -117,7 +130,11 @@ const fetchBlogs = async () => {
     axios.get('/blogs', { params: { page: currentPage.value, per_page: perPage.value , filter: formData.value} }).then((response) => {
         totalPosts.value = response.data.data.total;
         posts.value = response.data.data.posts;
-    })
+    }).catch((error) => {
+        console.error('Error fetching blogs:', error);
+    }).finally(() => {
+        loading.value = false;
+    });
 };
 
 const hasFilterParams = computed(() => {
