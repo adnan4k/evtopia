@@ -54,7 +54,7 @@ class ProductRequest extends FormRequest
             'thumbnail' => "$thumbnail|image",
             'additionThumbnail' => "$addtionThumbnail|array",
             'additionThumbnail.*' => 'image',
-
+'pdf_file' => 'nullable|file|mimes:pdf|max:8048', // 2MB max
             'previousThumbnail' => 'nullable|array',
             'previousThumbnail.*.id' => 'nullable|exists:media,id',
             'previousThumbnail.*.file' => 'nullable|file',

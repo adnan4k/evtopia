@@ -58,8 +58,10 @@ class ProductController extends Controller
      * Display the product details.
      */
     public function show(Product $product)
-    {
-        return view('shop.product.show', compact('product'));
+    { 
+        // return $product;
+
+         return view('shop.product.show', compact('product'));
     }
 
     /**
@@ -101,7 +103,9 @@ class ProductController extends Controller
         $isRootUser = $user?->hasRole('root');
 
         // admin notification message
-        if (! $isRootUser && generaleSetting('setting')->shop_type != 'single') {
+        $setting = generaleSetting('setting');
+
+        if (! $isRootUser && ($setting?->shop_type != 'single')) {
             $message = 'New product Created Request';
             try {
                 AdminProductRequestEvent::dispatch($message);
@@ -168,7 +172,8 @@ class ProductController extends Controller
         $isRootUser = $user?->hasRole('root');
 
         // admin notification message
-        if (! $isRootUser && generaleSetting('setting')->shop_type != 'single') {
+       $generaleSetting =  generaleSetting('setting');
+        if (! $isRootUser && $generaleSetting && $generaleSetting->shop_type != 'single') {
             $message = 'Product Updated Request';
             try {
                 AdminProductRequestEvent::dispatch($message);

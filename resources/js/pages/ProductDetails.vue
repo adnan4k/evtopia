@@ -74,9 +74,12 @@
                         </router-link> -->
 
                         <!-- Brand -->
-                        <span v-if="product.categories && product.categories.length" v-for="(category, index) in product.categories" :key="index" class="text-primary text-xs font-normal leading-none px-1.5 py-1 bg-primary-50 rounded">
-                            {{ category.name ?? 'Unknown Brand' }}<span v-if="index < product.categories.length - 1">, </span>
-                          </span>
+                        <span v-if="product.categories && product.categories.length"
+                            v-for="(category, index) in product.categories" :key="index"
+                            class="text-primary text-xs font-normal leading-none px-1.5 py-1 bg-primary-50 rounded">
+                            {{ category.name ?? 'Unknown Brand' }}<span v-if="index < product.categories.length - 1">,
+                            </span>
+                        </span>
 
 
 
@@ -87,18 +90,15 @@
                             {{ product.name }}
 
                             (
-                                <span v-if="product?.is_special"
-
-                                class="px-1 py-1 bg-red-500 text-white rounded-md text-xs"
-                                >
-                                    🔥 Special Offer
+                            <span v-if="product?.is_special" class="px-1 py-1 bg-red-500 text-white rounded-md text-xs">
+                                🔥 Special Offer
                             </span>
                             )
                         </div>
 
                         <div v-if="product?.model">
                             <span class="text-muted text-xs">
-                                Model : {{product?.model}}
+                                Model : {{ product?.model }}
                             </span>
                         </div>
 
@@ -603,7 +603,8 @@
                         <div class="flex items-center gap-3 py-4 border-b border-slate-200 flex-wrap">
                             <!-- discount Price -->
                             <div class="text-primary text-3xl font-bold leading-9">
-                                {{ masterStore.showCurrency(product.discount_price > 0 ? product.discount_price: product.price) }}
+                                {{ masterStore.showCurrency(product.discount_price > 0 ? product.discount_price :
+                                product.price) }}
                             </div>
 
                             <!-- Price -->
@@ -681,7 +682,6 @@
                                     <PlusIcon class="w-6 h-6 text-slate-800" />
                                 </button>
                             </div>
-
                             <!-- Add to Cart -->
                             <button v-if="!cartProduct"
                                 class="grow max-w-56 justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
@@ -723,11 +723,27 @@
                         {{ $t('Reviews') }}
                     </button>
                 </div>
-
                 <!-- About Product -->
                 <div v-if="aboutProduct" class="">
+                         {{ console.log(product,'pdf file') }}
                     <div v-html="product.description"></div>
+
+                    <!-- PDF Download -->
+                    <div  class="mt-6">
+                        <h3 class="text-lg font-medium text-slate-800 mb-3">Product Documents</h3>
+                        <a :href="product.pdf_file" target="_blank"
+                            class="inline-flex items-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary-50 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Download Product PDF
+                        </a>
+                    </div>
                 </div>
+
+                
 
                 <!-- Reviews -->
                 <div v-if="review" class="">
@@ -754,14 +770,14 @@
                         <!-- paginations -->
                         <div class="flex justify-between items-center w-full mt-8  gap-4 flex-wrap">
                             <div class="text-slate-800 text-base font-normal leading-normal">
-                                {{ $t('Showing') }} {{ perPage * (currentPage - 1) + 1 }} {{ $t('to') }} {{ perPage * (currentPage - 1) +
-                                    reviews.length }} {{ $t('of') }} {{ totalReviews }} {{ $t('results') }}
+                                {{ $t('Showing') }} {{ perPage * (currentPage - 1) + 1 }} {{ $t('to') }} {{ perPage *
+                                    (currentPage - 1) +
+                                reviews.length }} {{ $t('of') }} {{ totalReviews }} {{ $t('results') }}
                             </div>
                             <div>
                                 <vue-awesome-paginate :total-items="totalReviews" :items-per-page="perPage"
                                     type="button" :max-pages-shown="3" v-model="currentPage"
-                                    :hide-prev-next-when-ends="true"
-                                    @click="onClickHandler" />
+                                    :hide-prev-next-when-ends="true" @click="onClickHandler" />
                             </div>
                         </div>
 
@@ -990,7 +1006,7 @@ const fetchProductDetails = async () => {
         relatedProducts.value = response.data.data.related_products;
         popularProducts.value = response.data.data.popular_products;
 
-        
+
         if (product.value.colors.length > 0) {
             formData.value.color = product.value.colors[0].name;
         } else {
