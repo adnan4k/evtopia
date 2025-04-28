@@ -29,11 +29,11 @@ class LoginRequest extends FormRequest
 
     public function messages(): array
     {
-        $request = request();
-        if ($request->is('api/*')) {
-            $lan = $request->header('accept-language') ?? 'en';
-            app()->setLocale($lan);
-        }
+        // $request = request();
+        // if ($request->is('api/*')) {
+        //     $lan = $request->header('accept-language') ?? 'en';
+        //     app()->setLocale($lan);
+        // }
 
         return [
             'phone.required' => __('The phone field is required.'),
