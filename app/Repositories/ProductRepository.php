@@ -195,16 +195,8 @@ class ProductRepository extends Repository
         ]);
 
         if ($request->hasFile('pdf_file')) {
-            // Delete old file if exists
-            if ($product->pdf_file) {
-                Storage::disk('public')->delete($product->pdf_file);
-            }
-            
-            // Store new file
-            $pdfPath = $request->file('pdf_file')->store('products/pdfs', 'public');
-            $product->pdf_file = $pdfPath;
+            self::handlePdfUpload($request, $product);
         }
-
     
         if ($request->is('api/*')) {
             if ($request->is('api/*')) {
@@ -248,6 +240,27 @@ class ProductRepository extends Repository
 
         return $product;
     }
+
+    protected static function handlePdfUpload($request, Product $product): void
+    {
+      
+    
+        // Delete old file if exists
+        if ($product->pdf_file && Storage::disk('public')->exists($product->pdf_file)) {
+            Storage::disk('public')->delete($product->pdf_file);
+        }
+        
+        // Store new file with unique name
+        $pdfPath = $request->file('pdf_file')->storeAs(
+            'products/pdfs',
+            'product_' . $product->id . '_' . time() . '.pdf',
+            'public'
+        );
+        
+        $product->pdf_file = $pdfPath;
+        $product->save();
+    }
+
 
     /**
      * store new product from bulk import.
