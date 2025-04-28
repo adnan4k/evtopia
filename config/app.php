@@ -94,7 +94,11 @@ return [
     |
     */
 
+    'supported_locales' => ['en'],
+    'default_locale' => 'en',
     'locale' => 'en',
+    'fallback_locale' => 'en',
+
 
     /*
     |--------------------------------------------------------------------------
