@@ -207,6 +207,14 @@ class ProductRepository extends Repository
         ]);
 
         if ($request->hasFile('pdf_file')) {
+
+            if ($product->custom_file_media_id) {
+                $oldPdf = Media::find($product->custom_file_media_id);
+                if ($oldPdf && Storage::exists($oldPdf->src)) {
+                    Storage::delete($oldPdf->src);
+                    $oldPdf->delete();
+                }
+            }
             $pdfFile = $request->file('pdf_file');
             $pdf = MediaRepository::storeByRequest($pdfFile, 'products/pdfs', 'file', 'pdf');
         
