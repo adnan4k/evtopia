@@ -729,6 +729,7 @@
                     <div v-html="product.description"></div>
 
                     <!-- PDF Download -->
+                     <h1>here it is </h1>
                     <div  class="mt-6">
                         <h3 class="text-lg font-medium text-slate-800 mb-3">Product Documents</h3>
                         <a :href="product.pdf_file" target="_blank"
