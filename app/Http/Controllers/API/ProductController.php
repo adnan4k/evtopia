@@ -128,10 +128,11 @@ class ProductController extends Controller
         }
 
 
+        // latest first
         $specialOffers = ProductRepository::query()
         ->isSpecial()
+        ->orderByDesc('id')
         ->get();
-
         $total= $specialOffers->count();
 
 
