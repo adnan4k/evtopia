@@ -49,15 +49,20 @@ class HomeController extends Controller
                 });
             })->withCount('products')->orderByDesc('products_count')->take(10)->get();
 
+        // $popularProducts = ProductRepository::query()
+        //     ->isActive()->whereHas('orders')
+        //     ->when($shop, function ($query) use ($shop) {
+        //         return $query->where('shop_id', $shop->id);
+        //     })->withCount('orders as orders_count')
+        //     ->withAvg('reviews as average_rating', 'rating')
+        //     ->orderByDesc('average_rating')
+        //     ->orderByDesc('orders_count')
+        //     ->take(6)->get();
+
         $popularProducts = ProductRepository::query()
-            ->isActive()->whereHas('orders')
-            ->when($shop, function ($query) use ($shop) {
-                return $query->where('shop_id', $shop->id);
-            })->withCount('orders as orders_count')
-            ->withAvg('reviews as average_rating', 'rating')
-            ->orderByDesc('average_rating')
-            ->orderByDesc('orders_count')
-            ->take(6)->get();
+        ->isActive()
+        ->latest('id')
+        ->take(6)->get();
 
         $specialOffers = ProductRepository::query()
         ->isSpecial()
