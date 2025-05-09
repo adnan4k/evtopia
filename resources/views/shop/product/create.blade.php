@@ -187,7 +187,7 @@
                             {{ __('Driving Range ( Km )') }}
                             <span class="text-danger">*</span>
                         </label>
-                        <input type="number" id="driving_range" name="driving_range" step="0.1" placeholder="Ex: 100" class="form-control"
+                        <input type="number" id="driving_range" name="driving_range" step="0.01" placeholder="Ex: 100" class="form-control"
                             value="{{ old('driving_range') }}"
                             />
                         @error('driving_range')
@@ -200,7 +200,7 @@
                             {{ __('Battery Capacity ( KWh )') }}
                             <span class="text-danger">*</span>
                         </label>
-                        <input type="number" id="battery_capacity" step="0.1" name="battery_capacity" placeholder="Ex: 100" class="form-control"
+                        <input type="number" id="battery_capacity" step="0.01" name="battery_capacity" placeholder="Ex: 100" class="form-control"
                             value="{{ old('battery_capacity') }}"
                             />
                         @error('battery_capacity')
@@ -213,7 +213,7 @@
                             {{ __('Peak Power ( KW )') }}
                             <span class="text-danger">*</span>
                         </label>
-                        <input type="number" id="peak_power" name="peak_power" step="0.1" placeholder="Ex: 100" class="form-control"
+                        <input type="number" id="peak_power" name="peak_power" step="0.01" placeholder="Ex: 100" class="form-control"
                             value="{{ old('peak_power') }}"
                             />
                         @error('peak_power')
@@ -227,7 +227,7 @@
                             <span class="text-danger">*</span>
                         </label>
 
-                        <input type="number" id="acceleration_time" name="acceleration_time" placeholder="Ex: 100" step="0.1" class="form-control"
+                        <input type="number" id="acceleration_time" name="acceleration_time" placeholder="Ex: 100" step="0.01" class="form-control"
                             value="{{ old('acceleration_time') }}"
                             />
                         @error('acceleration_time')
