@@ -184,10 +184,10 @@
 
                     <div class="col-lg-4 col-md-6  mt-3 ">
                         <label class="form-label">
-                            {{ __('Driving Range ( Miles )') }}
+                            {{ __('Driving Range ( Km )') }}
                             <span class="text-danger">*</span>
                         </label>
-                        <input type="number" id="driving_range" name="driving_range" placeholder="Ex: 100" class="form-control"
+                        <input type="number" id="driving_range" name="driving_range" step="0.1" placeholder="Ex: 100" class="form-control"
                             value="{{ old('driving_range') }}"
                             />
                         @error('driving_range')
@@ -200,7 +200,7 @@
                             {{ __('Battery Capacity ( KWh )') }}
                             <span class="text-danger">*</span>
                         </label>
-                        <input type="number" id="battery_capacity" name="battery_capacity" placeholder="Ex: 100" class="form-control"
+                        <input type="number" id="battery_capacity" step="0.1" name="battery_capacity" placeholder="Ex: 100" class="form-control"
                             value="{{ old('battery_capacity') }}"
                             />
                         @error('battery_capacity')
@@ -213,7 +213,7 @@
                             {{ __('Peak Power ( KW )') }}
                             <span class="text-danger">*</span>
                         </label>
-                        <input type="number" id="peak_power" name="peak_power" placeholder="Ex: 100" class="form-control"
+                        <input type="number" id="peak_power" name="peak_power" step="0.1" placeholder="Ex: 100" class="form-control"
                             value="{{ old('peak_power') }}"
                             />
                         @error('peak_power')

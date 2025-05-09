@@ -115,7 +115,7 @@
                                         <ellipse cx="5" cy="18" rx="3" ry="2" fill="none" />
                                     </svg>
 
-                                    {{ props.product?.driving_range }}mi
+                                    {{ props.product?.driving_range }} Km
 
 
 
