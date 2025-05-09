@@ -100,7 +100,9 @@ class ProductController extends Controller
             })
             ->when($sortType == 'newest' || $sortType == 'just_for_you', function ($query) {
                 return $query->orderBy('id', 'desc');
-            })->isActive();
+            })
+            ->latest('id')
+            ->isActive();
 
         $total = $products->count();
         $products = $products->when($perPage && $page, function ($query) use ($perPage, $skip) {
