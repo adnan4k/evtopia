@@ -131,7 +131,7 @@ class ProductController extends Controller
         // latest first
         $specialOffers = ProductRepository::query()
         ->isSpecial()
-        ->orderByDesc('id')
+        ->latest('id')
         ->get();
         $total= $specialOffers->count();
 

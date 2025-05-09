@@ -61,6 +61,7 @@ class HomeController extends Controller
 
         $specialOffers = ProductRepository::query()
         ->isSpecial()
+        ->latest('id')
         ->get();
 
         $popularServices = ServiceRepository::query()
