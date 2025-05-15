@@ -92,6 +92,7 @@ Route::controller(MasterController::class)->group(function () {
 //home route
 Route::controller(HomeController::class)->group(function () {
     Route::get('/home', 'index');
+    Route::get('popularProducts', 'popularProducts');
     Route::get('/recently-views', 'recentlyViews');
 });
 

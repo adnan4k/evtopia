@@ -466,14 +466,13 @@
                         <div class="text-primary text-sm font-normal leading-tight">{{ $t('Add to Cart') }}</div>
                     </button>
                 </div>
-                <button v-else
+                <!-- <button v-else
                     class="justify-center items-center gap-0.5 flex border border-red-300 py-2.5 rounded-[10px] w-full"
                     disabled>
                     <div class="text-red-300 text-sm font-normal leading-tight">
-                        <!-- Request Stock -->
                         {{ $t('Buy Now') }}
                     </div>
-                </button>
+                </button> -->
             </div>
         </div>
     </div>

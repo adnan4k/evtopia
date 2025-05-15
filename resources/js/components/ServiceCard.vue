@@ -12,12 +12,7 @@
                             class="w-full h-full group-hover:scale-110 transition duration-500 object-cover" />
                     </div>
 
-                    <!--discount--->
-                    <div v-if="props.product?.discount_percentage > 0"
-                        class="px-1 py-0.5 bg-red-500 rounded-2xl text-white text-xs font-medium absolute top-2 left-2">
-                        {{ props.product?.discount_percentage }}% {{ $t('OFF') }}
-                    </div>
-
+                 
                     <!--favorite-->
                     <button v-if="props.product?.is_favorite"
                         class="absolute top-2 right-2 w-9 h-9 rounded-[10px] justify-center items-center flex cursor-pointer bg-white"
@@ -36,61 +31,46 @@
                 <div class="cursor-pointer" @click="showServiceDetails">
                     <div class="bg-white p-2 flex flex-col items-start gap-2 col-span-2">
 
-                        <div class="text-slate-950 text-base font-normal leading-normal truncate w-full"
+                        <div class="text-slate-950 text-base font-bold leading-normal truncate w-full"
                             :class="opacity-30">
-                            {{ props.product?.name }}
-                        </div>
 
-                        <div class="flex items-center gap-2" :class="opacity-30">
-                            <!-- price -->
-                            <div class="text-primary text-base font-bold leading-normal">
-                                {{ masterStore.showCurrency(props.product?.discount_price > 0 ? props.product?.discount_price : props.product?.price) }}
-                            </div>
-                            <!-- discount price -->
-                            <div v-if="props.product?.discount_price > 0"
-                                class="text-slate-400 text-sm font-normal line-through leading-tight">
-                                {{ masterStore.showCurrency(props.product?.price) }}
-                            </div>
-                        </div>
+                           {{  truncateServiceTitle(props.product?.name)  }}
 
-                        <div class="flex justify-between items-center w-full">
-                            <!-- <div class="flex items-center gap-1"
-                                :class="opacity-30">
-                                <StarIcon class="w-4 h-4 text-yellow-400" />
-                                <div class="text-slate-950 text-sm font-bold leading-tight">
-                                    {{ props.product?.rating }}
+
+                                <div
+                                    v-for="(category, index) in props.product.categories || ['Uncategorized']"
+                                    :key="index"
+                                    class=" my-1"
+                                    
+                                >
+                                <span class="text-primary  text-xs font-normal leading-none px-1.5 py-1 bg-primary-50 rounded">
+                                    {{ category }}
+                                </span>
                                 </div>
-                                <div class="text-slate-500 text-sm font-normal leading-tight">
-                                    ({{ props.product?.total_reviews }})
-                                </div>
-                            </div> -->
-
-                            <!-- <div class="h-3 w-[0px] border border-slate-200"></div> -->
-                            <!-- total sold -->
-                            <div v-if="props.product?.quantity > 0"
-                                class="text-right text-slate-500 text-sm font-normal leading-tight">
-                                {{ props.product?.total_sold }} {{ $t('Sold') }}
-                            </div>
                         </div>
+                        
+
+                        <div class="text-slate-460 text-base font-normal leading-normal  w-full"
+                            :class="opacity-30">
+                           {{  truncateDescription(props.product?.short_description)  }}
+                        </div>
+                        
+                        <!-- <div class="flex  w-full"> -->
+
+                            <button class="mt-2 w-full px-4 py-1 md:py-2 border border-primary rounded-lg text-primary hover:bg-primary hover:text-white transition duration-300 text-base font-medium">
+                                Contact Us
+                            </button>
+
+                            <!-- <button class="mt-2 px-4 py-1 md:py-2 bg-primary rounded-lg text-white text-base font-medium">
+                                Detail 
+                            </button> -->
+
+                        <!-- </div> -->
                     </div>
                 </div>
             </div>
 
-            <div class="w-full p-2">
-                <div  class="justify-start items-center gap-3 flex w-full">
-                    <!-- <button
-                        class="cursor-pointer w-10 h-10 bg-white rounded-[10px] border border-primary-100 justify-center items-center flex"
-                        @click="addToBasket(props.product)">
-                        <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5">
-                    </button> -->
-
-                    <button
-                        class="justify-center items-center gap-0.5 flex border border-primary grow py-2.5 rounded-[10px]" @click="addToBasket(props.product)">
-                        <div class="text-primary text-sm font-normal leading-tight">{{ $t('Add to Cart') }}</div>
-                    </button>
-                </div>
-                
-            </div>
+            
         </div>
     </div>
 </template>
@@ -138,6 +118,19 @@ const buyNow = () => {
     router.push({ name: 'buynow' })
 };
 
+const truncateDescription = (description) => {
+    if (description.length > 120) {
+        return description.substring(0, 120) + '...';
+    }
+    return description;
+}
+
+const truncateServiceTitle = (title) => {
+    if (title.length > 45) {
+        return title.substring(0, 45) + '...';
+    }
+    return title;
+}
 const isFavorite = ref(props.product?.is_favorite);
 
 const favoriteAddOrRemove = () => {

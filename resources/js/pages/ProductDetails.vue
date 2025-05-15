@@ -578,7 +578,7 @@
                             </div>
     
                             <!-- Price part -->
-                            <div class="flex items-center gap-3 py-4 border-b border-slate-200 flex-wrap">
+                            <div class="flex items-center gap-3 py-4  border-slate-200 flex-wrap">
                                 <!-- discount Price -->
                                 <div class="text-primary text-3xl font-bold leading-9">
                                     {{ masterStore.showCurrency(product.discount_price > 0 ? product.discount_price :
@@ -660,15 +660,31 @@
                                         <PlusIcon class="w-6 h-6 text-slate-800" />
                                     </button>
                                 </div>
+
+
+                                 <button 
+                                      @click="openContactModal" 
+                                    class="grow w-full md:max-w-56 justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
+                                    >
+                                    <PhoneIcon class="w-5 h-5 text-primary" />
+                                    <div class="text-base font-medium leading-normal">
+                                        {{ $t('Contact') }}
+                                    </div>
+                                </button>
+
                                 <!-- Add to Cart -->
                                 <button v-if="!cartProduct"
-                                    class="grow max-w-56 justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
+                                    class="grow w-full md:max-w-56 justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
                                     @click="addToCart">
-                                    <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5">
+                                    <!-- <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5"> -->
+                                    <ShoppingCartIcon class="w-5 h-5 text-primary" />
+
                                     <div class="text-base font-medium leading-normal">
                                         {{ $t('Add to Cart') }}
                                     </div>
                                 </button>
+
+                               
     
                             </div>
     
@@ -790,7 +806,7 @@ import { useMaster } from '../stores/MasterStore';
 import ProductDetailsRightSide from '../components/ProductDetailsRightSide.vue';
 import ToastSuccessMessage from '../components/ToastSuccessMessage.vue';
 
-import { HomeIcon, ShareIcon, HeartIcon, MinusIcon, PlusIcon } from '@heroicons/vue/24/outline';
+import { HomeIcon, ShareIcon, HeartIcon, MinusIcon, PlusIcon, PhoneIcon,ShoppingCartIcon } from '@heroicons/vue/24/outline';
 import { StarIcon, HeartIcon as HeartIconFill } from '@heroicons/vue/24/solid';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
@@ -848,6 +864,9 @@ const loading = ref(true)
 
 
 
+const openContactModal = () => {
+  window.dispatchEvent(new Event('open-contact-popup'));
+};
 
 onMounted(() => {
     fetchProductDetails();
