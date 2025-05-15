@@ -129,6 +129,18 @@ class HomeController extends Controller
         ]);
     }
 
+    public function popularProducts(Request $request)
+    {
+
+        $popularProducts = ProductRepository::query()
+        ->isActive()
+        ->latest('id')
+        ->take(6)->get();
+
+        return $this->json('popular products', [
+            'products' => ProductResource::collection($popularProducts),
+        ]);
+    }
     /**
      * Get recently viewed products for the current user.
      *

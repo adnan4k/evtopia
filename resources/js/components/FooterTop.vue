@@ -124,16 +124,36 @@
 
         </div>
     </div>
+
+    <ContactModal ref="modalRef" :masterData="masterData" />
+
 </template>
 
 <script setup>
 import { DevicePhoneMobileIcon, EnvelopeIcon } from '@heroicons/vue/24/outline';
 
 import { useMaster } from "../stores/MasterStore";
+import ContactModal from './ContactModal.vue';
 const master = useMaster();
 
 const { masterData } = defineProps(['masterData']);
 
+
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+const modalRef = ref(null);
+
+const handleOpen = () => {
+  modalRef.value?.open();
+};
+
+onMounted(() => {
+  window.addEventListener('open-contact-popup', handleOpen);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('open-contact-popup', handleOpen);
+});
 const appStore = () => {
     if (masterData.app_store_link) {
         window.open(masterData.app_store_link, '_blank');

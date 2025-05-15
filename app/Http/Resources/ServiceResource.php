@@ -25,7 +25,10 @@ class ServiceResource extends JsonResource
             'duration' => $this->duration,
             'price' => (float) $this->price,
             'discount_price' => (float) $this->discounted_price,
+             'short_description' => $this->short_description,
+            'categories' => $this->categories->pluck('name'), 
             'discount_percentage' => (float) number_format($discountPercentage, 2, '.', ''),
+
         ];
     }
 }

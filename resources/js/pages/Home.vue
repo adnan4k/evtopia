@@ -115,7 +115,7 @@ const getData = () => {
         posts.value = response.data.data.posts.slice(0, 5);
         knowledge_hubs.value = response.data.data.knowledge_hubs.slice(0, 5);
 
-        console.log('specialOffers : ',specialOffers.value);
+        console.log('Service : ',popularServices.value);
     }).catch(() => {})
     .finally(() => {
       loading.value = false;

@@ -1,8 +1,8 @@
 <template>
-    <div class="main-container">
+    <div class="">
 
          <!-- shimmmer  -->
-            <div v-if="loading" class="space-y-6 animate-pulse py-8">
+            <div v-if="loading" class="main-container space-y-6 animate-pulse py-8">
                 <!-- Breadcrumbs skeleton -->
                 <div class="flex items-center gap-2 pt-4">
                     <div class="w-6 h-6 bg-slate-200 rounded"></div>
@@ -50,238 +50,179 @@
                     <div v-for="i in 5" :key="i" class="h-48 bg-slate-200 rounded"></div>
                 </div>
             </div>
-            <div v-else> 
-                <div class="grid grid-cols-1 xl:grid-cols-4">
-        
-        
-                    <div class="xl:col-span-3 col-span-1 lg:pr-6">
-        
-                        <div class="flex items-center gap-2 overflow-hidden pt-4">
-                            <router-link to="/" class="w-6 h-6">
-                                <HomeIcon class="w-5 h-5 text-slate-600" />
-                            </router-link>
-        
-                            <div class="grow w-full overflow-hidden">
-                                <div class="space-x-1 text-slate-600 text-sm font-normal truncate">
-                                    <router-link to="/">{{ $t('Home') }}</router-link>
-                                    <span>/</span>
-                                    <span>{{ product.name }}</span>
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div class="flex flex-wrap lg:flex-nowrap gap-4 mt-6">
-                            <div class="lg:w-[480px] w-full">
-        
-                                <div class="w-full">
-                                    <div class="bg-slate-50 rounded-xl border border-slate-100 px-6">
-                                        <swiper :spaceBetween="10" :thumbs="{ swiper: thumbsSwiper }" :modules="modules"
-                                            class="product-details-slider">
-                                            <swiper-slide v-for="thumbnail in product.thumbnails" :key="thumbnail.id"
-                                                class="max-h-[448px] h-auto">
-                                                <img :src="thumbnail.thumbnail" alt="" class="h-full w-full object-contain">
-                                            </swiper-slide>
-                                        </swiper>
-                                    </div>
-                                    <div class="px-1 mt-2">
-                                        <swiper @swiper="setThumbsSwiper" :spaceBetween="10" :slidesPerView="4" :freeMode="true"
-                                            :navigation="true" :watchSlidesProgress="true" :modules="modules"
-                                            class="product-details-thumbnail">
-                                            <swiper-slide v-for="thumbnail in product.thumbnails" :key="thumbnail.id">
-                                                <img :src="thumbnail.thumbnail" alt="" class="h-full w-full object-cover">
-                                            </swiper-slide>
-                                        </swiper>
-                                    </div>
-        
-                                </div>
-        
-                            </div>
-        
-                            <div class="">
-                                <div>
-                                    <span
-                                        v-for="(category, index) in product.categories || ['Uncategorized']"
-                                        :key="index"
-                                        class="text-primary text-xs font-normal leading-none px-1.5 py-1 bg-primary-50 rounded"
-                                    >
-                                        {{ category }}
-                                    </span>
-                                </div>
-                                
-                            
-        
-                                <!-- Title -->
-                                <div class="mt-3 text-slate-950 text-2xl font-medium leading-normal">
-                                    {{ product.name }}
-                                </div>
-        
-                                <!-- Short Desciption -->
-                                <div class="mt-2 text-slate-700 text-base font-normal leading-normal">
-                                    {{ product.short_description }}
-                                </div>
-        
-                                <!-- Rating  review, sold and share -->
-                                <!-- <div class="py-5 flex flex-wrap justify-start items-center gap-4 border-b border-slate-200">
-        
-                                    <div class="w-[1px] h-4 bg-slate-200"></div>
-        
-                                    <div class="text-slate-800 text-base font-normal leading-normal">
-                                        {{ product.total_sold }} {{ $t('Sold') }}
-                                    </div>
-        
-                                    <div class="w-[1px] h-4 bg-slate-200"></div>
-                                    <button class="border-none" @click="favoriteAddOrRemove">
-                                        <HeartIcon v-if="!product.is_favorite" class="w-6 h-6 text-slate-600" />
-                                        <HeartIconFill v-else class="w-6 h-6 text-red-500" />
-                                    </button>
-                                </div> -->
-        
-                                <!-- Price part -->
-                                <div class="flex items-center gap-3 py-4 border-b border-slate-200 flex-wrap">
-                                    <!-- discount Price -->
-                                    <div class="text-primary text-3xl font-bold leading-9">
-                                        {{ masterStore.showCurrency(product.discount_price > 0 ? product.discount_price: product.price) }}
-                                    </div>
-        
-                                    <!-- Price -->
-                                    <div v-if="product.discount_price > 0"
-                                        class="text-slate-400 text-2xl font-normal line-through leading-loose">
-                                        {{ masterStore.showCurrency(product.price) }}
-                                    </div>
-        
-                                    <!-- discount -->
-                                    <div v-if="product.discount_percentage"
-                                        class="px-2 py-1 bg-red-500 rounded-2xl text-white text-base font-medium">
-                                        {{ product.discount_percentage }}% {{ $t('OFF') }}
-                                    </div>
-                                </div>
-        
-        
-                            
-        
-                                <div class="flex flex-wrap gap-4">
-                                    <!-- Quantity Increase Or Decrease -->
-                                <button v-if="cartService"
-                                    disabled
-                                    class="grow max-w-56 justify-center items-center text-black flex gap-2  px-6 py-4 rounded-[10px] border border-black"
-                                    >
-                                    <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5">
-                                    <div class="text-base font-medium leading-normal" >
-                                        {{ $t('Added to Cart') }}
-                                    </div>
-                                </button>
-        
-                                    <!-- Add to Cart -->
-                                    <button v-if="!cartService"
-                                        class="grow max-w-56 justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
-                                        @click="addToCart">
-                                        <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5">
-                                        <div class="text-base font-medium leading-normal">
-                                            {{ $t('Add to Cart') }}
-                                        </div>
-                                    </button>
-        
-                            
-        
-                                    <!-- Buy Now -->
-                                    <!-- <button
-                                        class="grow text-white bg-primary px-6 py-4 rounded-[10px] border border-primary max-w-[50%]"
-                                        @click="buyNow">
-                                        <span class="text-base font-medium leading-normal">
-                                            {{ $t('Order Now') }}
-                                        </span>
-                                    </button> -->
-                                </div>
-        
-                            </div>
-                        </div>
-        
-                        <div class="block xl:hidden w-full pt-6 border-slate-200">
-                            <ServiceDetailsRightSide :product="product" :serviceProducts="popularServices" />
-                        </div>
-        
-                        <div class="flex items-center gap-8 flex-wrap border-b mt-3 mb-4 xl:my-6">
-        
-                            <button class="py-3 transition text-base font-medium leading-normal border-b"
-                                :class="aboutService ? 'text-primary border-primary' : 'text-slate-600 border-transparent'"
-                                @click="aboutService = true; review = false">
-                                {{ $t('About Service') }}
-                            </button>
-        <!-- 
-                            <button class="py-3 transition text-base font-medium leading-normal border-b"
-                                :class="review ? 'text-primary border-primary' : 'text-slate-600 border-transparent'"
-                                @click="showReview()">
-                                {{ $t('Reviews') }}
-                            </button> -->
-                        </div>
-        
-                        <!-- About Product -->
-                        <div v-if="aboutService" class="">
-                            <div v-html="product.description"></div>
-                        </div>
-        
-                        <!-- Reviews -->
-                        <div v-if="review" class="">
-                            <div class="text-slate-950 text-lg lg:text-2xl font-medium leading-loose mb-4">
-                                {{ $t('Rating and Review') }}
-                            </div>
-        
-                            <!-- Review Rating percentage -->
-                            <div class="max-w-2xl">
-                                <ReviewRatings :reviewRatings="avarageRatings.percentages"
-                                    :avarageRating="avarageRatings?.rating" :totalReview="avarageRatings.total_review" />
-                            </div>
-        
-                            <!-- Reviews -->
-                            <div class="border-t border-slate-200 mt-6">
-                                <div class="mt-4 lg:mt-6 text-slate-950 text-lg lg:text-2xl font-medium leading-loose">
-                                    {{ $t('Reviews') }}
-                                </div>
-        
-                                <div class="space-y-6 mt-6">
-                                    <Review v-for="review in reviews" :key="review.id" :review="review" />
-                                </div>
-        
-                                <!-- paginations -->
-                                <div class="flex justify-between items-center w-full mt-8  gap-4 flex-wrap">
-                                    <div class="text-slate-800 text-base font-normal leading-normal">
-                                        {{ $t('Showing') }} {{ perPage * (currentPage - 1) + 1 }} {{ $t('to') }} {{ perPage * (currentPage - 1) +
-                                            reviews.length }} {{ $t('of') }} {{ totalReviews }} {{ $t('results') }}
-                                    </div>
+            <div v-else > 
+                <div class="hero flex flex-col md:flex-row justify-center gap-4 md:justify-between  items-center px-5 md:px-10 lg:px-20 bg-primary h-40">
+                    <div class="text-white text-center md:text-left text-xl md:text-2xl font-medium leading-normal">
+                        {{ product.name }}
+                    </div>
+                    <div>
+                        <button @click="openContactModal" class="px-3 py-2 bg-white text-primary text-sm font-medium leading-none rounded">
+                            Contact for Service
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="main-container ">
+
+                    <div class="px-2 md:px-8 grid grid-cols-1 xl:grid-cols-4 mt-10">
+            
+            
+                        <div class="xl:col-span-3 col-span-1 lg:pr-6">
+            
+                            <div class="flex flex-wrap lg:flex-nowrap gap-4 md:pr-10 mt-6">
+                                <div class="">
                                     <div>
-                                        <vue-awesome-paginate :total-items="totalReviews" :items-per-page="perPage"
-                                            type="button" :max-pages-shown="3" v-model="currentPage"
-                                            :hide-prev-next-when-ends="true"
-                                            @click="onClickHandler" />
+                                        <span
+                                            v-for="(category, index) in product.categories || ['Uncategorized']"
+                                            :key="index"
+                                            class="text-primary text-xs font-normal leading-none px-1.5 py-1 bg-primary-50 rounded"
+                                        >
+                                            {{ category }}
+                                        </span>
                                     </div>
+            
+                                    <!-- Title -->
+                                        <div class="mt-3 text-slate-950 text-2xl font-medium leading-normal">
+                                            {{ product.name }}
+                                        </div>
+            
+                                    <!-- Short Desciption -->
+                                    <div class="mt-2 text-slate-700 text-base font-normal leading-normal">
+                                        {{ product.short_description }}
+                                    </div>
+            
+                                    <div class="w-full flex md:pr-10 border border-slate-300 rounded-lg py-3 px-3 items-center justify-between mt-3">
+                                        <h1>
+                                            Do you need this service?
+                                        </h1>
+
+                                        <button @click="openContactModal"  class="px-3 py-2 bg-primary text-white text-sm font-medium leading-none rounded">
+                                            Contact Evtopia
+                                        </button>
+                                    </div>
+                                   
                                 </div>
-        
                             </div>
-        
+                            <div v-if="aboutService" class=" mt-6">
+                                <div v-html="product.description"></div>
+                            </div>
+            
+                            <!-- Reviews -->
+                            <div v-if="review" class="">
+                                <div class="text-slate-950 text-lg lg:text-2xl font-medium leading-loose mb-4">
+                                    {{ $t('Rating and Review') }}
+                                </div>
+            
+                                <!-- Review Rating percentage -->
+                                <div class="max-w-2xl">
+                                    <ReviewRatings :reviewRatings="avarageRatings.percentages"
+                                        :avarageRating="avarageRatings?.rating" :totalReview="avarageRatings.total_review" />
+                                </div>
+            
+                                <!-- Reviews -->
+                                <div class="border-t border-slate-200 mt-6">
+                                    <div class="mt-4 lg:mt-6 text-slate-950 text-lg lg:text-2xl font-medium leading-loose">
+                                        {{ $t('Reviews') }}
+                                    </div>
+            
+                                    <div class="space-y-6 mt-6">
+                                        <Review v-for="review in reviews" :key="review.id" :review="review" />
+                                    </div>
+            
+                                    <!-- paginations -->
+                                    <div class="flex justify-between items-center w-full mt-8  gap-4 flex-wrap">
+                                        <div class="text-slate-800 text-base font-normal leading-normal">
+                                            {{ $t('Showing') }} {{ perPage * (currentPage - 1) + 1 }} {{ $t('to') }} {{ perPage * (currentPage - 1) +
+                                                reviews.length }} {{ $t('of') }} {{ totalReviews }} {{ $t('results') }}
+                                        </div>
+                                        <div>
+                                            <vue-awesome-paginate :total-items="totalReviews" :items-per-page="perPage"
+                                                type="button" :max-pages-shown="3" v-model="currentPage"
+                                                :hide-prev-next-when-ends="true"
+                                                @click="onClickHandler" />
+                                        </div>
+                                    </div>
+            
+                                </div>
+            
+                            </div>
+            
+                            <div class="w-full my-12 flex md:pr-10 border border-slate-300 rounded-lg py-3 px-3 items-center justify-between mt-3">
+                                        <h1>
+                                            Do you need this service?
+                                        </h1>
+
+                                        <button @click="openContactModal"  class="px-3 py-2 bg-primary text-white text-sm font-medium leading-none rounded">
+                                            Contact Evtopia
+                                        </button>
+                                    </div>
                         </div>
-        
+            
+                        <!-- Right side -->
+                        <div
+                            class="">
+                            <!-- <ServiceDetailsRightSide :product="product" :serviceProducts="popularServices" /> -->
+    
+                                <div class=" w-full">
+            
+                                    <div class="w-full ">
+                                        <div class="bg-slate-50 rounded-xl border border-slate-100">
+                                            <swiper :spaceBetween="10" :thumbs="{ swiper: thumbsSwiper }" :modules="modules"
+                                                class="product-details-slider">
+                                                <swiper-slide v-for="thumbnail in product.thumbnails" :key="thumbnail.id"
+                                                    class="w-full h-auto">
+                                                    <img :src="thumbnail.thumbnail" alt="" class="h-full w-full object-contain">
+                                                </swiper-slide>
+                                            </swiper>
+                                        </div>
+
+                                         <div class="mt-4 xl:mt-6 text-slate-800 text-lg md:text-2xl  font-bold leading-9">
+                                            {{ $t('Similar Services') }}
+                                        </div>
+                                
+                                        <div class=" gap-3 sm:gap-6 items-start mt-4 mb-6">
+                                            <div v-for="product in relatedServices" :key="product.id">
+                                                <div class="w-full card gap-4 flex border-b border-slate-200 pb-2 cursor-pointer" @click="showServiceDetails">
+                                                    <img :src="product.thumbnail" alt="" class="w-32 rounded-lg object-contain">
+                                                    <div>
+                                                        <div >
+                                                            <h1>{{ product.name }}</h1>
+                                                            <span
+                                                                v-for="(category, index) in product.categories || ['Uncategorized']"
+                                                                :key="index"
+                                                                class="text-primary text-xs font-normal leading-none px-1.5 py-1 bg-primary-50 rounded"
+                                                            >
+                                                                {{ category }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                          
+            
+                                    </div>
+            
+                                </div>
+                        </div>
+            
                     </div>
-        
-                    <!-- Right side -->
-                    <div
-                        class="hidden xl:block col-span-1 w-full pt-6 h-full xl:pt-6 xl:pl-8 xl:border-l border-slate-200 xl:pb-6">
-                        <ServiceDetailsRightSide :product="product" :serviceProducts="popularServices" />
-                    </div>
-        
-                </div>
-        
-                <!-- Similar Products -->
-                <div class="mt-4 xl:mt-6 text-slate-800 text-lg md:text-2xl lg:text-3xl font-bold leading-9">
-                    {{ $t('Similar Services') }}
-                </div>
-        
-                <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5  gap-3 sm:gap-6 items-start my-6">
-                    <div v-for="product in relatedServices" :key="product.id">
-                        <ServiceCard :product="product" />
-                    </div>
+
+
+                    
+            
+                   
                 </div>
 
             </div>
+
+            <!-- <div class="px-5 md:px-24 py-5">
+                <ContactUs />
+
+            </div> -->
+
+        <PopularProducts :products="popularProducts"  :loading="loading"/>
+
 
 
     </div>
@@ -294,6 +235,7 @@ import { useMaster } from '../stores/MasterStore';
 import ProductDetailsRightSide from '../components/ProductDetailsRightSide.vue';
 import ServiceDetailsRightSide from '../components/ServiceDetailsRightSide.vue';
 import ToastSuccessMessage from '../components/ToastSuccessMessage.vue';
+import PopularProducts from "../components/PopularProducts.vue";
 
 import { HomeIcon, ShareIcon, HeartIcon, MinusIcon, PlusIcon } from '@heroicons/vue/24/outline';
 import { StarIcon, HeartIcon as HeartIconFill } from '@heroicons/vue/24/solid';
@@ -307,6 +249,7 @@ import ServiceCard from '../components/ServiceCard.vue';
 import { useBaskerStore } from '../stores/BasketStore';
 import { useServiceStore } from '../stores/ServiceStore';
 import { useAuth } from '../stores/AuthStore';
+import ContactUs from '../components/ContactUs.vue';
 
 import VueCountdown from '@chenfengyuan/vue-countdown';
 const time = ref(7 * 60 * 60 * 1000);
@@ -324,11 +267,17 @@ const toast = useToast();
 
 const thumbsSwiper = ref(null);
 const loading = ref(true);
+const popularProducts = ref([]);
+
 
 const modules = [FreeMode, Navigation, Thumbs];
 
 const setThumbsSwiper = (swiper) => {
     thumbsSwiper.value = swiper;
+};
+
+const openContactModal = () => {
+  window.dispatchEvent(new Event('open-contact-popup'));
 };
 
 const route = useRoute();
@@ -355,11 +304,28 @@ const review = ref(false);
 const cartService = ref(null);
 
 
+const getData = () => {
+    loading.value = true;
+
+    axios.get('/popularProducts', {
+        headers: {
+            Authorization: authStore.token
+        }
+    }).then((response) => {
+        popularProducts.value = response.data.data.products;
+    }).catch(() => {})
+    .finally(() => {
+      loading.value = false;
+    });
+
+    
+}
 
 onMounted(() => {
     fetchServiceDetails();
     window.scrollTo(0, 0);
     findServiceInCart(route.params.id);
+    getData();
 });
 
 const buyNow = () => {
@@ -492,6 +458,8 @@ const fetchServiceDetails = async () => {
         relatedServices.value = response.data.data.related_products;
         popularServices.value = response.data.data.popular_products;
 
+        console.log('service details ', relatedServices.value);
+
         findServiceInCart(route.params.id);
     }).catch((error) => {
         console.error('Error fetching service details:', error);
@@ -499,6 +467,10 @@ const fetchServiceDetails = async () => {
         loading.value = false;
     });
 };
+
+const showServiceDetails = (  ) => {
+    router.push({ name: 'serviceDetails', params: { id: product.value.id } })
+}
 
 const avarageRatings = ref({});
 
