@@ -89,7 +89,6 @@ export const useAuth = defineStore("authStore", {
             // add user id to the logout request
             const id = this.user?.id;
             if (!id) {
-                console.error("User ID is not available for logout.");
                 return;
             }
            axios.post("/logout-user" + `/${id}` , {

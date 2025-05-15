@@ -92,12 +92,13 @@ export const useBaskerStore = defineStore("basketStore", {
                         });
                     })
                     .catch((error) => {
+                        console.log("Error : ",error);
                         if (error.response.status == 401) {
                             toast.error("Please login first!", {
                                 position: "bottom-left",
                             });
-                            const authStore = useAuth();
-                            authStore.showLoginModal();
+                            // const authStore = useAuth();
+                            // authStore.showLoginModal();
                         } else {
                             toast.error(error.response.data.message, {
                                 position: "bottom-left",
