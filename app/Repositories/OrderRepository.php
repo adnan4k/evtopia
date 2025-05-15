@@ -145,7 +145,7 @@ class OrderRepository extends Repository
     
                     $payment->orders()->attach($order->id);
     
-                    $giftProduct->product->decrement('quantity', $giftProduct->quantity);
+                    // $giftProduct->product->decrement('quantity', $giftProduct->quantity);
     
                     $order->products()->attach($giftProduct->product->id, [
                         'quantity' => $giftProduct->quantity,
@@ -183,7 +183,7 @@ class OrderRepository extends Repository
     
                 foreach ($newCartProducts as $cart) {
     
-                    $cart->product->decrement('quantity', $cart->quantity);
+                    // $cart->product->decrement('quantity', $cart->quantity);
     
                     $order->products()->attach($cart->product->id, [
                         'quantity' => $cart->quantity,
