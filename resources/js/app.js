@@ -55,7 +55,7 @@ axios.interceptors.response.use(
     if ([401, 419].includes(err.response?.status)) {
       auth.logout()
     //   auth.loginModal = true
-      next(false)                              
+      // next(false)                              
       window.location.href = '/' 
     }
     return Promise.reject(err)

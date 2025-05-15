@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -21,15 +22,17 @@ export default {
                 'primary-900': 'var(--primary-900)',
                 'primary-950': 'var(--primary-950)',
             },
-            screens: {
-                xs: "375px",
-                xmd: "950px",
-                xxmd:"1005px",
-                lgx: "1200px",
-                lgxx: "1235px",
-                xlg: "1245px",
-                xxl:"1400px",
-            }
+           screens: {
+            xs: '375px',
+            xmd: '950px',
+            xxmd: '1005px',
+            lgx: '1200px',
+            lgxx: '1235px',
+            xlg: '1245px',
+            xxlg: '1600px',
+            xxl: '1700px',
+            
+        },
         },
     },
     plugins: [
