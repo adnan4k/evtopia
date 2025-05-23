@@ -72,7 +72,8 @@
 
             <router-link to="/services"
                 class="h-10 py-2 border-b-2 border-transparent font-[400]  text-slate-900">
-                {{ 'Services' }}
+                {{ $t('Services') }}
+
             </router-link>
             <div class="w-[0px] h-4 border border-slate-200"></div>
 
@@ -155,14 +156,12 @@ import { useMaster } from "../stores/MasterStore";
 const master = useMaster();
 
 const appStore = () => {
-     console.log("Master",master);
     if (master.appStoreLink) {
         window.open(master.appStoreLink, '_blank');
     }
 }
 
 const playStore = () => {
-    console.log("Master",master);
     if (master.playStoreLink) {
         window.open(master.playStoreLink, '_blank');
     }

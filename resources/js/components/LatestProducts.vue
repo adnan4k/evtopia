@@ -77,7 +77,6 @@ const props = defineProps({
   }
 });
 
-console.log("Props : ",props?.justForYou);
 const currentPage = ref(2);
 const hasMoreProducts = ref(false);
 const totalPages = ref(1);

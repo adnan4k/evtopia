@@ -130,7 +130,6 @@ const fetchOrders = async () => {
             Authorization: authStore.token,
         }
     }).then((response) => {
-        console.log("Booking : ", response);
         totalItems.value = response.data.data.total;
         orders.value = response.data.data.orders;
         statusWiseOrders.value = response.data.data.status_wise_orders;

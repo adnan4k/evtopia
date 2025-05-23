@@ -2,7 +2,7 @@
   <!-- Hero Section with Blog Image -->
   <div class="hero-section bg-cover bg-center h-72 flex items-center justify-center" 
   :style="{ backgroundImage: `url(${banner})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
-        <h1 class="text-white text-3xl sm:text-4xl font-bold text-center">Evtopia News and Insights</h1>
+        <h1 class="text-white text-3xl sm:text-4xl font-bold text-center">{{ $t('evtopia1') }} {{ $t('News and Insights') }}</h1>
     </div>
     <div class="main-container py-14">
         <div class="w-full bg-white rounded-lg border border-slate-100 p-1 md:p-2 xl:p-3">

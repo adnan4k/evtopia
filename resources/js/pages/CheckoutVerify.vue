@@ -109,8 +109,6 @@ const paymentMethod = ref(null);
 
 const paymentGateway = ref(null);
 // Access the parameters correctly
-console.log("ID", route.params.id); // Accesses the route parameter `id`
-console.log("Payment ID", route.query.payment_id); // Accesses the query parameter `payment_id`
 onMounted(() => {
 
     verifyPayment();
@@ -133,7 +131,6 @@ const verifyPayment = async () => {
         }
     }).then((response) => {
         if(response.status === 200){
-            console.log(response);
             basketStore.showOrderConfirmModal = true
 
         }

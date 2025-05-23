@@ -40,7 +40,6 @@ const props = defineProps({
     post: Object
 });
 
-console.log("Hub : ",props.post);
 
 </script>
 

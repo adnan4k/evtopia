@@ -16,7 +16,6 @@ const master = ref({});
 onMounted(() => {
     axios.get("/master").then((response) => {
         master.value = response.data.data;
-    console.log(master.value)
     });
     window.scrollTo(0, 0);
 });

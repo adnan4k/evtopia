@@ -156,7 +156,6 @@ watch(route, () => {
 
 const processToCheckout = () => {
 
-    console.log("Total",BasketStore.total);
     if (!master.multiVendor) {
         BasketStore.products.forEach(shop => {
             BasketStore.selectedShopIds = [shop.shop_id];

@@ -77,7 +77,6 @@ const fetchOrderDetails = async () => {
         }
     }).then((response) => {
         order.value = response.data.data.order;
-        console.log(order.value)
     });
 };
 

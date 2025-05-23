@@ -3,7 +3,7 @@
 <template>
 
     <div class="md:gap-16 md:px-8">
-        <h2 class=" text-center text-2xl md:text-4xl font-bold text-primary  py-5">Evtopia Knowledge Center </h2>
+        <h2 class=" text-center text-2xl md:text-4xl font-bold text-primary  py-5"> {{ $t('evtopia_knowledge_center') }} </h2>
         <div class="flex md:flex-row  px-4 flex-col items-center justify-between gap-8 ">
         
         
@@ -83,7 +83,6 @@ const props = defineProps({
   }
 });
 
-console.log("KH : ", props?.knowledge_hubs)
 const modules = [Navigation, A11y];
 const breakpoints = {
     320: {

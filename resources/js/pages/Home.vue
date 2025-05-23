@@ -115,7 +115,6 @@ const getData = () => {
         posts.value = response.data.data.posts.slice(0, 5);
         knowledge_hubs.value = response.data.data.knowledge_hubs.slice(0, 5);
 
-        console.log('Service : ',popularServices.value);
     }).catch(() => {})
     .finally(() => {
       loading.value = false;
@@ -152,7 +151,6 @@ const fetchBlogs = () => {
         }).then((response) => {
             posts.value = response.data.data.posts;
 
-            console.log('Blogs : ',blogs.value);
         }).catch(() => {});
     }
 }
@@ -165,8 +163,6 @@ const fetchKnowledgeHubs = () => {
             }
         }).then((response) => {
             knowledge_hubs.value = response.data.data.posts;
-            console.log('Knowledge Hubs : ',knowledge_hubs.value);
-
         }).catch(() => {});
     }
 }
