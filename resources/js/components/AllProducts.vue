@@ -67,7 +67,6 @@ const props = defineProps({
   }
 });
 
-console.log("Props : ",props?.justForYou);
 const currentPage = ref(2);
 const hasMoreProducts = ref(false);
 const totalPages = ref(1);
@@ -95,7 +94,6 @@ const loadMoreProducts = () => {
             hasMoreProducts.value = false;
         }
         loadMore.value = false
-        console.log(products,'products')
     }).catch((error) => {
         loadMore.value = false
         console.log(error);

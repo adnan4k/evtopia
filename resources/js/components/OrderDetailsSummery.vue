@@ -199,7 +199,6 @@ const props = defineProps({
 });
 
 
-console.log('Order Summary : ', props.order);
 const cancelOrder = () => {
     axios.post('/orders/cancel', {
         order_id: props.order.id

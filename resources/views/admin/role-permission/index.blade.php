@@ -376,8 +376,6 @@
                 $('#roleNameError').text('');
             }
 
-            console.log(forShop);
-
             if (isSubmittedAble && !isLoading) {
                 isLoading = true;
                 roleSubmit.disabled = true;

@@ -69,7 +69,6 @@ const fetchServices = async () => {
         totalServices.value = response.data.data.total;
         services.value = response.data.data.services;
 
-        console.log('services ',services.value, 'total ',totalServices.value);
     }).catch((error) => {
         console.error('Error fetching services:', error);
     }).finally(() => {

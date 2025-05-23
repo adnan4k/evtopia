@@ -84,7 +84,7 @@
                                     class="text-primary text-[30px] group-hover:text-white transition-colors duration-300 ease-in-out" />
                                 <span 
                                     class="text-slate-800 text-xs md:text-[14px] font-bold leading-9 group-hover:text-white transition-colors duration-300 ease-in-out">
-                                    {{ $t('Our Service') }}
+                                    {{ $t('Our Services') }}
                                 </span>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                                     class="text-primary text-[30px] group-hover:text-white transition-colors duration-300 ease-in-out" />
                                 <span 
                                     class="text-slate-800 text-xs md:text-[14px] font-bold leading-9 group-hover:text-white transition-colors duration-300 ease-in-out">
-                                    {{ $t('How EV Work') }}
+                                    {{ $t('How EV works?') }}
                                 </span>
                             </div>
                         </div>

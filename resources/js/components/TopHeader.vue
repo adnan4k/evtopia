@@ -84,7 +84,44 @@
                         {{ $t('Contact') }}
                     </router-link>
         
-        
+                    <Menu as="a" 
+                        style="
+                            background: black;
+                            padding: 4px 8px;
+                            border-radius: 5px;
+                            
+                        "
+                    >
+                        <div>
+                            <MenuButton
+                                class="inline-flex items-center text-white font-['Roboto'] gap-1 text-sm font-normal leading-tight">
+                                <LanguageIcon class="w-4 h-4" aria-hidden="true" />
+
+                                {{ currentLanguage }}
+                                <ChevronDownIcon class="w-4 h-4" aria-hidden="true" />
+                            </MenuButton>
+                        </div>
+
+                        <transition enter-active-class="transition ease-out duration-100"
+                            enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100"
+                            leave-active-class="transition ease-in duration-75"
+                            leave-from-class="transform opacity-100 scale-100"
+                            leave-to-class="transform opacity-0 scale-95">
+                            <MenuItems
+                                class="absolute z-20 w-24 mt-1 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" :class="master.langDirection == 'rtl' ? 'left-0' : 'right-0'">
+                                <div class="py-1">
+                                    <MenuItem v-for="language in master.languages" v-slot="{ active }" :key="language.id">
+                                    <button type="button" @click="setCurrentLanguage(language.name); reloadPage()"
+                                        class="w-full flex gap-1 text-left" :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'block px-4 py-2 text-sm']">
+                                <!-- <LanguageIcon class="w-4 h-4" aria-hidden="true" /> -->
+                                        
+                                        {{
+                                            language.title }}</button>
+                                    </MenuItem>
+                                </div>
+                            </MenuItems>
+                        </transition>
+                    </Menu>
         
                 </div>
 
@@ -108,7 +145,7 @@
 
 <script setup>
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+import { ChevronDownIcon, LanguageIcon } from '@heroicons/vue/20/solid'
 import  localization from '../localization';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { DevicePhoneMobileIcon } from '@heroicons/vue/24/outline'
@@ -117,20 +154,18 @@ import { useMaster } from "../stores/MasterStore";
 import { onMounted, ref, watch } from 'vue';
 const master = useMaster();
 
-const currentLanguage = ref('English');
+const currentLanguage = ref('Eng');
 
 
 
 
 const appStore = () => {
-     console.log("Master",master);
     if (master.appStoreLink) {
         window.open(master.appStoreLink, '_blank');
     }
 }
 
 const playStore = () => {
-    console.log("Master",master);
     if (master.playStoreLink) {
         window.open(master.playStoreLink, '_blank');
     }

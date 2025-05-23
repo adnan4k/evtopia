@@ -287,9 +287,6 @@ const basketStore = useBaskerStore();
 const serviceStore = useServiceStore();
 const authStore = useAuth();
 
-console.log("Basket store ", basketStore);
-console.log("Service store ", serviceStore);
-
 const formData = ref({
     service_id: route.params.id,
 });
@@ -352,7 +349,6 @@ watch(route, () => {
 
 const findServiceInCart = (serviceId) => {
     let foundService = null;
-    console.log("Cart service ", serviceStore.services);
     serviceStore.services.forEach((item) => {
             if (item.service.id == serviceId) {
                 return foundService = product;
@@ -457,8 +453,6 @@ const fetchServiceDetails = async () => {
         console.log(product.value);
         relatedServices.value = response.data.data.related_products;
         popularServices.value = response.data.data.popular_products;
-
-        console.log('service details ', relatedServices.value);
 
         findServiceInCart(route.params.id);
     }).catch((error) => {

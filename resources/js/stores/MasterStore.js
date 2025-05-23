@@ -95,12 +95,15 @@ export const useMaster = defineStore("masterStore", {
                 this.languages = response.data.data.languages;
             });
         },
-        showCurrency(amount) {
+       showCurrency(amount) {
+            const formattedAmount = Number(amount).toLocaleString();
+
             if (this.position == "prefix") {
-                return this.currency + amount;
+                return `${this.currency} ${formattedAmount}`;
             }
-            return amount + this.currency;
-        },
+            return `${formattedAmount} ${this.currency}`;
+        }
+
     },
 
     persist: true,

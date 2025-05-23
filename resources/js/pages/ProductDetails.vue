@@ -97,7 +97,7 @@
     
                         </div>
     
-                        <div class="">
+                        <div class="w-full">
     
                             <!-- Brand -->
                             <span v-if="product.categories && product.categories.length"
@@ -643,6 +643,7 @@
     
                             </div>
     
+                            
                             <div class="flex flex-wrap gap-4">
                                 <!-- Quantity Increase Or Decrease -->
                                 <div v-if="cartProduct"
@@ -687,7 +688,6 @@
                                
     
                             </div>
-    
                         </div>
                     </div>
     
@@ -890,7 +890,6 @@ const openPdf = (pdfFile) => {
 
     
     const pdfUrl =pdfFile; // Dynamically fetch the PDF URL from product data
-    console.log('pdfUrl', pdfUrl);
     if (pdfUrl) {
         window.open(pdfUrl, '_blank'); // Open PDF in a new tab
     } else {
@@ -1018,8 +1017,6 @@ const fetchProductDetails = async () => {
         product.value = response.data.data.product;
         relatedProducts.value = response.data.data.related_products;
         popularProducts.value = response.data.data.popular_products;
-
-        console.log('product', product.value);
 
 
         if (product.value.colors.length > 0) {

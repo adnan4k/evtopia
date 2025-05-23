@@ -161,7 +161,6 @@ const content = {
 
 const addressFormSubmit = () => {
 
-    console.log('formData', formData.value);
     axios.post('/address/store', formData.value, {
         headers: {
             'Authorization': authStore.token

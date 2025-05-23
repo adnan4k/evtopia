@@ -25,7 +25,6 @@ const props = defineProps({
     post: Object
 });
 
-console.log("Props : ",props);
 
 </script>
 

@@ -224,9 +224,6 @@ const basketStore = useBaskerStore();
 const serviceStore = useServiceStore();
 const authStore = useAuth();
 
-console.log("Basket store ", basketStore);
-console.log("Service store ", serviceStore);
-
 const formData = ref({
     post_id: route.params.id,
 });
@@ -281,7 +278,6 @@ watch(route, () => {
 
 const findServiceInCart = (serviceId) => {
     let foundService = null;
-    console.log("Cart service ", serviceStore.services);
     serviceStore.services.forEach((item) => {
             if (item.service.id == serviceId) {
                 return foundService = product;

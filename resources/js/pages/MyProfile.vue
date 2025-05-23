@@ -187,7 +187,6 @@ const ChangeProfilePhoto = (event) => {
 }
 
 
-console.log("Auth Store : ",authStore.user);
 const formData = ref({
     name: authStore.user?.name,
     phone: authStore.user?.phone,

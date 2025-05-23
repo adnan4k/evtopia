@@ -16,10 +16,11 @@
         <div>
           <span
             class="font-semibold uppercase text-primary tracking-wide block"
-            >Why EVtopia</span
+            >{{ $t('evtopia') }}</span
           >
           <h1 class="mt-2 text-4xl font-extrabold text-gray-900">
-            Building Ethiopia's EV Future
+            {{ $t('Building Ethiopia\'s EV Future') }}
+
           </h1>
         </div>
 
@@ -32,8 +33,8 @@
             aria-hidden="true"
           />
 
-          The first-of-its-kind platform in Ethiopia, uniting EV suppliers,
-          importers, buyers, sellers, manufacturers, and service providers.
+        {{ $t('the_first_of_its_kind') }}
+
         </blockquote>
       </div>
 
@@ -63,12 +64,13 @@
             class="h-20 w-20 text-primary"
           />
 
-          <h3 class="text-xl font-semibold text-gray-900">
-            {{ feature.title }}
-          </h3>
-          <p class="mt-2 text-gray-600 text-[17px] py-1">
-            {{ feature.body }}
-          </p>
+         <h3 class="text-xl font-semibold text-gray-900">
+          {{ $t(feature.title) }}
+        </h3>
+        <p class="mt-2 text-gray-600 text-[17px] py-1">
+          {{ $t(feature.body) }}
+        </p>
+
         </div>
       </div>
     </div>
@@ -196,23 +198,31 @@ const blocks = [
   },
 ]
 /* feature data & icon mapping */
+
+//  "comprehensive_support": "Comprehensive Support for EV Adoption",
+//     "comprehensive_support_desc": "We offer expert consultancy, advice, sales, after-sales services, and access to quality spare parts.",
+//     "education_empowerment": "Empowering Through Education",
+//     "education_empowerment_desc": "Through an innovative e-learning platform, Evtopia empowers users with automotive knowledge and certifications, fostering local skills development and workforce readiness in the growing EV sector.",
+//     "centralized_ecosystem": "Centralized EV Ecosystem",
+//     "centralized_ecosystem_desc": "The first-of-its-kind platform in Ethiopia, uniting EV suppliers, importers, buyers, sellers, manufacturers, and service providers."
+
 const features = [
   {
-    title: 'Comprehensive Support for EV Adoption',
+    title: 'comprehensive_support',
     body:
-      'We offer expert consultancy, advice, sales, after-sales services, and access to quality spare parts.',
+      'comprehensive_support_desc',
     icon: Squares2X2Icon
   },
   {
-    title: 'Empowering Through Education',
+    title: 'education_empowerment',
     body:
-      'Through an innovative e-learning platform, Evtopia empowers users with automotive knowledge and certifications, fostering local skills development and workforce readiness in the growing EV sector.',
+      'education_empowerment_desc',
     icon: AcademicCapIcon
   },
   {
-    title: 'Centralized EV Ecosystem',
+    title: 'centralized_ecosystem',
     body:
-      'The first-of-its-kind platform in Ethiopia, uniting EV suppliers, importers, buyers, sellers, manufacturers, and service providers.',
+      'centralized_ecosystem_desc',
     icon: WrenchScrewdriverIcon
   }
 ]

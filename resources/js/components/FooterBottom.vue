@@ -11,5 +11,4 @@
 
 <script setup>
 const { master } = defineProps(['master']);
-console.log("Master Data in FooterBottom:", master);
 </script>
