@@ -56,9 +56,7 @@ class MasterController extends Controller
             'primary950' => $themeColor ? $themeColor['variant_950'] : '#772336',
         ];
 
-        $languages = Cache::remember('languages', 60 * 24, function () {
-            return LanguageRepository::getAll();
-        });
+        $languages =LanguageRepository::getAll();
 
         return $this->json('Master data', [
             'currency' => [
