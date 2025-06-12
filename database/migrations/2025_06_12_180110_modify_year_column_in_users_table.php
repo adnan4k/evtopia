@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class ModifyYearColumnInUsersTable extends Migration
@@ -9,33 +10,15 @@ class ModifyYearColumnInUsersTable extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            if (Schema::hasColumn('users', 'year')) {
-                $table->dropColumn('year');
-            }
-
-          
-            $table->smallInteger('year')
-                  ->nullable()
-                  ->after('model'); // put it after whichever column makes sense
-        });
+        DB::statement('ALTER TABLE `users` DROP COLUMN IF EXISTS `year`');
+        DB::statement('ALTER TABLE `users` ADD COLUMN `year` SMALLINT NULL AFTER `model`');
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            if (Schema::hasColumn('users', 'year')) {
-                $table->dropColumn('year');
-            }
-
-            $table->year('year')
-                  ->nullable()
-                  ->after('model');
-        });
+        DB::statement('ALTER TABLE `users` DROP COLUMN IF EXISTS `year`');
+        DB::statement('ALTER TABLE `users` ADD COLUMN `year` YEAR NULL AFTER `model`');
     }
 }
