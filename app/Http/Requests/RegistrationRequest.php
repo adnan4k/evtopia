@@ -39,6 +39,13 @@ class RegistrationRequest extends FormRequest
             'phone' => 'required|unique:users,phone',
             'email' => [$emailRequird, 'email', new EmailRule, 'unique:users,email'],
             'password' => 'required|string|min:6',
+            'year' => [
+                'nullable',
+                'integer',
+                'digits:4',                      // exactly 4 digits
+                'min:1901',                      // not below MySQL’s floor
+                'max:'.now()->year,              // not in the future
+            ],
         ];
     }
 
@@ -59,6 +66,10 @@ class RegistrationRequest extends FormRequest
             'email.required' => __('The email field is required.'),
             'email.email' => __('The email must be a valid email address.'),
             'email.unique' => __('The email has already been taken.'),
+            'year.integer' => __('The year must be an integer.'),
+            'year.digits' => __('The year must be exactly 4 digits.'),
+            'year.min' => __('The year must be at least 1901.'),
+            'year.max' => __('The year cannot be in the future.'),
         ];
     }
 }
