@@ -43,6 +43,7 @@ class ProductController extends Controller
 
         $rating = $request->rating; //4.0
         $sortType = $request->sort_by;
+        $sortByType = $request->sort_type; //asc or desc
         $minPrice = $request->min_price;
         $maxPrice = $request->max_price;
 
@@ -98,6 +99,13 @@ class ProductController extends Controller
             ->when($sortType == 'popular_product', function ($query) {
                 return $query->orderByDesc('orders_count')->orderByDesc('average_rating');
             })
+           ->when($sortByType == 'popular_products', function ($query) {
+                return $query->withCount('visits')->orderByDesc('visits_count');
+            })
+            ->when($sortByType == 'special_products', function ($query) {
+                return $query->where('is_special', true);
+            })
+            
             ->when($sortType == 'newest' || $sortType == 'just_for_you', function ($query) {
                 return $query->orderBy('id', 'desc');
             })
@@ -169,7 +177,14 @@ class ProductController extends Controller
 
         $shop = $product->shop;
 
-        $popularProducts = $shop->products()->isActive()->where('id', '!=', $product->id)->withCount('orders')->withAvg('reviews as average_rating', 'rating')->orderByDesc('average_rating')->orderByDesc('orders_count')->take(6)->get();
+     $popularProducts = $shop->products()
+            ->isActive()
+            ->where('id', '!=', $product->id)
+            ->withCount('visits') // Add a visits_count column
+            ->orderByDesc('visits_count') // Order by number of visits (most visited first)
+            ->take(6)
+            ->get();
+
 
         $this->recordVisit($request, $product);
 

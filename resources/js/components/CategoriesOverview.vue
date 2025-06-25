@@ -1,12 +1,6 @@
 <template>
     <div class="md:py-8 px-8 mt-10 mb-10">
-            <!-- i want to show 6 categories next to each other and responsive here with icons and 
-                1.Buy Now
-                2.Sell Your EV Now
-                3.Add Your Shop
-                4.Our Service
-                5.How EV Work
-                6.E Learning -->
+
             
             <div class="grid grid-cols-2 md:grid-cols-3  gap-2 md:gap-4 ">
 

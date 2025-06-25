@@ -991,7 +991,7 @@
     "Easy Returns": "Easy Returns",
     "Easy Returns Description": "Easy Returns Description",
     "Top Rated Shops": "Top Rated Shops",
-    "Just For You": "Just For You",
+    "Just For You": "Latest Products",
     "Quick Links": "Quick Links",
     "Company": "Company",
     "About us": "About us",
@@ -1158,7 +1158,7 @@
     "E-Learning": "E-Learning",
     "Special Offers": "Special Offers",
     "Products From Same Brand": "Products From Same Brand",
-    "Building Ethiopia's EV Future": "የኢትዮጵያ የኤቪ ወደፊት ማርበብ",
+    "Building Ethiopia's EV Future": "Building Ethiopia's EV Future",
     "the_first_of_its_kind":"The first-of-its-kind platform in Ethiopia, uniting EV suppliers,importers, buyers, sellers, manufacturers, and service providers.",
     "comprehensive_support": "Comprehensive Support for EV Adoption",
     "comprehensive_support_desc": "We offer expert consultancy, advice, sales, after-sales services, and access to quality spare parts.",
@@ -1238,7 +1238,10 @@
     "contact_us": "Contact Us",
     "Our Services": "Our Services",
     "Read More": "Read More",
-    "evtopia": "እቭቶፒያለምን?",
-    "evtopia1":"እቭቶፒያ"
-    
+    "evtopia": "Why Evtopia?",
+    "evtopia1":"Why Evtopia?",
+    "Special": "Special",
+    "want_to_know_more": "Want to read more ?",
+    "Read PDF": "Read PDF",
+    "Get More Info": "Get More Info"
 }

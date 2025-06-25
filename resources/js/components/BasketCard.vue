@@ -1,11 +1,10 @@
 <template>
     <div>
-        <div v-if="routerName !== 'checkout'"
+        <!-- <div v-if="routerName !== 'checkout'"
             id="basketCanvasCustom"
             class="w-[72px] bg-white rounded-l-[10px] shadow border-l border-t border-b border-primary flex-col justify-start items-center gap-1 flex fixed top-1/2 -translate-y-1/2 right-0 z-10 overflow-hidden cursor-pointer"
             @click="showCardCanvas()">
             <div class="pt-2 pb-0.5 flex flex-col items-center gap-1 justify-center">
-                <!-- <img :src="'/assets/icons/bag-2.svg'" loading="lazy" class="w-6 h-6" /> -->
                 <font-awesome-icon :icon="faBagShopping" class="w-6 h-6 text-primary"/>
                 <div class="text-center text-slate-600 text-xs font-normal">{{ BasketStore.total + ServiceStore.total }} {{ $t('items') }}</div>
             </div>
@@ -16,7 +15,7 @@
                 </div>
             </div>
 
-        </div>
+        </div> -->
 
         <TransitionRoot as="template" :show="master.basketCanvas" >
             <Dialog as="div" class="relative z-10" @close="showCardCanvas()" >

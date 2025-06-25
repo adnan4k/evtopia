@@ -27,7 +27,7 @@
                     </div>
                 </div>
 
-                <button class="p-3" @click="master.basketCanvas = true">
+                <!-- <button class="p-3" @click="master.basketCanvas = true">
                     <div class="w-6 h-6 relative">
                         <img :src="'/assets/icons/bag.svg'" class="w-6 h-6 text-primary" />
                         <span
@@ -35,7 +35,7 @@
                             {{ basketStore.total + serviceStore.total}}
                         </span>
                     </div>
-                </button>
+                </button> -->
             </div>
 
             <button v-if="!AuthStore.user" class="flex items-center gap-2 lg:p-3 text-slate-600 hover:text-primary"
@@ -134,7 +134,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="flex justify-between items-center px-3 py-2.5 bg-white rounded-md border border-slate-100 gap-2"
+                                                <!-- <div class="flex justify-between items-center px-3 py-2.5 bg-white rounded-md border border-slate-100 gap-2"
                                                     @click="showMyCart()">
                                                     <div class="flex items-center gap-2">
                                                         <img :src="'/assets/icons/bag.svg'"
@@ -149,7 +149,7 @@
                                                             {{ basketStore.total + serviceStore.total }}
                                                         </span>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                             <div class="justify-start inline-flex grow flex-col mt-5">

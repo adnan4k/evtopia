@@ -15,17 +15,17 @@
         <!-- label + headline -->
         <div>
           <span
-            class="font-semibold uppercase text-primary tracking-wide block"
+            class=" text-lg  text-primary md:text-3xl font-bold leading-9"
             >{{ $t('evtopia') }}</span
           >
-          <h1 class="mt-2 text-4xl font-extrabold text-gray-900">
+          <!-- <h1 class="mt-2 text-4xl font-extrabold text-gray-900">
             {{ $t('Building Ethiopia\'s EV Future') }}
 
-          </h1>
+          </h1> -->
         </div>
 
         <!-- quote -->
-        <blockquote
+        <!-- <blockquote
           class="relative pl-14 py-4 text-lg leading-relaxed text-gray-600 italic"
         >
           <BoltIcon
@@ -35,7 +35,7 @@
 
         {{ $t('the_first_of_its_kind') }}
 
-        </blockquote>
+        </blockquote> -->
       </div>
 
       <!-- Features row -->

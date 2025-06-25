@@ -28,14 +28,19 @@
                             {{ props.product?.discount_percentage }}% {{ $t('OFF') }}
                         </div>
                     </div>
+
+                    <div class="text-slate-950 text-base font-normal leading-normal w-full"
+                       >
+                        {{ props.product?.short_description?.slice(0, 60) }}<span v-if="props.product?.short_description?.length > 60">...</span>
+                    </div>
                 </div>
 
                 <div  class="justify-start items-center gap-3 flex">
-                    <button class="cursor-pointer" @click="addToBasket(props.product)">
+                    <!-- <button class="cursor-pointer" @click="addToBasket(props.product)">
                         <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5">
                     </button>
 
-                    <div class="w-1.5 h-1.5 bg-slate-200 rounded-md"></div>
+                    <div class="w-1.5 h-1.5 bg-slate-200 rounded-md"></div> -->
 
                     <!-- <button class="justify-center items-center gap-0.5 flex" @click="buyNow">
                         <div class="text-slate-600 text-sm font-normal leading-tight">
@@ -68,6 +73,8 @@ const props = defineProps({
     product: Object
 });
 
+
+console.log("product card horizontal : ",props.product);
 const orderData = {
     product_id: props.product?.id,
     quantity: 1,

@@ -6,7 +6,7 @@
             <!--===== ReadyeCommerce (col-1) =====-->
             <div>
                 <div>
-                    <img :src="masterData.web_footer_logo" class="h-16 bg-slate-900 rounded-md" loading="lazy" />
+                    <img :src="masterData.web_footer_logo" class="h-16 rounded-md" loading="lazy" />
                 </div>
                 <div class="mt-6 max-w-[328px]">
                     <div class="text-white text-sm font-normal leading-normal">

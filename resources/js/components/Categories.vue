@@ -20,8 +20,9 @@
           ref="swiperRef"
           :breakpoints="breakpoints"
           :loop="!loading"
+          :autoplay="{ delay: 2000, disableOnInteraction: false }"        
           @swiper="onSwiper"
-          :modules="[Navigation]"
+          :modules="[Navigation, Autoplay]"
           class="categories-swiper"
         >
           <!-- Shimmer Slides -->
@@ -45,9 +46,10 @@
   import { ref, toRefs } from 'vue';
   import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/vue/20/solid';
   import { Swiper, SwiperSlide } from 'swiper/vue';
-  import { Navigation } from 'swiper/modules';
+  // import { Navigation } from 'swiper/modules';
   import CategoryCard from './CategoryCard.vue';
-  
+  import { Navigation, Autoplay } from 'swiper/modules';
+
   import 'swiper/css';
   import 'swiper/css/navigation';
   

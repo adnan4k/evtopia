@@ -12,19 +12,18 @@
                             class="w-full h-full group-hover:scale-110 transition duration-500 object-cover" />
                     </div>
 
-
-
                     <!--discount--->
-                    <div v-if="props.product?.is_special"
-                        class="px-1 py-0.5 bg-red-500 rounded-md text-white text-[16px] font-medium absolute top-2 left-2">
-                        🔥{{ $t('Special') }}
+                    <div class="absolute top-2 left-2 flex items-center gap-2">
+                        <div v-if="props.product?.is_special"
+                            class="px-1 py-0.5 bg-red-500 rounded-md text-white text-[16px] font-medium">
+                           🔥{{ $t('Special') }}
+                        </div>
+                        <div
+                            class="px-1 py-0.5 bg-primary rounded-md text-white text-[16px] font-medium"
+                        >
+                            {{ $t('Popular') }}
+                        </div>
                     </div>
-
-                       <!-- <div v-if="props.product?.discount_percentage > 0"
-                        class="px-1 py-0.5 bg-red-500 rounded-2xl text-white text-xs font-medium absolute top-2 left-2">
-                        {{ props.product?.discount_percentage }}% {{ $t('OFF') }}
-                    </div> -->
-
                     <!--favorite-->
                     <button v-if="props.product?.is_favorite"
                         class="absolute top-2 right-2 w-9 h-9 rounded-[10px] justify-center items-center flex cursor-pointer bg-white"

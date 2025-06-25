@@ -59,10 +59,17 @@ class HomeController extends Controller
         //     ->orderByDesc('orders_count')
         //     ->take(6)->get();
 
+        // $popularProducts = ProductRepository::query()
+        // ->isActive()
+        // ->latest('id')
+        // ->take(6)->get();
+
         $popularProducts = ProductRepository::query()
-        ->isActive()
-        ->latest('id')
-        ->take(6)->get();
+            ->isActive()
+            ->withCount('visits') 
+            ->orderByDesc('visits_count') 
+            ->take(20)
+            ->get();
 
         $specialOffers = ProductRepository::query()
         ->isSpecial()
@@ -110,7 +117,7 @@ class HomeController extends Controller
             ->take(5)->get();
 
 
-    $total = $posts->count();
+        $total = $posts->count();
 
         return $this->json('home', [
             'banners' => BannerResource::collection($banners),

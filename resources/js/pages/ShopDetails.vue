@@ -54,18 +54,18 @@
                         <!-- Rating -->
                         <div
                             class="sm:border-l border-slate-200 w-full sm:w-[156px] md:w-[184px] flex flex-row-reverse sm:flex-col justify-center sm:justify-start items-center gap-2">
-                            <div class="flex gap-1">
+                            <!-- <div class="flex gap-1">
                                 <div class="text-slate-800 text-base font-bold leading-normal">
                                     {{ shop?.rating?.toFixed(1) }}
                                 </div>
                                 <div class="text-slate-500 text-base font-normal leading-normal">
                                     ({{ shop?.total_reviews }})
                                 </div>
-                            </div>
-                            <div class="flex">
+                            </div> -->
+                            <!-- <div class="flex">
                                 <StarIcon v-for="i in 5" :key="i" class="w-4 h-4"
                                     :class="i <= shop?.rating ? 'text-amber-500' : 'text-gray-300'" />
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -84,10 +84,10 @@
                                 {{ $t('Brands') }}
                             </Button>
 
-                            <Button class="px-4 py-3 rounded-[10px] text-base font-normal leading-normal"
+                            <!-- <Button class="px-4 py-3 rounded-[10px] text-base font-normal leading-normal"
                                 :class="reviewTab ? 'text-white bg-primary' : 'text-slate-600'" @click="showReviewTab">
                                 {{ $t('Reviews') }}
-                            </Button>
+                            </Button> -->
                         </div>
                         <!-- Search input -->
                         <div class="lg:w-[448px] relative hidden sm:block">

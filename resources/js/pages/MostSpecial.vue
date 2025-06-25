@@ -50,7 +50,7 @@ const onClickHandler = async (page) => {
 };
 
 const fetchProducts = async () => {
-    axios.get('/products', { params: { page: currentPage.value, per_page: perPage.value, sort_type: 'popular_products' } }).then((response) => {
+    axios.get('/products', { params: { page: currentPage.value, per_page: perPage.value, sort_type: 'special_products' } }).then((response) => {
         totalProducts.value = response.data.data.total;
         products.value = response.data.data.products;
     })

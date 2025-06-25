@@ -5,7 +5,7 @@
         <div class="flex justify-between items-center gap-4">
             <div class=" text-primary text-lg md:text-3xl font-bold leading-9">{{ $t('Popular Products') }}</div>
 
-            <router-link to="/most-popular" class="flex items-center gap-1">
+            <router-link to="/popular-products" class="flex items-center gap-1">
                 <div class="text-[#343a40] text-base font-normal leading-normal">{{ $t('View All') }}</div>
                 <ArrowRightIcon class="w-5 h-5 text-[#343a40]" />
             </router-link>
@@ -32,7 +32,7 @@
 
             <!-- Real slides once data is loaded -->
             <swiper-slide v-else v-for="product in products" :key="product.id">
-                <ProductCard :product="product" />
+                <ProductCard2 :product="product" />
             </swiper-slide>
             </swiper>
         </div>
@@ -41,12 +41,12 @@
 
 <script setup>
 import { ArrowRightIcon } from '@heroicons/vue/24/outline';
-import ProductCard from './ProductCard.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Navigation, A11y } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
+import ProductCard2 from './ProductCard2.vue';
 
 const props = defineProps({
     products: {

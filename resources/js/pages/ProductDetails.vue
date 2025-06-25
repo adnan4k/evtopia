@@ -149,16 +149,12 @@
                                             stroke-linecap="round"
                                             stroke-linejoin="round">
     
-                                        <!-- pole: from y=4 down to y=16 -->
                                         <line x1="5" y1="4" x2="5" y2="16" />
     
-                                        <!-- flag top edge: starts exactly at pole top (5,4) -->
                                         <line x1="5"  y1="4"  x2="14" y2="8" />
     
-                                        <!-- flag bottom edge -->
                                         <line x1="5"  y1="12" x2="14" y2="8" />
     
-                                        <!-- oval base: center at (5,18), rx=3, ry=2 -->
                                         <ellipse cx="5" cy="18" rx="3" ry="2" fill="none"/>
                                         </svg>
     
@@ -548,33 +544,33 @@
                       
                             <div class="py-5 flex flex-wrap justify-start items-center mt-4 gap-4 border-b border-slate-200">
                                 <!-- rating -->
-                                <div class="flex items-center gap-2">
+                                <!-- <div class="flex items-center gap-2">
                                     <div class="flex">
                                         <StarIcon class="w-6 h-6 text-amber-500" />
                                         <StarIcon v-for="i in 4" :key="i" class="w-6 h-6  2xl:block hidden"
                                             :class="i < product.rating ? 'text-amber-500' : 'text-gray-300'" />
                                     </div>
                                 
-                                </div>
+                                </div> -->
     
-                                <div class="w-[1px] h-4 bg-slate-200"></div>
+                                <!-- <div class="w-[1px] h-4 bg-slate-200"></div> -->
     
                                 <!-- Sold -->
-                                <div class="text-slate-800 text-base font-normal leading-normal">
+                                <!-- <div class="text-slate-800 text-base font-normal leading-normal">
                                     {{ product.visit_count }}
                                     {{ product.visit_count === 1 ? $t('View') : $t('Views') }}
-                                </div>
+                                </div> -->
     
-                                <div class="w-[1px] h-4 bg-slate-200"></div>
+                                <!-- <div class="w-[1px] h-4 bg-slate-200"></div>
     
                         
-                                <div class="w-[1px] h-4 bg-slate-200"></div>
+                                <div class="w-[1px] h-4 bg-slate-200"></div> -->
     
                                 <!-- Heart Icon -->
-                                <button class="border-none" @click="favoriteAddOrRemove">
+                                <!-- <button class="border-none" @click="favoriteAddOrRemove">
                                     <HeartIcon v-if="!product.is_favorite" class="w-6 h-6 text-slate-600" />
                                     <HeartIconFill v-else class="w-6 h-6 text-red-500" />
-                                </button>
+                                </button> -->
                             </div>
     
                             <!-- Price part -->
@@ -663,27 +659,18 @@
                                 </div>
 
 
-                                 <button 
-                                      @click="openContactModal" 
-                                    class="grow w-full md:max-w-56 justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
-                                    >
-                                    <PhoneIcon class="w-5 h-5 text-primary" />
-                                    <div class="text-base font-medium leading-normal">
-                                        {{ $t('Contact') }}
-                                    </div>
-                                </button>
+                                
 
                                 <!-- Add to Cart -->
-                                <button v-if="!cartProduct"
+                                <!-- <button v-if="!cartProduct"
                                     class="grow w-full md:max-w-56 justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
                                     @click="addToCart">
-                                    <!-- <img :src="'/assets/icons/bag-active.svg'" loading="lazy" class="w-5 h-5"> -->
                                     <ShoppingCartIcon class="w-5 h-5 text-primary" />
 
                                     <div class="text-base font-medium leading-normal">
                                         {{ $t('Add to Cart') }}
                                     </div>
-                                </button>
+                                </button> -->
 
                                
     
@@ -691,30 +678,66 @@
                         </div>
                     </div>
     
-                    <div class="block xl:hidden w-full pt-6 border-slate-200">
-                        <ProductDetailsRightSide :product="product" :popularProducts="popularProducts" />
-                    </div>
-    
+                  
                     <div class="flex items-center gap-8 flex-wrap border-b mt-3 mb-4 xl:my-6">
-    
+<!--     
                         <button class="py-3 transition text-base font-medium leading-normal border-b"
                             :class="aboutProduct ? 'text-primary border-primary' : 'text-slate-600 border-transparent'"
                             @click="aboutProduct = true; review = false">
                             {{ $t('About Product') }}
-                        </button>
+                        </button> -->
     
-                        <button class="py-3 transition text-base font-medium leading-normal border-b"
+                        <!-- <button class="py-3 transition text-base font-medium leading-normal border-b"
                             :class="review ? 'text-primary border-primary' : 'text-slate-600 border-transparent'"
                             @click="showReview()">
                             {{ $t('Reviews') }}
-                        </button>
+                        </button> -->
                     </div>
                     <!-- About Product -->
                     <div v-if="aboutProduct" class="">
+                        <div class="flex items-center justify-between gap-4 mb-4">
+                           <h1 class="text-2xl px-2 md:text-3xl text-center font-bold text-primary ">{{ $t('want_to_know_more') }}</h1>
+                           <div class="flex items-center gap-4">
+                                        <button 
+                                        v-if="product?.pdf_file"
+                                         @click.stop="openPdf(product?.pdf_file)"
+                                       class="grow justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
+                                       >
+                                       <DocumentIcon class="w-5 h-5 text-primary" />
+                                       <div class="text-base font-medium leading-normal">
+                                           {{ $t('Read PDF') }}
+                                       </div>
+                                   </button>
+                                        <button 
+                                         @click="openContactModal" 
+                                       class="grow justify-center items-center text-primary flex gap-2  px-6 py-4 rounded-[10px] border border-primary"
+                                       >
+                                       <PhoneIcon class="w-5 h-5 text-primary" />
+                                       <div class="text-base font-medium leading-normal">
+                                           {{ $t('Get More Info') }}
+                                       </div>
+                                   </button>
+
+                                   
+                                   <!-- <a
+                                   
+                                @click.stop="openPdf(product?.pdf_file)"
+                                target="_blank"
+    
+                                class="inline-flex cursor-pointer items-center gap-2 px-4 py-2 border border-primary text-primary rounded-lg hover:bg-primary-50 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Read PDF
+                            </a> -->
+                           </div>
+                        </div>
                         <div v-html="product.description"></div>
     
                         <!-- PDF Download -->
-                        <div  class="mt-6" v-if="product?.pdf_file">
+                        <!-- <div  class="mt-6" v-if="product?.pdf_file">
                             <h3 class="text-lg font-medium text-slate-800 mb-3">Additional Document</h3>
                             <a
                                 @click.stop="openPdf(product?.pdf_file)"
@@ -728,24 +751,25 @@
                                 </svg>
                                 Read PDF
                             </a>
-                        </div>
+                        </div> -->
                     </div>
     
-                    
+                      <div class="block xl:hidden w-full pt-6 border-slate-200">
+                        <ProductDetailsRightSide :product="product" :popularProducts="popularProducts" />
+                    </div>
+    
     
                     <!-- Reviews -->
-                    <div v-if="review" class="">
+                    <!-- <div v-if="review" class="">
                         <div class="text-slate-950 text-lg lg:text-2xl font-medium leading-loose mb-4">
                             {{ $t('Rating and Review') }}
                         </div>
     
-                        <!-- Review Rating percentage -->
                         <div class="max-w-2xl">
                             <ReviewRatings :reviewRatings="avarageRatings.percentages"
                                 :avarageRating="avarageRatings?.rating" :totalReview="avarageRatings.total_review" />
                         </div>
     
-                        <!-- Reviews -->
                         <div class="border-t border-slate-200 mt-6">
                             <div class="mt-4 lg:mt-6 text-slate-950 text-lg lg:text-2xl font-medium leading-loose">
                                 {{ $t('Reviews') }}
@@ -755,7 +779,6 @@
                                 <Review v-for="review in reviews" :key="review.id" :review="review" />
                             </div>
     
-                            <!-- paginations -->
                             <div class="flex justify-between items-center w-full mt-8  gap-4 flex-wrap">
                                 <div class="text-slate-800 text-base font-normal leading-normal">
                                     {{ $t('Showing') }} {{ perPage * (currentPage - 1) + 1 }} {{ $t('to') }} {{ perPage *
@@ -771,20 +794,20 @@
     
                         </div>
     
-                    </div>
+                    </div> -->
     
                 </div>
     
                 <!-- Right side -->
                 <div
-                    class="hidden xl:block col-span-1 w-full pt-6 h-full xl:pt-16 xl:pl-8 xl:border-l border-slate-200 xl:pb-6">
+                    class="hidden xl:block col-span-1 w-full h-full xl:pl-8 xl:border-l border-slate-200 xl:pb-6">
                     <ProductDetailsRightSide :product="product" :popularProducts="popularProducts" />
                 </div>
     
             </div>
     
             <!-- Similar Products -->
-            <div class="mt-4 xl:mt-6 text-slate-800 text-lg md:text-2xl lg:text-3xl font-bold leading-9">
+            <div v-if="relatedProducts && relatedProducts.length > 0" class="mt-4 xl:mt-6 text-slate-800 text-lg md:text-2xl lg:text-3xl font-bold leading-9">
                 {{ $t('Similar Products') }}
             </div>
     
@@ -806,7 +829,7 @@ import { useMaster } from '../stores/MasterStore';
 import ProductDetailsRightSide from '../components/ProductDetailsRightSide.vue';
 import ToastSuccessMessage from '../components/ToastSuccessMessage.vue';
 
-import { HomeIcon, ShareIcon, HeartIcon, MinusIcon, PlusIcon, PhoneIcon,ShoppingCartIcon } from '@heroicons/vue/24/outline';
+import { HomeIcon,DocumentIcon, ShareIcon, HeartIcon, MinusIcon, PlusIcon, PhoneIcon,ShoppingCartIcon } from '@heroicons/vue/24/outline';
 import { StarIcon, HeartIcon as HeartIconFill } from '@heroicons/vue/24/solid';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';

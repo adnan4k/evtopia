@@ -35,7 +35,7 @@
         </div> -->
 
         <!-- Shop info -->
-        <div v-if="masterStore.multiVendor"
+        <!-- <div v-if="masterStore.multiVendor"
             class="bg-slate-50 hover:border-primary transition w-full grow rounded-xl border border-slate-100 xl:mt-6">
             <div class="flex justify-between items-center gap-4 p-4">
                 <div class="flex items-center gap-4 overflow-hidden">
@@ -66,14 +66,14 @@
                     {{ $t('Visit Store') }}
                 </span>
             </router-link>
-        </div>
+        </div> -->
 
     </div>
 
     <!-- Popular Products -->
     <div class="mt-8">
-        <div class="text-slate-800 text-base font-medium leading-normal">
-            {{ $t('Products From Same Brand') }} 
+        <div class="text-slate-800 text-base  text-lg md:text-2xl lg:text-3xl font-bold leading-normal">
+            {{ $t('Popular Products') }} 
         </div>
 
         <div class="flex gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 xl:block xl:space-y-4 mt-4 overflow-x-auto">

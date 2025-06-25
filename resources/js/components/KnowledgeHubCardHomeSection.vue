@@ -2,7 +2,7 @@
     <div class="main-container py-12 bg-primary-50">
         <div class="flex justify-between items-center gap-4">
             <div class=" text-[#343a40] text-lg md:text-3xl font-bold leading-9">{{ $t('Special Offers') }}</div>
-            <router-link to="/most-popular" class="flex items-center gap-1">
+            <router-link to="/special-offers" class="flex items-center gap-1">
                 <div class="text-text-[#343a40] text-base font-normal leading-normal">{{ $t('View All') }}</div>
                 <ArrowRightIcon class="w-5 h-5 text-[#343a40]" />
             </router-link>

@@ -44,6 +44,7 @@ const AboutUs         = () => import('@/pages/AboutUs.vue')
 const ChangePassword  = () => import('@/pages/ChangePassword.vue')
 const BuyNow          = () => import('@/pages/BuyNow.vue')
 const MostPopular     = () => import('@/pages/MostPopular.vue')
+const MostSpecial     = () => import('@/pages/MostSpecial.vue')
 const ContactUs       = () => import('@/pages/ContactUs.vue')
 const BestDeal        = () => import('@/pages/BestDeal.vue')
 const Products        = () => import('@/pages/Products.vue')
@@ -144,12 +145,22 @@ const routes = [
         },
     },
     {
-        path: "/most-popular",
-        name: "most-popular",
+        path: "/popular-products",
+        name: "popular-products",
         component: MostPopular,
         meta: {
             layout: defaultLayout,
             title: "Most Popular Products",
+        },
+    },
+
+        {
+        path: "/special-offers",
+        name: "special-offers",
+        component: MostSpecial,
+        meta: {
+            layout: defaultLayout,
+            title: "Special Products",
         },
     },
     {
