@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SocialLinkResource;
 use App\Models\ContactUs;
 use App\Models\LegalPage;
+use App\Models\SocialLink;
 
 class LegalPageController extends Controller
 {
@@ -31,12 +33,14 @@ class LegalPageController extends Controller
     public function contactUs()
     {
         $contact = ContactUs::first();
+        $socialLinks = SocialLink::whereNotNull('link')->get();
 
         return $this->json('Contact Us', [
             'phone' => $contact?->phone,
             'email' => $contact?->email,
             'whatsapp' => $contact?->whatsapp,
             'messenger' => $contact?->messenger,
+            'social_links' => SocialLinkResource::collection($socialLinks),
         ]);
     }
 }
