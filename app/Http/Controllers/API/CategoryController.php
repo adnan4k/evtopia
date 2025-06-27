@@ -124,7 +124,13 @@ class CategoryController extends Controller
                 return $query->orderByDesc('orders_count')->orderByDesc('average_rating');
             })->when($sortType == 'newest' || $sortType == 'just_for_you', function ($query) {
                 return $query->orderBy('id', 'desc');
-            })->isActive();
+            })->when($sortType == 'special' , function ($query) {
+                return $query->where('is_special', true);
+            })->when($sortType == 'popular', function ($query) {
+                return $query->withCount('visits')->orderByDesc('visits_count');
+            })
+
+            ->isActive();
 
         $total = $products->count();
         $products = $products->when($perPage && $page, function ($query) use ($perPage, $skip) {
