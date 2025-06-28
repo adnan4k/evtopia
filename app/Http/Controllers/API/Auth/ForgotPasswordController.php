@@ -27,9 +27,8 @@ class ForgotPasswordController extends Controller
     {
         $user = UserRepository::findByPhone($request->phone);
 
-                
         if (! $user) {
-            return $this->json('Sorry! No user found with this email/phone.', [], 422);
+            return $this->json('Sorry! No user found with this email.', [], 422);
         }
 
         if ($user && $user->is_active) {
@@ -37,86 +36,37 @@ class ForgotPasswordController extends Controller
                 return VerifyManage::first();
             });
 
-            $type = $request->forgot_password ? $verifyManage?->forgot_otp_type : $verifyManage?->register_otp_type;
-          
             $OTP = null;
             $responseMessage = null;
             $emailOrPhone = null;
 
-            if ($verifyManage?->register_otp) {
+            // Always create a new verification code
+            $verificationCode = VerificationCodeRepository::findOrCreateByContact($user->phone);
+            $message = 'Your Verification OTP is ' . $verificationCode->otp;
+            $OTP = $verificationCode->otp;
 
-                // Create a new verification code
-                $verificationCode = VerificationCodeRepository::findOrCreateByContact($user->phone);
-
-                $message = 'Your Verification OTP is ' . $verificationCode->otp;
-
-                $OTP = $verificationCode->otp;
-
-                if ($type == 'phone') {
-
-                    try {
-                        $phoneNumber = $user->phone;
-                        $phoneCode = $request->phone_code ?? $user->phone_code;
-
-                        $response = (new SmsGatewayService)->sendSMS($phoneCode, $phoneNumber, $message);
-
-                        // dd($response);
-                    } catch (\Exception $e) {
-                    }
-                    $responseMessage = 'Your Verification code is sent to your phone';
-                    $emailOrPhone = $phoneCode . $user->phone;
-                } elseif ($user->email) {
-                    try {
-                        SendOTPMail::dispatch($user->email, $message);
-                    } catch (\Throwable $th) {
-                    }
-
-                    $responseMessage = 'Your Verification code is sent to your email';
-                    $emailOrPhone = $user->email;
+            if ($user->email) {
+                try {
+                    SendOTPMail::dispatch($user->email, $message);
+                } catch (\Throwable $th) {
+                    // Log error if needed
                 }
-            }
-            
-             else {
 
-                // Create a new verification code
-                $verificationCode = VerificationCodeRepository::findOrCreateByContact($user->phone);
-
-                $message = 'Your Verification OTP is ' . $verificationCode->otp;
-
-                $OTP = $verificationCode->otp;
-
-                if ($type == 'phone') {
-
-                    try {
-                        $phoneNumber = $user->phone;
-                        $phoneCode = $request->phone_code ?? $user->phone_code;
-
-                        $response = (new SmsGatewayService)->sendSMS($phoneCode, $phoneNumber, $message);
-
-                        // dd($response);
-                    } catch (\Exception $e) {
-                    }
-                    $responseMessage = 'Your Verification code is sent to your phone';
-                    $emailOrPhone = $phoneCode . $user->phone;
-                } elseif ($user->email) {
-                    try {
-                        SendOTPMail::dispatch($user->email, $message);
-                    } catch (\Throwable $th) {
-                    }
-
-                    $responseMessage = 'Your Verification code is sent to your email';
-                    $emailOrPhone = $user->email;
-                }
+                $responseMessage = 'Your Verification code is sent to your email';
+                $emailOrPhone = $user->email;
+            } else {
+                return $this->json('Sorry, no email found for this user.', [], 422);
             }
 
             return $this->json($responseMessage, [
                 'email_or_phone' => $emailOrPhone,
-                'otp' => '',
+                'otp' => '', // Return empty or actual otp as per security policy
             ]);
         }
 
         return $this->json('Sorry, your account is not active', [], 422);
     }
+
 
     /**
      * Verify the OTP for the user.
