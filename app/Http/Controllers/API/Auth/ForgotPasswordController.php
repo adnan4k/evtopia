@@ -60,7 +60,7 @@ class ForgotPasswordController extends Controller
 
             return $this->json($responseMessage, [
                 'email_or_phone' => $emailOrPhone,
-                'otp' => $OTP, // Return empty or actual otp as per security policy
+                'otp' => '', // Return empty or actual otp as per security policy
             ]);
         }
 
