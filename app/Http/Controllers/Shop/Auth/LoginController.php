@@ -90,6 +90,17 @@ class LoginController extends Controller
 
     public function store_individual(Request $request)
     {
+        $this->validate($request, [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'nullable|string|max:255',
+            'phone' => 'required|numeric|unique:users,phone|digits_between:9,16',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'gender' => 'nullable|string',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
+            'profile_photo' => 'required|image|mimes:jpg,png,jpeg,gif|max:2048',
+            
+        ]);
 
         $shop = ShopRepository::storeByRequest($request);
 

@@ -11,7 +11,7 @@ class NotificationServices
 
     public static function sendNotification(string $body, array $tokens, $title = null)
     {
-        $notification = NosendNotificationtification::create($title, $body);
+        $notification = Notification::create($title, $body);
 
         $firebaseCredentials = storage_path('app/public/firebase_credentials.json');
 
