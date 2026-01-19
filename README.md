@@ -1,2 +1,1 @@
-# evtopia
-EVTopia — Laravel e-commerce platform for electric vehicle parts, accessories, and charging solutions.
+EVTopia is a Laravel-based e-commerce platform tailored for the electric vehicle ecosystem. It provides product management, multi-vendor marketplace support, order and payment integrations, and admin tools to run an online store selling EV parts, chargers, and accessories. Use this repo to launch a production-ready storefront or as a foundation for EV-focused marketplaces and B2B supply platforms.
